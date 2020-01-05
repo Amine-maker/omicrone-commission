@@ -11,11 +11,12 @@ class commerciauxDAO{
     
     public function add($commercial){
 
+        
         $req="INSERT INTO commerciaux (idcommerciaux,nom,prenom,tel,email,adresse,ville,cp)
         VALUES (nextval('commerciaux_idcommerciaux_seq'::regclass),'".$commercial->getNom()."','".$commercial->getPrenom()."','".$commercial->getTel()."','".$commercial->getEmail()."','".
         $commercial->getAdresse()."','".$commercial->getVille()."','".$commercial->getCp()."')";
         $this->pdo->exec($req);
-       // print_r($req);
+       
         
         
     }
@@ -50,13 +51,13 @@ class commerciauxDAO{
         
         public function getCommercial($idC){
             $req ="select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-            from commerciaux left join finance on commerciaux.idcommerciaux=finance.idcommerciaux where commerciaux.idcommerciaux=".$idC."";
+            from commerciaux left join information_bancaire on commerciaux.idcommerciaux=information_bancaire.idcommerciaux where commerciaux.idcommerciaux=".$idC."";
             $rs=$this->pdo->query($req);
             $laLigne = $rs->fetch(PDO::FETCH_ASSOC);
             $comm=new commerciaux($laLigne["nom"],$laLigne["prenom"],$laLigne["tel"],
             $laLigne["email"],$laLigne["adresse"],$laLigne["ville"],$laLigne["cp"]);
 
-            $fin=new finance(NULL,$comm,$laLigne["codeagence"],$laLigne["compte"],$laLigne["iban"],
+            $fin=new information_bancaire(NULL,$comm,$laLigne["codeagence"],$laLigne["compte"],$laLigne["iban"],
                 $laLigne["bic"],$laLigne["codebanque"],$laLigne["clerib"]);
             return($fin);
         }
@@ -68,7 +69,6 @@ class commerciauxDAO{
         public function delete($commercial){
             $req="delete from commerciaux where idcommerciaux='".$this->getIdCommercial($commercial)."'";
             $this->pdo->exec($req);
-            print_r($req);
         }
 }
 

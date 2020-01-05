@@ -15,11 +15,11 @@ switch($action){
 			$commerciauxDao->add($commercial);
 
 			if(isset($_POST["regarder"])=="on"){
-				$finance=new finance(NULL,$commercial,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
+				$finance=new information_bancaire(NULL,$commercial,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
 				$financeDAO->add($finance,$commerciauxDao);
 			}
 		}
-		include ("vues/v_ajouterCommercial.php");
+	header('location:index.php?uc=commercial&action=afficherTableau');
 		break;
 	}
 
@@ -41,10 +41,10 @@ switch($action){
 				$idFinance=$financeDAO->getIdFinanceById($_REQUEST["idCommercial"]);
 		
 				$commercial = new commerciaux($_POST["nom"],$_POST["prenom"],$_POST["tel"], $_POST["email"],$_POST["adresse"],$_POST["ville"],$_POST["cp"]);
-				$finance= new finance(NULL,$commercial,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
+				$finance= new information_bancaire(NULL,$commercial,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
 				$commerciauxDao->update($commercial,$_REQUEST["idCommercial"]);
 				$financeDAO->update($finance,$idFinance,$_REQUEST["idCommercial"]);
-				include("vues/v_confirmation.php");
+				header('location:index.php?uc=commercial&action=afficherTableau');
 			}
 
 		include("vues/v_modifCommercial.php");
@@ -52,7 +52,7 @@ switch($action){
 	}
 	case 'deleteCommercial': {
 		$idFinance=$financeDAO->getIdFinanceById($_REQUEST["idCommercial"]);
-			if(gettype($idFinance) == 'integer'){
+			if(gettype($idFinance) == 'integer' || $idFinance == '1'){
 				$financeDAO->delete($financeDAO->getFinance($idFinance));
 			}
 		$lesCommerciaux=$commerciauxDao->getCommerciaux();

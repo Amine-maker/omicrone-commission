@@ -6,3 +6,6 @@ require_once ("modele/finance.php");
 require_once ("modele/financeDAO.php");
 require_once ("modele/depense.php");
 require_once ("modele/depenseDAO.php");
+require_once ("modele/commission.php");
+require_once ("modele/commissionDAO.php");
+require_once ('rb.php');

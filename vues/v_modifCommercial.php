@@ -9,7 +9,7 @@ function afficher(){
         }
                     }
 </script>
-
+<div class="container">
 <div class="form-style-5">
         <form method="post" action="index.php?uc=commercial&action=modifCommercial">
         <fieldset>
@@ -43,4 +43,5 @@ function afficher(){
 
 <input type="submit" name="modifier" value="Modifier" />
 </form>
+</div>
 </div>

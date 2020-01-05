@@ -11,13 +11,54 @@
       <div class="col col-5">Adresse</div>
       <div class="col col-5">Ville</div>
       <div class="col col-5">Code Postale</div>
-      <!-- <div class="col col-2">code agence</div>
-      <div class="col col-2">num compte</div>
-      <div class="col col-2">iban</div>
-      <div class="col col-2">bic</div>
-      <div class="col col-2">code banque</div>
-      <div class="col col-2">cle rib</div>  -->
     </li>
+
+    <script>
+function afficher(){
+    if (document.getElementById('voir').checked)
+        {
+        document.getElementById('affichage').style.display='block';
+        }
+    else {
+        document.getElementById('affichage').style.display='none';
+        }
+                    }
+</script>
+
+      <div class="form-style-5">
+        <form method="post" action="index.php?uc=commercial&action=ajouterCommercial">
+        <fieldset>
+        <input type="text" pattern="[A-Za-z]{1,20}" name="nom" placeholder="Nom *" required="required">
+        <input type="text" pattern="[A-Za-z]{1,20}" name="prenom" placeholder="Prenom *" required="required">
+        <input type="text" pattern="[0-9]{10}" name="tel" placeholder="Numero de telephone *" required="required">
+        <input type="email" name="email" placeholder="Email *" required="required">
+        <input type="text" name="adresse" placeholder="Adresse *" required="required">
+        <input type="text" pattern="[A-Za-z]{1,20}" name="ville" placeholder="Ville *" required="required">
+        <input type="number" min="0" name="cp" placeholder="Code Postal *" required="required">
+        
+
+        <div class="control-group">
+            <label class="control control-checkbox">
+                Ajouter un RIB
+                <input onclick="afficher()" type="checkbox" id="voir" name="regarder">
+                <div class="control_indicator"></div>
+            </label>
+        </div>
+        <div style="display: none" id="affichage" class="cacher">
+        <input type="text" pattern="[0-9]{5}" name="codeAgence" placeholder="Code de l'agence *">
+        <input type="number" min="0" name="compte" placeholder="N° compte *">
+        <input type="text" pattern="[a-zA-Z0-9]{27}" name="iban" placeholder="IBAN *">
+        <input type="text" pattern="{8|11}" name="bic" placeholder="BIC *">
+        <input type="text" pattern="[0-9]{5}" name="codeBanque" placeholder="Code de la banque *">
+        <input type="text" pattern="[0-9]{2}" name="cleRib" placeholder="cle RIB *">
+        </div>
+
+</fieldset>
+
+
+<input type="submit" name="envoyer" value="ajouter" />
+</form>
+</div>
 <?php
 
 
@@ -41,12 +82,6 @@ foreach ($lesFinance as $uneFinance){
 <div class="col col-5" data-label="Adresse"><?php echo $uneFinance->getOCommercial()->getAdresse() ?></div>
 <div class="col col-5" data-label="Ville"><?php echo $uneFinance->getOCommercial()->getVille() ?></div>
 <div class="col col-5" data-label="Code Postale"><?php echo $uneFinance->getOCommercial()->getCp() ?></div>
-<!-- <div class="col col-2" data-label=""><?php echo $uneFinance->getCodeAgence() ?></div>
-<div class="col col-2" data-label=""><?php echo $uneFinance->getCompte() ?></div>
-<div class="col col-2" data-label=""><?php echo $uneFinance->getIban()?></div>
-<div class="col col-2" data-label=""><?php echo $uneFinance->getBic() ?></div>
-<div class="col col-2" data-label=""><?php echo $uneFinance->getCodeBanque() ?></div>
-<div class="col col-2" data-label=""><?php echo $uneFinance->getCleRib() ?></div> -->
 </li>
 <?php
 
@@ -54,122 +89,5 @@ foreach ($lesFinance as $uneFinance){
 ?>
 </ul>
 </div>
-
-
-
-
-
-
-<style> 
-  
-  body {
-  font-family: 'lato', sans-serif;
-  background-color: #efefef;
-}
-  .container {
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  a {
-    background-color:#95A5A6;
-    border: none;
-    color: #FFFFFF;
-    padding: 7px 6.5px;
-    text-align: center;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
-    
-}
-a.delete{
-  border-radius: 25px;
-  margin-right: 12px;
-  background-color:red;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.delete:hover,.delete:active{
-background-color: rgb(0, 0, 0);
-}
-a.tableau{
-
-  border-radius: 20px;
-  margin-right: 12px;
-  background-color:#3c96ec;
-  padding-left: 8px;
-}
-.tableau:hover,.tableau:active{
-  background-color: rgb(0, 0, 0);
-}
-a:hover, a:active {
-    background-color: rgb(0, 0, 0);
-} 
-  h2 {
-    font-size: 26px;
-    margin: 20px 0;
-    text-align: center;
-  }
-  h2 small {
-    font-size: 0.5em;
-  }
-  
-  .responsive-table li {
-    border-radius: 3px;
-    padding: 25px 30px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
-  }
-  .responsive-table .table-header {
-    background-color: #95A5A6;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-  .responsive-table .table-row {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-  }
-  .responsive-table .col-1 {
-    flex-basis: 10%;
-  }
-  .responsive-table .col-5 {
-    flex-basis: 35%;
-
-  }
-  .responsive-table .col-6 {
-    flex-basis: 50%;
-  
-  }
-  .responsive-table .col-4 {
-    flex-basis: 25%;
-  }
-  @media all and (max-width: 767px) {
-    .responsive-table .table-header {
-      display: none;
-    }
-    .responsive-table li {
-      display: block;
-    }
-    .responsive-table .col {
-      flex-basis: 100%;
-    }
-    .responsive-table .col {
-      display: flex;
-      padding: 10px 0;
-    }
-    .responsive-table .col:before {
-      color: #6C7A89;
-      padding-right: 10px;
-      content: attr(data-label);
-      flex-basis: 50%;
-      text-align: right;
-    }
-  }
-  </style>
 
 

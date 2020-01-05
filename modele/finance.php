@@ -1,6 +1,6 @@
 <?php
 
-class finance {
+class information_bancaire {
 
     private $idFinance;
     private $client;

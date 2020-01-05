@@ -26,7 +26,6 @@ class PdoCommission extends pdo {
      */
     public function __construct() {
         PdoCommission::$monPdo = parent :: __construct(PdoCommission::$serveur . ';' .PdoCommission::$port.';'.PdoCommission::$bdd.';'.PdoCommission::$user.';'.PdoCommission::$password);
-        //PdoCommission::$monPdo->query("SET CHARACTER SET utf8");
         
     }
 

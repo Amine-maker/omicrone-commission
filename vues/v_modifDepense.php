@@ -1,5 +1,6 @@
 
-
+<div class="container">
+  
 <div class="form-style-5">
 
         <form method="post" action="index.php?uc=depense&action=modifierDepense">
@@ -15,3 +16,4 @@
 <input type="submit" name="modifier" value="Modifier"/>
 </form>
 </div>
+  </div>

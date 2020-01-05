@@ -4,23 +4,38 @@
 <div class="container">
   <ul class="responsive-table">
     <li class="table-header">
-      <div class="col col-2">Id depense</div>
-      <div class="col col-3">Libelle</div>
+      <div class="col col-2">Id Commission</div>
+      <div class="col col-3">Valeur</div>
       <div class="col col-4">Montant</div>
     </li>
 
     
 <div class="form-style-5">
 
-<form method="post" action="index.php?uc=depense&action=ajouterDepense">
+<form method="post" action="index.php?uc=commission&action=ajouterCommission">
 <fieldset>
-<input type="number" min="0" name="montant" placeholder="Montant *" required="required">
-<input type="text" pattern="[A-Za-z]{1,20}" name="libelle" placeholder="Libelle *" required="required">
+  <select name="idCommercial">
+
+    <?php
+
+  foreach ($lesCommerciaux as $unCommercial)
+  {
+      ?>
+
+      <option <?php if(isset($_POST['idCommercial']) && $commerciauxDao->getIdCommercial($unCommercial) == $_POST["idCommercial"]){echo 'selected';} ?>
+      value=" <?php echo $commerciauxDAO->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
+
+  <?php
+  }
+  ?> 
+  </select>
+<input type="number" min="0" name="valeur" placeholder="Pourcentage *">
+<input type="number" min="0" name="montant" placeholder="Montant *">
 
 
 </fieldset>
 
-
+<?php /* if(isset($_POST['idCommercial']) && $commerciauxDao->getIdCommercial($unCommercial) == $_POST["idCommercial"]){echo 'selected';} */ ?>
 <input type="submit" name="envoyer" value="ajouter" />
 </form>
 </div>
@@ -45,6 +60,5 @@ foreach ($lesDepenses as $uneDep){
 ?>
 </ul>
 </div>
-
 
 

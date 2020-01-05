@@ -11,10 +11,10 @@ switch($action){
 
         if(isset($_POST["envoyer"])){
             $depense= new depense($_POST["montant"],$_POST["libelle"]);
-            $depenseDao->ajouterDepense($depense);
+            $depenseDao->add($depense);
             
-            }
-		include ("vues/v_ajouterDepense.php");
+			}
+			header('location:index.php?uc=depense&action=afficherDepense');
 		break;
 	}
 
@@ -32,6 +32,7 @@ switch($action){
 				$depense=new depense($_POST["montant"],$_POST["libelle"]);
 				$depenseDao->update($depense,$_POST["idDepense"]);
 				include("vues/v_confirmation.php");
+				header('location:index.php?uc=depense&action=afficherDepense');
 			}
 		include('vues/v_modifDepense.php');
 		break;

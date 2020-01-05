@@ -2,60 +2,70 @@
 
 class depenseDAO{
 
-public function __construct()
-{
-    $this->pdo = PdoCommission::getInstance();
-} 
 
-public function ajouterDepense($depense){
+public function add($depense){
 
-    $req="INSERT INTO depense (iddepense,montant,libelle)
-    VALUES (nextval('finance_idfinance_seq'::regclass),'".$depense->getMontant()."',
-    '".$depense->getLibelle()."')";
-    $this->pdo->exec($req);
+    $libelle=$depense->getLibelle();
+    $montant=$depense->getMontant();
+    $depense = R::dispense('depense'); // on crée une depense
+    $depense->montant = $montant; // on lui donne les champs
+    $depense->libelle = $libelle;
+    R::store($depense); // on le sauvegarde en BDD
     
 }
 
 public function getDepenses()/*retourne une collection de depense*/ 
         {
             $lesDep=array();
-            $req= "SELECT iddepense,montant,libelle from depense order by iddepense asc";
-            $rs=$this->pdo->query($req);
-            $lesLignes = $rs->fetchAll(PDO::FETCH_ASSOC);
-            for($i=0;$i<=count($lesLignes)-1;$i++){
-               $dep=new depense($lesLignes[$i]["montant"],$lesLignes[$i]["libelle"]);
+            $les = R::find('depense','order by id desc');
+            foreach ($les as $depe){
+               $dep=new depense($depe->montant,$depe->libelle);
                 $lesDep[]=$dep;
-            }
+        }
             return($lesDep);
             
+          
         }
 
     public function getIdDepense($depense){
-            $req= ("SELECT iddepense from depense where 
-            montant='".$depense->getMontant()."'
-            and libelle='".$depense->getLibelle()."'");
-            $rs=$this->pdo->query($req);
-            $laLigne = $rs->fetch();
-            return($laLigne["iddepense"]);
+        
+        $montant=$depense->getMontant();
+        $libelle=$depense->getLibelle();
+        
+        $id = R::find("depense","libelle = ?
+        and montant = ?", 
+        array( $libelle, $montant));
+
+        foreach($id as $unid){
+            return($unid->id);
+        }
             
             }
 
-            public function getDepense($idD)/* retourne l'objet depense par rapport a l'id*/{
-                $req ="select montant , libelle from depense where iddepense=".$idD."";
-                $rs=$this->pdo->query($req);
-                $laLigne = $rs->fetch(PDO::FETCH_ASSOC);
-                $dep=new depense($laLigne["montant"],$laLigne["libelle"]);
-                return($dep);
+    public function getDepense($idD)/* retourne l'objet depense par rapport a l'id*/{
+        
+       $depense = r::load('depense',$idD);
+       $dep=new depense($depense->montant,$depense->libelle);
+       return($dep);
+
             }
 
 
-            public function update($depense,$idD){
-                $req="UPDATE depense SET montant='".$depense->getMontant()."', libelle='".$depense->getLibelle()."' WHERE iddepense='".$idD."'";
-                $this->pdo->exec($req);
+    public function update($depense,$idD){
+        // $req="UPDATE depense SET montant='".$depense->getMontant()."', libelle='".$depense->getLibelle()."' WHERE id='".$idD."'";
+        // $this->pdo->exec($req);
+
+        $montant=$depense->getMontant();
+        $libelle=$depense->getLibelle();
+        $depense=r::load('depense',$idD);
+        $depense->montant=$montant;
+        $depense->libelle=$libelle;
+        r::store($depense);
                 }
 
-            public function delete($depense){
-                $req="delete from depense where iddepense='".$this->getIdDepense($depense)."'";
-                $this->pdo->exec($req);
+    public function delete($depense){
+        $id=$this->getIdDepense($depense);
+        $depense=r::load('depense',$id);
+        r::trash($depense);
                 }
 }
