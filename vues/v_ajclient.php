@@ -24,7 +24,7 @@
                 <input type="number" min=0 name="fax" value="<?php if (isset($_POST['fax'])){echo $_POST['fax'];} ?>" placeholder="Fax"><br>
                 <input type="number" min=0 name="tel3" value="<?php if (isset($_POST['tel3'])){echo $_POST['tel3'];} ?>" placeholder="Téléphone"><br>
                 
-               
+               test
             </fieldset>
         </form>
     </div> 
