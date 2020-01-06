@@ -10,6 +10,9 @@
 <?php
 include("vues/v_sommaire.php");
 require_once ("modele/include.php");
+$contrat = new daoContrat();
+$client = new DaoClient();
+$contact = new DaoContact();
 R::setup('pgsql:host=localhost;dbname=comm','postgres','test');
 R::freeze(true);
 session_start();
@@ -30,6 +33,14 @@ switch ($uc) {
         }
     case 'commission' : {
             include("controleurs/c_commission.php");
+            break;
+        }
+    case 'contrat':{
+            include("controleurs/c_contrat.php");
+            break;
+	}
+        case 'client':{
+            include 'controleurs/c_client.php';
             break;
         }
 

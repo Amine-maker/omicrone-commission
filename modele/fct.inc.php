@@ -1,265 +1,100 @@
-﻿<?php
-/**
- * Fonctions pour l'application GSB
-
- * @package default
- * @author Cheri Bibi
- * @version    1.0
- */
-
-/**
- * Teste si un quelconque visiteur est connecté
- * @return vrai ou faux
- */
-function estConnecte() {
-    return isset($_SESSION['idVisiteur']);
+<?php
+function tableauContrat($contenu){
+    $tableau_html ="<li class='table-header'>"
+        ."<div class='col col-2'>N°</div>"
+        ."<div class='col col-2'>Type de contrat</div>"
+        ."<div class='col col-2'>Date Début</div>"
+        ."<div class='col col-2'>Date fin</div>"
+        ."<div class='col col-2'>Salaire</div>"
+        ."<div class='col col-2'>Tarif</div>"
+        ."<div class='col col-2'>Raison Social</div>"
+        ."</li>";
+$noligne=0;
+foreach ($contenu as $ligne){
+    $tabcontrat=array(); //creer un tableau
+$ligne_html ="";
+foreach($ligne as $cellule){
+    array_push($tabcontrat,$cellule);
 }
-
-/**
- * Enregistre dans une variable session les infos d'un visiteur
-
- * @param $id
- * @param $nom
- * @param $prenom
- */
-function connecter($id, $nom, $prenom) {
-    $_SESSION['idVisiteur'] = $id;
-    $_SESSION['nom'] = $nom;
-    $_SESSION['prenom'] = $prenom;
-}
-
-/**
- * Détruit la session active
- */
-function deconnecter() {
-    session_destroy();
-}
-
-/**
- * Transforme une date au format français jj/mm/aaaa vers le format anglais aaaa-mm-jj
-
- * @param $madate au format  jj/mm/aaaa
- * @return la date au format anglais aaaa-mm-jj
- */
-function dateFrancaisVersAnglais($maDate) {
-    @list($jour, $mois, $annee) = explode('/', $maDate);
-    return date('Y-m-d', mktime(0, 0, 0, $mois, $jour, $annee));
-}
-
-/**
- * Transforme une date au format format anglais aaaa-mm-jj vers le format français jj/mm/aaaa
-
- * @param $madate au format  aaaa-mm-jj
- * @return la date au format format français jj/mm/aaaa
- */
-function dateAnglaisVersFrancais($maDate) {
-    @list($annee, $mois, $jour) = explode('-', $maDate);
-    $date = "$jour" . "/" . $mois . "/" . $annee;
-    return $date;
-}
-
-/**
- * retourne le mois au format aaaamm selon le jour dans le mois
-
- * @param $date au format  jj/mm/aaaa
- * @return le mois au format aaaamm
- */
-function getMois($date) {
-    @list($jour, $mois, $annee) = explode('/', $date);
-    if (strlen($mois) == 1) {
-        $mois = "0" . $mois;
-    }
-    return $annee . $mois;
-}
-
-/* gestion des erreurs */
-
-/**
- * Indique si une valeur est un entier positif ou nul
-
- * @param $valeur
- * @return vrai ou faux
- */
-function estEntierPositif($valeur) {
-    return preg_match("/[^0-9]/", $valeur) == 0;
-}
-
-/**
- * Indique si un tableau de valeurs est constitué d'entiers positifs ou nuls
-
- * @param $tabEntiers : le tableau
- * @return vrai ou faux
- */
-function estTableauEntiers($tabEntiers) {
-    $ok = true;
-    foreach ($tabEntiers as $unEntier) {
-        if (!estEntierPositif($unEntier)) {
-            $ok = false;
-        }
-    }
-    return $ok;
-}
-
-/**
- * Vérifie si une date est inférieure d'un an à la date actuelle
-
- * @param $dateTestee
- * @return vrai ou faux
- */
-function estDateDepassee($dateTestee) {
-    $dateActuelle = date("d/m/Y");
-    @list($jour, $mois, $annee) = explode('/', $dateActuelle);
-    $annee--;
-    $AnPasse = $annee . $mois . $jour;
-    @list($jourTeste, $moisTeste, $anneeTeste) = explode('/', $dateTestee);
-    return ($anneeTeste . $moisTeste . $jourTeste < $AnPasse);
-}
-
-/**
- * Vérifie la validité du format d'une date française jj/mm/aaaa
-
- * @param $date
- * @return vrai ou faux
- */
-function estDateValide($date) {
-    $tabDate = explode('/', $date);
-    $dateOK = true;
-    if (count($tabDate) != 3) {
-        $dateOK = false;
-    } else {
-        if (!estTableauEntiers($tabDate)) {
-            $dateOK = false;
-        } else {
-            if (!checkdate($tabDate[1], $tabDate[0], $tabDate[2])) {
-                $dateOK = false;
-            }
-        }
-    }
-    return $dateOK;
-}
-
-/**
- * Vérifie que le tableau de frais ne contient que des valeurs numériques
-
- * @param $lesFrais
- * @return vrai ou faux
- */
-function lesQteFraisValides($lesFrais) {
-    return estTableauEntiers($lesFrais);
-}
-
-/**
- * Vérifie la validité des trois arguments : la date, le libellé du frais et le montant
-
- * des message d'erreurs sont ajoutés au tableau des erreurs
-
- * @param $dateFrais
- * @param $libelle
- * @param $montant
- */
-function valideInfosFrais($dateFrais, $libelle, $montant) {
-    if ($dateFrais == "") {
-        ajouterErreur("Le champ date ne doit pas être vide");
-    } else {
-        if (!estDatevalide($dateFrais)) {
-            ajouterErreur("Date invalide");
-        } else {
-            if (estDateDepassee($dateFrais)) {
-                ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an");
-            }
-        }
-    }
-    if ($libelle == "") {
-        ajouterErreur("Le champ description ne peut pas être vide");
-    }
-    if ($montant == "") {
-        ajouterErreur("Le champ montant ne peut pas être vide");
-    } else
-    if (!is_numeric($montant)) {
-        ajouterErreur("Le champ montant doit être numérique");
-    }
-}
-
-/**
- * Ajoute le libellé d'une erreur au tableau des erreurs
-
- * @param $msg : le libellé de l'erreur
- */
-function ajouterErreur($msg) {
-    if (!isset($_REQUEST['erreurs'])) {
-        $_REQUEST['erreurs'] = array();
-    }
-    $_REQUEST['erreurs'][] = $msg;
-}
-
-/**
- * Retoune le nombre de lignes du tableau des erreurs
-
- * @return le nombre d'erreurs
- */
-function nbErreurs() {
-    if (!isset($_REQUEST['erreurs'])) {
-        return 0;
-    } else {
-        return count($_REQUEST['erreurs']);
-    }
-}
-
-function getSixDerniersMois() {
-    $lesMois = array();
-    for ($i = 0; $i < 6; $i++) {
-        $numAnnee = date("Y");
-        $numMois = date("m") - $i;
-        if ($numMois <= 0) {
-            $numMois = $numMois + 12;
-            $numAnnee = $numAnnee - 1;
-        }
-        if ($numMois < 10) {
-            $numMois = "0" . $numMois;
-        }
-        $mois = $numAnnee . $numMois;
-        $lesMois[] = array(
-            "mois" => "$mois",
-            "numAnnee" => "$numAnnee",
-            "numMois" => "$numMois"
-        );
-        
-        
-        $numMois++;
-          
-    }
-    $tab=array("Janvier","Fevrier", "Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Decembre");
-
-    for($j=0;$j<6;$j++){
-        for($l=0;$l<=12;$l++){
-        
-        switch($lesMois[$j]["numMois"]){       
-        case $l :{ $lesMois[$j]["numMois"]=$tab[$l-1]; break;}
-                                        }
-                            }
-                    }
-            
-    return $lesMois;
-}
-
-    function moisSuperieur($leMois)
+for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
 {
-  $mois= substr($leMois,4,6);
-  $annee= substr($leMois,0,4);
-
-  
-    if($mois==12){
-        $mois='01';
-        $annee++;
-    }  else{
-        
-        $mois=$mois+1;
-        $mois=sprintf("%02d", $mois);
+    if($i==0){
+        $idContrat = $tabcontrat[$i];
+        $ligne_html .= "<div class='col col-2'><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
+                 . "<i class='fas fa-times'></i></a>$tabcontrat[$i]</div>";
+        //print_r($idContrat);
     }
-    
-$leMois=$annee.$mois;
-return($leMois);
+   
+   elseif($i<7){
+   $ligne_html .="<div class='col col-2'>$tabcontrat[$i]</div>";
+   }
+   
 }
-    
+$id=$ligne['idcontrat'];
+if($noligne%2==0){
+$tableau_html .="<li class='table-row'>$ligne_html</li>";
+}
+else {
+  $tableau_html .="<li class='table-row'>$ligne_html</li>";
+}
+$noligne++;
+}
+return "$tableau_html</ul>";
+}
 
+//tableau renvoyant la liste des clients
+function tableauClient($contenu){
+    $tableau_html ="<li class='table-header'>"
+        ."<div class='col col-2'>N°</div>"
+        ."<div class='col col-2'>Raison Social</div>"
+        ."<div class='col col-2'>Siret</div>"
+        ."<div class='col col-2'>Adresse</div>"
+        ."<div class='col col-2'>Ville</div>"
+        ."<div class='col col-2'>Code Postale</div>"
+        ."<div class='col col-2'>Email 1</div>"
+        ."<div class='col col-2'>Email 2</div>"
+        ."<div class='col col-2'>Email 3</div>"
+        ."<div class='col col-2'>Bureau</div>"
+        ."<div class='col col-2'>Fax</div>"
+        ."<div class='col col-2'>Tel</div>"
+        ."<div class='col col-2'>Modifier</div>"
+        ."<div class='col col-2'>Supprimer</div>"
+        ."</li>";
+$noligne=0;
+foreach ($contenu as $ligne){
+    $tabclient=array(); //creer un tableau
+    $ligne_html ="";
+foreach($ligne as $cellule){
+    array_push($tabclient,$cellule);
+}
+for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
+{
+    if($i==0){
+        $idclient = $tabclient[$i];
+         $ligne_html .="<div class='col col-2 filter_td'>$tabclient[$i]</div>";
+        //print_r($idclient);
+    }
+   
+   elseif($i<12){
+   $ligne_html .="<div class='col col-2 filter_td'>$tabclient[$i]</div>";
+   }
+   if($i==11){
+        $ligne_html .= "<div class='col col-2'><a href='index.php?uc=client&action=modifclient&idclient=$idclient'><i>Modifier</a></div>";
+   }
+   if($i==11){ 
+        $ligne_html .= "<div class='col col-2'><a href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
+                 . "<i>Supprimer</a></div>";
+   }
+}
+$id=$ligne['idclient'];
+if($noligne%2==0){
+$tableau_html .="<li class='table-row'>$ligne_html</li>";
+}
+else {
+  $tableau_html .="<li class='table-row'>$ligne_html</li>";
+}
+$noligne++;
+}
+return "<ul class='responsive-table' id='filter'>$tableau_html</ul>";
+}
 ?>

@@ -16,5 +16,15 @@
     <div class="dropdown-content">
     </div>
   </div>
+  <div class="dropdown">
+    <a href="index.php?uc=contrat&action=affichercontrat" class="dropbtn">CONTRAT &nbsp;</a> 
+    <div class="dropdown-content">
+    </div>
+  </div>
+  <div class="dropdown">
+    <a href="index.php?uc=client&action=afficherclient" class="dropbtn">CLIENTS &nbsp;</a> 
+    <div class="dropdown-content">
+    </div>
+  </div>
 </div>
         

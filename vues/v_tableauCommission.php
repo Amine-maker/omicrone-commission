@@ -3,14 +3,8 @@
 
 <div class="container">
   <ul class="responsive-table">
-    <li class="table-header">
-      <div class="col col-2">Id Commission</div>
-      <div class="col col-3">Valeur</div>
-      <div class="col col-4">Montant</div>
-    </li>
 
-    
-<div class="form-style-5">
+  <div class="form-style-5">
 
 <form method="post" action="index.php?uc=commission&action=ajouterCommission">
 <fieldset>
@@ -35,10 +29,17 @@
 
 </fieldset>
 
-<?php /* if(isset($_POST['idCommercial']) && $commerciauxDao->getIdCommercial($unCommercial) == $_POST["idCommercial"]){echo 'selected';} */ ?>
-<input type="submit" name="envoyer" value="ajouter" />
+<input type="submit" name="envoyer" value="AJOUTER" />
 </form>
 </div>
+    <li class="table-header">
+      <div class="col col-2">Id Commission</div>
+      <div class="col col-3">Valeur</div>
+      <div class="col col-4">Montant</div>
+    </li>
+
+    
+
 <?php
 
 foreach ($lesDepenses as $uneDep){

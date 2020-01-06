@@ -3,15 +3,8 @@ body{
 	
 }
 
-table{
-	border-collapse: collapse;
-	margin: auto;
-  }
+
   
-  td{
-	border: 1px solid black;
-	padding: 5px;
-  }
 
 .control {
 	font-family: arial;
@@ -354,7 +347,7 @@ margin-left: 20px;
   .responsive-table .col-5 {
 	flex-basis: 35%;
 	margin: auto;
-	
+	margin-right: 5px;
   }
   .responsive-table .col-6 {
 	flex-basis: 50%;

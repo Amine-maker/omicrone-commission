@@ -9,7 +9,7 @@ public function __construct()
 
     public function add($finance,$comm){
 
-        $req="INSERT INTO information_bancaire (idfinance,idclient,idcommerciaux,codeagence,compte,iban,bic,codebanque,clerib)
+        $req="INSERT INTO information_bancaire (idfinance,idclient,id,codeagence,compte,iban,bic,codebanque,clerib)
         VALUES (nextval('finance_idfinance_seq'::regclass),NULL,'".$comm->getIdCommercial($finance->getOCommercial())."','".$finance->getCodeAgence()."',
         '".$finance->getCompte()."','".$finance->getIban()."','".$finance->getBic()."',
         '".$finance->getCodeBanque()."','".$finance->getCleRib()."')";
@@ -19,7 +19,7 @@ public function __construct()
     public function getFinances()/* retourne une collection de finance*/{
         $lesFinance=array();
         $req = "select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-         from commerciaux left join information_bancaire on commerciaux.idcommerciaux=information_bancaire.idcommerciaux
+         from commerciaux left join information_bancaire on commerciaux.id=information_bancaire.idcommerciaux
         ";
         $rs=$this->pdo->query($req);
         $lesLignes = $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -44,42 +44,38 @@ public function __construct()
             and codebanque='".$finance->getCodeBanque()."'
             and clerib='".$finance->getCleRib()."'");
             $rs=$this->pdo->query($req);
-            $laLigne = $rs->fetch();
-            print_r($req);   
+            $laLigne = $rs->fetch(); 
             return($laLigne["idfinance"]);
                      
             }
 
         public function getFinance($idF)/* retourne l'objet finance par rapport a l'id*/{
             $req ="select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-            from commerciaux left join information_bancaire on commerciaux.idcommerciaux=information_bancaire.idcommerciaux where idfinance='".$idF."'";
+            from commerciaux left join information_bancaire on commerciaux.id=information_bancaire.idcommerciaux where idfinance='".$idF."'";
             $rs=$this->pdo->query($req);
             $lesLignes = $rs->fetch(PDO::FETCH_ASSOC);
             $comm=new commerciaux($lesLignes["nom"],$lesLignes["prenom"],$lesLignes["tel"],
             $lesLignes["email"],$lesLignes["adresse"],$lesLignes["ville"],$lesLignes["cp"]);
             $finance=new information_bancaire(NULL,$comm,$lesLignes["codeagence"],$lesLignes["compte"],$lesLignes["iban"],
             $lesLignes["bic"],$lesLignes["codebanque"],$lesLignes["clerib"]);
-            print_r($req);
             return($finance);
             
         }
 
         public function getIdFinanceById($idCommercial)/* recupere l'id de la finance avec l'id du commercial*/{
-            $req="select idfinance from information_bancaire, commerciaux where commerciaux.idcommerciaux=information_bancaire.idcommerciaux and commerciaux.idcommerciaux=".$idCommercial."";
+            $req="select idfinance from information_bancaire, commerciaux where commerciaux.id=information_bancaire.idcommerciaux and commerciaux.id=".$idCommercial."";
             $rs=$this->pdo->query($req);
             $laLigne = $rs->fetch(PDO::FETCH_ASSOC);
-            print_r($req);
             return($laLigne["idfinance"]);
         }
 
     public function update($finance,$idF,$idC){
-        $req="UPDATE information_bancaire SET idclient=NULL, idcommerciaux='".$idC."', codeagence='".$finance->getCodeAgence()."', compte='".$finance->getCompte()."',
+        $req="UPDATE information_bancaire SET idclient=NULL, id='".$idC."', codeagence='".$finance->getCodeAgence()."', compte='".$finance->getCompte()."',
              iban='".$finance->getIban()."', bic='".$finance->getBic()."', codebanque='".$finance->getCodebanque()."', clerib='".$finance->getCleRib()."' WHERE idfinance='".$idF."'";
         $this->pdo->exec($req);
     }
     public function delete($finance){
         $req="delete from information_bancaire where idfinance='".$this->getIdFinanceByObject($finance)."'";
         $this->pdo->exec($req);
-        print_r($req);
         }
 }

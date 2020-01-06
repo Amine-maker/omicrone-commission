@@ -1,31 +1,7 @@
 
-
 <div class="container">
   <ul class="responsive-table">
-    <li class="table-header">
-      <div class="col col-6">Id Commercial</div>
-      <div class="col col-5">Nom</div>
-      <div class="col col-5">Prenom</div>
-      <div class="col col-5">Tel</div>
-      <div class="col col-5">Email</div>
-      <div class="col col-5">Adresse</div>
-      <div class="col col-5">Ville</div>
-      <div class="col col-5">Code Postale</div>
-    </li>
-
-    <script>
-function afficher(){
-    if (document.getElementById('voir').checked)
-        {
-        document.getElementById('affichage').style.display='block';
-        }
-    else {
-        document.getElementById('affichage').style.display='none';
-        }
-                    }
-</script>
-
-      <div class="form-style-5">
+  <div class="form-style-5">
         <form method="post" action="index.php?uc=commercial&action=ajouterCommercial">
         <fieldset>
         <input type="text" pattern="[A-Za-z]{1,20}" name="nom" placeholder="Nom *" required="required">
@@ -56,9 +32,33 @@ function afficher(){
 </fieldset>
 
 
-<input type="submit" name="envoyer" value="ajouter" />
+<input type="submit" name="envoyer" value="AJOUTER" />
 </form>
 </div>
+
+    <li class="table-header">
+      <div class="col col-6">Id Commercial</div>
+      <div class="col col-5">Nom</div>
+      <div class="col col-5">Prenom</div>
+      <div class="col col-5">Tel</div>
+      <div class="col col-5">Email</div>
+      <div class="col col-5">Adresse</div>
+      <div class="col col-5">Ville</div>
+      <div class="col col-5">Code Postale</div>
+    </li>
+
+    <script>
+function afficher(){
+    if (document.getElementById('voir').checked)
+        {
+        document.getElementById('affichage').style.display='block';
+        }
+    else {
+        document.getElementById('affichage').style.display='none';
+        }
+                    }
+</script>
+
 <?php
 
 
