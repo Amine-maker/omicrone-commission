@@ -11,13 +11,13 @@
 include("vues/v_sommaire.php");
 require_once ("modele/include.php");
 $contrat = new daoContrat();
-$client = new DaoClient();
-$contact = new DaoContact();
+$clientDao = new DaoClient();
+$contactDao = new DaoContact();
 R::setup('pgsql:host=localhost;dbname=comm','postgres','test');
 R::freeze(true);
 session_start();
 
-test
+
 if (!isset($_REQUEST['uc'])) {
     $_REQUEST['uc'] = 'commercial';
 }

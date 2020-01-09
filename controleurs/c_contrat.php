@@ -4,15 +4,14 @@ if(!isset($_REQUEST['action'])){
 }
 $action = $_REQUEST['action'];
 
-if(isset($_POST['lesClients'])){
-$_SESSION['idclient'] = $_POST['lesClients'];}
+//if(isset($_POST['lesClients'])){
+//$_SESSION['idclient'] = $_POST['lesClients'];}
 
 $tabcontrat = new tableauContrat();
 
 switch($action){
 	case 'affichercontrat':{ 
         $lesClients = $contrat->selectClients();
-        //include('vues/v_ajContrat.php');
         include("vues/v_contrat.php");
            
             break;
@@ -25,8 +24,9 @@ switch($action){
         }
         
         case 'validAjoutC':{
-            if(isset($_POST['lesClients'])){$_SESSION['idclient'] = $_POST['lesClients'];}
-            if (isset($_SESSION['idclient'])) {$idclient = $_SESSION['idclient'];}
+            $lesClients = $contrat->selectClients();
+            if(isset($_POST['lesClients'])){$_SESSION['id'] = $_POST['lesClients'];}
+            if (isset($_SESSION['id'])) {$idclient = $_SESSION['id'];}
             else {$idclient = "" ;}
             if(isset($_REQUEST['datedebut'])){$datedebut = $_REQUEST['datedebut'];}
             else {$datedebut = "";}
@@ -50,18 +50,13 @@ switch($action){
             //$tabcontrat = new tableauContrat();
             $dernieridcontrat = $contrat->getdernierid();
             $dernieridcontrat++;
-            //var_dump($dernieridcontrat);
             for ($i=0;$i<=$dernieridcontrat;$i++){
-                //var_dump($i);
                 $objcontrat = new contrat($i, $idclient, $datedebut, $datefin, $salaire,  $tarif, $typecontrat);
                 //$tabcontrat->addContrat($objcontrat);
-                //var_dump($tabcontrat);
             }
             $ajouter = $contrat->insertcontrat($objcontrat);
-
-                include 'vues/v_contrat.php';
-            
-            //var_dump($objcontrat);
+            if(!$ajouter){
+            include 'vues/v_contrat.php';}
             break;
         }
         
@@ -84,6 +79,7 @@ switch($action){
         }
         
         case 'validmodifcontrat':{
+            $lesClients = $contrat->selectClients();
             $idContrat = $_GET['idcontrat'];
             if(isset($_POST['ModiflesClients'])){
                 $_SESSION['idclient'] = $_POST['ModiflesClients'];
@@ -113,7 +109,7 @@ switch($action){
                 include 'vues/v_contrat.php';
             }
             break;
-        }
+            }
         case 'suppcontrat':{
             $lesClients = $contrat->selectClients();
             $idContrat = $_GET['idcontrat'];

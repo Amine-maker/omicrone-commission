@@ -30,49 +30,26 @@ class contrat{
    public function getdatedebut(){
        return $this->_datedebut;
    }
-   
-   public function setdatedebut($datedebut){
-       return $this->_datedebut = $datedebut;
-   }
-   
+     
    public function getdatefin(){
        return $this->_datefin;
    }
-   
-   public function setdatefin($datefin){
-       return $this->_datefin = $datefin;
-   }
-   
+    
    public function gettypecontrat(){
        return $this->_typecontrat;
    }
-   
-    public function settypecontrat($typecontrat){
-       return $this->_typecontrat = $typecontrat;
-   }
-   
+  
    public function getsalaire(){
        return $this->_salaire; 
    }
-   public function setsalaire($salaire){
-       return $this->_salaire = $salaire; 
-   }
-   
+
    public function gettarif(){
        return $this->_tarif;
    }
-    public function settarif($tarif){
-        return $this->_tarif = $tarif;
-   }
-   
    public function getidClient(){
         return $this->_idClient;
    }
-   public function setidclient($idclient){
-       return $this->_idClient = $idclient;
-   }
 } 
-
 class tableauContrat{
     private $_tabContrat;
     private $_nbcontrat;
@@ -98,7 +75,6 @@ class tableauContrat{
     $this->_tabContrat = array_values($this->_tabContrat);
     }
 }
-
 class daoContrat{
     
     public function __construct() {
@@ -106,7 +82,7 @@ class daoContrat{
     }
     
     public function getlistecontrat(){ //liste de contrat
-        $req="select idcontrat, typecontrat, datedebut, datefin, salaire, tarif, raisonsocial from contrat join client on contrat.idclient=client.idclient order by idcontrat ASC";
+        $req="select idcontrat, typecontrat, datedebut, datefin, salaire, tarif, raisonsocial from contrat join client on contrat.idclient=client.id order by idcontrat ASC";
         //print_r($req);
         $rs= $this->pdo->query($req);
         $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -121,7 +97,7 @@ class daoContrat{
         $this->pdo->exec($req);
     }
     public function selectClients(){
-        $req="SELECT idclient, raisonsocial FROM public.client;";
+        $req="SELECT id, raisonsocial FROM public.client;";
         //print_r($req);
         $rs= $this->pdo->query($req);
         $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -140,7 +116,7 @@ class daoContrat{
     
     //renvoie les infos d'un contrat à modifier
     public function getnfocontratModif($idContrat){
-        $req="SELECT idcontrat, client.idclient, datedebut, datefin, salaire, tarif, typecontrat, raisonsocial FROM contrat INNER JOIN client on contrat.idclient=client.idclient where idcontrat='$idContrat';";
+        $req="SELECT idcontrat, idclient, datedebut, datefin, salaire, tarif, typecontrat, raisonsocial FROM contrat INNER JOIN client on contrat.idclient=client.id where idcontrat='$idContrat';";
         //print_r($req);
         $resultat = $this->pdo->query($req);
         $ligne= $resultat->fetchAll(PDO::FETCH_ASSOC);
@@ -159,12 +135,16 @@ class daoContrat{
                 typecontrat = '$typecontrat'
                 where idcontrat = '$idcontrat'";
         $this->pdo->exec($req);
-        print_r($req);
+       // print_r($req);
     }
     public function suppContrat($idContrat){
         $req="DELETE FROM contrat where idcontrat = '$idContrat';";
         print_r($req);
         $this->pdo->exec($req);
+    }
+    
+    public function getidcontratfromchamps(){
+        
     }
     
 }

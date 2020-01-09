@@ -7,7 +7,7 @@
             <option selected value="<?php echo $idduclient?>"><?php echo $laraisonsocial;?></option>
             <?php
                 foreach ($lesClients as $unClient) {
-                    $idclient = $unClient['idclient'];
+                    $idclient = $unClient['id'];
                     $raisonsocial = $unClient['raisonsocial'];
                    ?>
                  
@@ -18,9 +18,22 @@
                 <label>Type de contrat : *</label>
                 <select class="select" name="typecontrat">    
                     <option selected value=<?php echo $typecontrat?>><?php echo $typecontrat?></option>
-                    <option value='Sous-traitant'>Sous traitant</option>
-                    <option value='En portage'>En portage</option>
-                    <option value='Salarié'>Salarié</option>
+                    <?php if ($typecontrat == 'Sous-traitant'){
+                        echo "<option value='En portage'>En portage</option>
+                            <option value='Salarié'>Salarié</option>";
+                    }
+                    
+                    if ($typecontrat == 'En portage'){
+                        echo "<option value='Sous-traitant'>Sous-traitant</option>
+                            <option value='Salarié'>Salarié</option>
+                            ";
+                    }
+                    if ($typecontrat == 'Salarié'){
+                        echo "<option value='Sous-traitant'>Sous-traitant</option>
+                            <option value='En portage'>En portage</option>
+                            ";
+                    }
+                    ?>
                 </select><br<br><br>
                 
                 <?php
