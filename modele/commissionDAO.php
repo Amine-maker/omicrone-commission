@@ -7,37 +7,66 @@ class commissionDAO {
         $this->pdo = PdoCommission::getInstance();
     } 
 
-    public function add($uneCommission,$comm){
+    public function add($uneCommission,$commDAO,$valeur){
         $commercial=$uneCommission->getOCommercial()->getOCommercial();
-        $req="INSERT INTO commission (idcommission,idcommerciaux)
-        VALUES (nextval('commission_idcommission_seq'::regclass),'".$comm->getIdCommercial($commercial)."');";
+        $idcommercial=$commDAO->getIdCommercial($commercial);
 
-        $idcommission="select idcommission from commission where idcommerciaux = '1'";
-        $rs=$this->pdo->query($idcommission);
-            $lesLignes = $rs->fetchAll(PDO::FETCH_ASSOC);
-            for($i=0;$i<=count($lesLignes)-1;$i++){
-               
-                     $id=($lesLignes[$i]["idcommission"]);
-            }
+        $ocommercial=r::dispense("commission");
+        $ocommercial->idcommerciaux=$idcommercial;
+        r::store($ocommercial);
+
+       $id = r::find("commission","idcommerciaux = ?", array($idcommercial)); 
+        foreach($id as $unid){
+            $idC=$unid->id;
+            
+        }
+            if($valeur["heri"]=="pourcentage"){
+                r::exec("insert into pourcentage(id,valeur) values (".$idC.",".$valeur["pourcentage"].")");
+                                                }
+           else{
+                r::exec("insert into one_shot(id,montant) values (".$idC.",".$valeur["montant"].")");
+                }
     }
     
     public function getCommissions(){
+            $dao=new commerciauxDAO;
 
             $lesComm=array();
-            $req="select commission.idcommission,idcommerciaux, montant, valeur from
-        commission left join one_shot on commission.idcommission=one_shot.idcommission
-         left join pourcentage on commission.idcommission=pourcentage.idcommission";
-            $rs=$this->pdo->query($req);
-            $lesLignes = $rs->fetchAll(PDO::FETCH_ASSOC);
-            for($i=0;$i<=count($lesLignes)-1;$i++){
-               $comm=new commission($lesLignes[$i]["nom"],$lesLignes[$i]["prenom"],$lesLignes[$i]["tel"],
-                $lesLignes[$i]["email"],$lesLignes[$i]["adresse"],$lesLignes[$i]["ville"],$lesLignes[$i]["cp"]);
-                $lesComm[]=$comm;
+            $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from
+            commission left join one_shot on commission.id=one_shot.id
+            left join pourcentage on commission.id=pourcentage.id");
+        
+            foreach($lesCommissions as $uneCommission){
+               $commission=new commission($dao->getCommercial($uneCommission['idcommerciaux'])->getOCommercial());
+               $one_shot=new one_shot($uneCommission['montant'],$commission->getOCommercial());
+               $pourcentage=new pourcentage($uneCommission['valeur'],$commission->getOCommercial());
+
+                $lesComm[]=$uneCommission["id"];
+                $lesComm[]=$commission;
+                $lesComm[]=$one_shot;
+                $lesComm[]=$pourcentage;
+                
             }
+        
             return($lesComm);
+           
    }
+
+    public function getCommission($id){
+       $comm= r::load('commerciaux',$id);
+       $commission=new commission($comm->idcommerciaux);
+       return($commission);
+        }
+
+   public function update($idC){
+        
+    }
+
+    public function delete($id){
+        
+        $one_shot=r::load('one_shot',$id); 
+        r::trash($one_shot);
+        $commission=r::load('commission',$id);
+        r::trash($commission);
+        }
 }
-
-
-
-  

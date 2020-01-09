@@ -8,27 +8,26 @@ $commissionDAO= new commissionDAO;
 switch($action){
 
 	case 'ajouterCommission':{
-print_r($_POST);
-		if(isset($_POST["montant"]) || isset($_POST["valeur"]))
-			{
-				
-			$commission=new commission($commerciauxDAO->getCommercial($_POST["idCommercial"]));
-			$commissionDAO->add($commission,$commerciauxDAO);
-			}
+
+		$commission=new commission($commerciauxDAO->getCommercial($_POST["idCommercial"]));
+		$commissionDAO->add($commission,$commerciauxDAO,$_POST);
+		header('location:index.php?uc=commission&action=afficherCommission');
 		break;
 	}
 
 	case 'afficherCommission':{
 		$lesCommerciaux=$commerciauxDAO->getCommerciaux();
+		$lesCommissions=$commissionDAO->getCommissions();
 		include("vues/v_tableauCommission.php");
 		break;
 	}
 	
 	case 'updateCommission': {
-		
+		header('location:index.php?uc=commission&action=afficherCommission');
 		break;
 	}
 	case 'deleteCommission': {
-	
+		$commissionDAO->delete($_REQUEST["idCommission"]);
+		header('location:index.php?uc=commission&action=afficherCommission');
 	}
 }

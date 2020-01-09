@@ -17,7 +17,6 @@
         
             <fieldset>
                 <legend><span class="number"></span></legend>
-                test
                 <input type="email" name="email" value="<?php if (isset($_POST['email'])){echo $_POST['email'];} ?>" placeholder="Email 1"><br>
                 <input type="email" name="email2" value="<?php if (isset($_POST['email2'])){echo $_POST['email2'];} ?>" placeholder="Email 2 "><br>
                 <input type="email" name="email3" value="<?php if (isset($_POST['email3'])){echo $_POST['email3'];} ?>" placeholder="Email 3 "><br>

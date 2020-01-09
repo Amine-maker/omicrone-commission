@@ -2,7 +2,7 @@
 
 
 <div class="container">
-  <ul class="responsive-table">
+  <table class="responsive-table">
 
   <div class="form-style-5">
 
@@ -23,8 +23,41 @@
   }
   ?> 
   </select>
-<input type="number" min="0" name="valeur" placeholder="Pourcentage *">
-<input type="number" min="0" name="montant" placeholder="Montant *">
+  <h4>selectionner le type de commission</h4>
+
+<div style="display: flex;">
+  <input onclick="afficher();" type="radio" id="montant" name="heri" value="montant"checked >
+  <label for="montant">montant</label>
+
+  <input onclick="afficher();" type="radio" id="pourcentage" name="heri" value="pourcentage">
+  <label for="pourcentage">pourcentage</label>
+
+</div>
+<div><input type="number" name="montant" id="INmontant" min="0" placeholder="Montant *" required="required">
+<input type="number" name="pourcentage" id="INpourcentage" min="0" max="100" placeholder="Pourcentage *" style="display: none">
+ </div>
+
+
+<script>
+function afficher(){
+  var montant = document.getElementById('montant');
+  var pourcentage = document.getElementById('pourcentage');
+    if (montant.checked)
+        {
+        document.getElementById('INmontant').style.display='block';
+        document.getElementById('INpourcentage').style.display='none';
+        document.getElementById('INmontant').setAttribute('required','required');
+        }
+    
+       else {
+        document.getElementById('INmontant').style.display='none';
+        document.getElementById('INpourcentage').style.display='block';
+        document.getElementById('INpourcentage').setAttribute('required','required');
+                                  }
+        
+                    }
+</script>
+
 
 
 </fieldset>
@@ -32,34 +65,53 @@
 <input type="submit" name="envoyer" value="AJOUTER" />
 </form>
 </div>
-    <li class="table-header">
-      <div class="col col-2">Id Commission</div>
-      <div class="col col-3">Valeur</div>
-      <div class="col col-4">Montant</div>
-    </li>
+    <tr class="table-header">
+      <td class="col col-2">Id Commission</td>
+      <td class="col col-2">Nom du Commercial</td>
+      <td class="col col-2">Prenom du Commercial</td>
+      <td class="col col-4">Montant</td>
+      <td class="col col-3">Pourcentage</td>
+    </tr>
 
     
 
 <?php
+$noligne=0;
 
-foreach ($lesDepenses as $uneDep){
+for ($i=0; $i<=count($lesCommissions)-3; $i=$i+4){// je recupere les attribut dans un for 
+                                                 //car j'ai besoin de parcourir 3 objet d'un coup
+                                                // ce qui n'est pas possible avec un forach
+  $id=$lesCommissions[$i];
+  $nom=$lesCommissions[$i+1]->getOCommercial()->getNom();
+  $prenom=$lesCommissions[$i+1]->getOCommercial()->getPrenom();
+  $montant=$lesCommissions[$i+2]->getMontant();
+  $valeur=$lesCommissions[$i+3]->getValeur();
+
+
+  $montant=($montant==null) ? "<i>Null</i>" : $montant." ".'€';
+  $valeur=($valeur==null) ? "<i>Null</i>" :  $valeur.'%';
+
     ?>
     
-    <li class="table-row">
-      <div class="col col-2" data-label="Id depense"><a class="tableau" href="index.php?uc=depense&action=modifierDepense&idDepense=<?php echo $depenseDao->getIdDepense($uneDep)?>">
+    
+    <tr class="table-row" <?php if($noligne%2==0){echo"style='background-color:lightgrey;'";} ?>>
+      <td class="col col-2" data-label="Id commission"><?php echo $id; ?></td>
+      <td class="col col-2" data-label="nom du Commercial"><?php echo $nom ;?></td>
+      <td class="col col-2" data-label="prenom du commercial"><?php echo $prenom ;?></td>
+      <td class="col col-3" data-label="Montant"><?php echo $montant;?> </td>
+      <td class="col col-4" data-label="Pourcentage"><?php echo $valeur ;?></td>
+      <td align="center" data-label="Action"><a class="tableau" href="index.php?uc=commission&action=updateCommission&idCommission=<?php echo $id?>">
         <i class="fas fa-edit"></i></a>
       <a class="delete" onclick=
-      "if (confirm('voulez vous supprimer la depense ?'))
-      {window.location.replace('index.php?uc=depense&action=deleteDepense&idDepense=<?php echo $depenseDao->getIdDepense($uneDep)?>');}">
-        <i class="fas fa-times"></i></a><?php echo $depenseDao->getIdDepense($uneDep)?></div>
-      <div class="col col-3" data-label="Libelle"><?php echo $uneDep->getLibelle() ?> </div>
-      <div class="col col-4" data-label="Montant"><?php echo $uneDep->getMontant() ?> €</div>
-    </li>
+      "if (confirm('voulez vous supprimer la commission ?'))
+      {window.location.replace('index.php?uc=commission&action=deleteCommission&idCommission=<?php echo $id;?>');}">
+        <i class="fas fa-times"></i></a></td>
+</tr>
 <?php
-
+$noligne++;
 }
 ?>
-</ul>
+</table>
 </div>
 
 

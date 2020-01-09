@@ -52,8 +52,6 @@ public function getDepenses()/*retourne une collection de depense*/
 
 
     public function update($depense,$idD){
-        // $req="UPDATE depense SET montant='".$depense->getMontant()."', libelle='".$depense->getLibelle()."' WHERE id='".$idD."'";
-        // $this->pdo->exec($req);
 
         $montant=$depense->getMontant();
         $libelle=$depense->getLibelle();

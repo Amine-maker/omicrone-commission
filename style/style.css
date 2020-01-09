@@ -4,7 +4,6 @@ body{
 }
 
 
-  
 
 .control {
 	font-family: arial;
@@ -293,7 +292,7 @@ margin-left: 20px;
   background-color: #efefef;
 }
   .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 10px;
@@ -314,44 +313,50 @@ margin-left: 20px;
     padding: 25px 30px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+	margin-bottom: 25px;
+	
   }
   .responsive-table .table-header {
     background-color: #95A5A6;
     font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+	letter-spacing: 0.03em;
   }
   .responsive-table .table-row {
     background-color: #ffffff;
-    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	
   }
   .responsive-table .col-1 {
 	flex-basis: 10%;
 	margin: auto;
+	padding: 8px;
   }
   .responsive-table .col-2 {
 	flex-basis: 40%;
 	margin: auto;
+	padding: 8px;
   }
   .responsive-table .col-3 {
 	flex-basis: 25%;
 	margin: auto;
+	padding: 8px;
 	
   }
   .responsive-table .col-4 {
 	flex-basis: 25%;
 	margin: auto;
+	padding: 8px;
 	
   }
   .responsive-table .col-5 {
 	flex-basis: 35%;
 	margin: auto;
-	margin-right: 5px;
   }
   .responsive-table .col-6 {
 	flex-basis: 50%;
 	margin: auto;
+	padding: 8px;
 	
   }
   @media all and (max-width: 767px) {
@@ -373,11 +378,18 @@ margin-left: 20px;
       padding-right: 10px;
       content: attr(data-label);
       flex-basis: 50%;
-      text-align: right;
-    }
+	  text-align: right;
+	  width: 100%;
+	}
+	
   }
+  table.responsive-table {
+	width: 100%;
+	border-radius: 4px;
+	border : 1px solid black;
+}
   a:link, a:visited {
-    background-color:#95A5A6;
+    background-color:#4e4e4e;
     border: none;
     color: #FFFFFF;
     padding: 7px 6.5px;
@@ -392,14 +404,13 @@ margin-left: 20px;
 a.tableau{
 
     border-radius: 20px;
-    margin-right: 12px;
     background-color:#3c96ec;
 }
 .tableau:hover,.tableau:active{
   background-color: rgb(0, 0, 0);
 }
 a:hover, a:active {
-    background-color: rgb(0, 0, 0);
+    background-color: #4e4e4e;
 } 
 a {
     background-color:#95A5A6;
@@ -415,7 +426,6 @@ a {
 }
 a.delete{
   border-radius: 25px;
-  margin-right: 12px;
   background-color:red;
   padding-left: 10px;
   padding-right: 10px;
@@ -423,3 +433,48 @@ a.delete{
 .delete:hover,.delete:active{
 background-color: rgb(0, 0, 0);
 }
+.sidenav {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color:#4e4e4e;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+  }
+  
+  .sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 18px;
+	color: #8e8e8e;
+	display: block;
+	transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+	color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 30px;
+  }
+  
+  #main {
+	transition: margin-left .5s;
+	padding: 16px;
+  }
+  
+  @media screen and (max-height: 450px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
+  }
+  a.sidebarA{
+	  text-align: left;
+  }
