@@ -6,12 +6,13 @@
              Client : <select class="select" id='lesClients'name="lesClients">
             <?php
                 foreach ($lesClients as $unClient) {
-                    $idclient = $unClient['idclient'];
+                    $idclient = $unClient['id'];
                     $raisonsocial = $unClient['raisonsocial'];
                   ?> <option selected value="<?php echo $idclient?>"><?php echo $raisonsocial?></option>
                     <?php  }?>
         </select>
         <br><br>
+        
                 <label>Type de contrat : *</label>
                 <select class="select" name="typecontrat">    
                     <option value='Sous-traitant'>Sous traitant</option>
@@ -27,7 +28,7 @@
                 }
                 ?>
                 <label>D&eacute;but du contrat :*</label>
-                <input type="date" value="<?php if (isset($_POST['datedebut'])){echo $_POST['datedebut'];} ?>" name="datedebut"><br><br>
+                <input type="date" pattern="(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\d\d" value="<?php if (isset($_POST['datedebut'])){echo $_POST['datedebut'];} ?>" name="datedebut"><br><br>
                 
                 <?php 
                 if(isset($_POST['ajoutercontrat'])){
@@ -37,7 +38,7 @@
                 }}?>
                 <label>Fin du Contrat : *</label>
                 
-                <input type="date"  value="<?php if (isset($_POST['datefin'])){echo $_POST['datefin'];} ?>" name="datefin" ><br><br>
+                <input type="date" pattern="(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\d\d" value="<?php if (isset($_POST['datefin'])){echo $_POST['datefin'];} ?>" name="datefin" ><br><br>
                 
                 <input type="number" value="<?php if (isset($_POST['salaire'])){echo $_POST['salaire'];} ?>" name="salaire" placeholder="Salaire" min="0"><br><br>
                 <input type="number" value="<?php if (isset($_POST['tarif'])){echo $_POST['tarif'];} ?>" name="tarif" placeholder="Tarif" min="0"><br><br>

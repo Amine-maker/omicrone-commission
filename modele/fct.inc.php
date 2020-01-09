@@ -1,14 +1,15 @@
 <?php
 function tableauContrat($contenu){
-    $tableau_html ="<li class='table-header'>"
-        ."<div class='col col-2'>N°</div>"
-        ."<div class='col col-2'>Type de contrat</div>"
-        ."<div class='col col-2'>Date Début</div>"
-        ."<div class='col col-2'>Date fin</div>"
-        ."<div class='col col-2'>Salaire</div>"
-        ."<div class='col col-2'>Tarif</div>"
-        ."<div class='col col-2'>Raison Social</div>"
-        ."</li>";
+    $tableau_html ="<TR class='contrat'>"
+        ."<td>N°</td>"
+        ."<td>Type de contrat</td>"
+        ."<td>Date Début</td>"
+        ."<td>Date fin</td>"
+        ."<td>Salaire</td>"
+        ."<td>Tarif</td>"
+        ."<td>Raison Social</td>"
+        ."<td></td>"
+        ."</TR>";
 $noligne=0;
 foreach ($contenu as $ligne){
     $tabcontrat=array(); //creer un tableau
@@ -20,46 +21,51 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
 {
     if($i==0){
         $idContrat = $tabcontrat[$i];
-        $ligne_html .= "<div class='col col-2'><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
-                 . "<i class='fas fa-times'></i></a>$tabcontrat[$i]</div>";
         //print_r($idContrat);
     }
    
-   elseif($i<7){
-   $ligne_html .="<div class='col col-2'>$tabcontrat[$i]</div>";
+   
+   if($i<7){
+   $ligne_html .="<td class='filter_td'>$tabcontrat[$i]</td>";
+   }
+   
+  
+   if($i==6){
+        $ligne_html .= "<TD ><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
+                 . "<i class='fas fa-times'></i></a></TD>";
    }
    
 }
 $id=$ligne['idcontrat'];
 if($noligne%2==0){
-$tableau_html .="<li class='table-row'>$ligne_html</li>";
+$tableau_html .="<TR bgcolor=#EEEDED>$ligne_html</TR>";
 }
 else {
-  $tableau_html .="<li class='table-row'>$ligne_html</li>";
+  $tableau_html .="<TR  bgcolor=#F6F6F6>$ligne_html</TR>";
 }
 $noligne++;
 }
-return "$tableau_html</ul>";
+return "<TABLE id='filter'>$tableau_html</TABLE>";
 }
 
 //tableau renvoyant la liste des clients
 function tableauClient($contenu){
-    $tableau_html ="<li class='table-header'>"
-        ."<div class='col col-2'>N°</div>"
-        ."<div class='col col-2'>Raison Social</div>"
-        ."<div class='col col-2'>Siret</div>"
-        ."<div class='col col-2'>Adresse</div>"
-        ."<div class='col col-2'>Ville</div>"
-        ."<div class='col col-2'>Code Postale</div>"
-        ."<div class='col col-2'>Email 1</div>"
-        ."<div class='col col-2'>Email 2</div>"
-        ."<div class='col col-2'>Email 3</div>"
-        ."<div class='col col-2'>Bureau</div>"
-        ."<div class='col col-2'>Fax</div>"
-        ."<div class='col col-2'>Tel</div>"
-        ."<div class='col col-2'>Modifier</div>"
-        ."<div class='col col-2'>Supprimer</div>"
-        ."</li>";
+    $tableau_html ="<TR class='contrat'>"
+        ."<td >N°</td>"
+        ."<td >Raison Social</td>"
+        ."<td >Siret</td>"
+        ."<td >Adresse</td>"
+        ."<td >Ville</td>"
+        ."<td >Code Postale</td>"
+        ."<td >Email 1</td>"
+        ."<td >Email 2</td>"
+        ."<td >Email 3</td>"
+        ."<td >Bureau</td>"
+        ."<td >Fax</td>"
+        ."<td >Tel</td>"
+        ."<td >Modifier</td>"
+        ."<td >Supprimer</td>"
+        ."</TR>";
 $noligne=0;
 foreach ($contenu as $ligne){
     $tabclient=array(); //creer un tableau
@@ -71,30 +77,30 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
 {
     if($i==0){
         $idclient = $tabclient[$i];
-         $ligne_html .="<div class='col col-2 filter_td'>$tabclient[$i]</div>";
+         $ligne_html .="<td class='filter_td'>$tabclient[$i]</td>";
         //print_r($idclient);
     }
    
    elseif($i<12){
-   $ligne_html .="<div class='col col-2 filter_td'>$tabclient[$i]</div>";
+   $ligne_html .="<td>$tabclient[$i]</td>";
    }
    if($i==11){
-        $ligne_html .= "<div class='col col-2'><a href='index.php?uc=client&action=modifclient&idclient=$idclient'><i>Modifier</a></div>";
+        $ligne_html .= "<TD><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></TD>";
    }
    if($i==11){ 
-        $ligne_html .= "<div class='col col-2'><a href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
-                 . "<i>Supprimer</a></div>";
+        $ligne_html .= "<TD><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
+                 . "<i class='fas fa-times'></i></a></TD>";
    }
 }
-$id=$ligne['idclient'];
+$id=$ligne['id'];
 if($noligne%2==0){
-$tableau_html .="<li class='table-row'>$ligne_html</li>";
+$tableau_html .="<TR bgcolor=#EEEDED>$ligne_html</TR>";
 }
 else {
-  $tableau_html .="<li class='table-row'>$ligne_html</li>";
+  $tableau_html .="<TR bgcolor=#F6F6F6>$ligne_html</TR>";
 }
 $noligne++;
 }
-return "<ul class='responsive-table' id='filter'>$tableau_html</ul>";
+return "<TABLE id='filter'>$tableau_html</TABLE>";
 }
 ?>
