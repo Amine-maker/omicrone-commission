@@ -17,7 +17,7 @@ R::setup('pgsql:host=localhost;dbname=comm','postgres','test');
 R::freeze(true);
 session_start();
 
-
+test
 if (!isset($_REQUEST['uc'])) {
     $_REQUEST['uc'] = 'commercial';
 }
