@@ -2,12 +2,7 @@ body{
 	background-color: #efefef;
 	
 }
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> 475419f40f8cd2327e8c8f64b00a61404aae921b
 .control {
 	font-family: arial;
 	display: block;
@@ -438,7 +433,7 @@ a.delete{
 .delete:hover,.delete:active{
 background-color: rgb(0, 0, 0);
 }
-<<<<<<< HEAD
+/*<<<<<<< HEAD*/
 .sidenav {
 	height: 100%;
 	width: 0;
@@ -484,7 +479,6 @@ background-color: rgb(0, 0, 0);
   a.sidebarA{
 	  text-align: left;
   }
-=======
 
 /*css pour tableau des contra*/
 .filter {
@@ -522,4 +516,4 @@ p.commentaire{
 span.commentaire{
     font-weight: bold;
 }
->>>>>>> 475419f40f8cd2327e8c8f64b00a61404aae921b
+/*>>>>>>> 475419f40f8cd2327e8c8f64b00a61404aae921b*/
