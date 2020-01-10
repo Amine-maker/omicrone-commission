@@ -1,4 +1,5 @@
-
+<div class="container">
+    <table class="responsive-table">
 <div class="form-style-5">
     <form method="POST" action="index.php?uc=contrat&action=validAjoutC">
         <fieldset>
@@ -10,16 +11,7 @@
                     $raisonsocial = $unClient['raisonsocial'];
                   ?> <option selected value="<?php echo $idclient?>"><?php echo $raisonsocial?></option>
                     <?php  }?>
-        </select>
-        <br><br>
-        
-                <label>Type de contrat : *</label>
-                <select class="select" name="typecontrat">    
-                    <option value='Sous-traitant'>Sous traitant</option>
-                    <option value='En portage'>En portage</option>
-                    <option selected value='Salarie' >Salarié</option>
-                </select><br<br><br><br>
-                
+                </select><br><br>               
                 <?php
                 if(isset($_POST['ajoutercontrat'])){
                     if(empty($_POST['datedebut'])){   
@@ -28,7 +20,7 @@
                 }
                 ?>
                 <label>D&eacute;but du contrat :*</label>
-                <input type="date" pattern="(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\d\d" value="<?php if (isset($_POST['datedebut'])){echo $_POST['datedebut'];} ?>" name="datedebut"><br><br>
+                <input type="date"value="<?php if (isset($_POST['datedebut'])){echo $_POST['datedebut'];} ?>" name="datedebut"><br><br>
                 
                 <?php 
                 if(isset($_POST['ajoutercontrat'])){
@@ -38,13 +30,56 @@
                 }}?>
                 <label>Fin du Contrat : *</label>
                 
-                <input type="date" pattern="(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\d\d" value="<?php if (isset($_POST['datefin'])){echo $_POST['datefin'];} ?>" name="datefin" ><br><br>
-                
-                <input type="number" value="<?php if (isset($_POST['salaire'])){echo $_POST['salaire'];} ?>" name="salaire" placeholder="Salaire" min="0"><br><br>
-                <input type="number" value="<?php if (isset($_POST['tarif'])){echo $_POST['tarif'];} ?>" name="tarif" placeholder="Tarif" min="0"><br><br>
+                <input type="date"  value="<?php if (isset($_POST['datefin'])){echo $_POST['datefin'];} ?>" name="datefin" ><br><br>
+               
+                <label>Type de contrat : *</label>
+                    <div style="display: flex;">
+                        <input onclick="afficher();" type="radio" id="sa" name="typecontrat" value="Salarié" checked>
+                        <label>Salarié</label>
+                        
+                        <input onclick="afficher();" type="radio" id="st" name="typecontrat" value="Sous-traitant">
+                        <label>Sous-Traitant</label>
+                        
+                        <input onclick="afficher();" type="radio" id="ep" name="typecontrat" value="En portage">
+                        <label>En portage</label>
+                    </div>
+                    <div>
+                        <input type='number' id='salaire' value="<?php if (isset($_POST['salaire'])){echo $_POST['salaire'];} ?>" name="salaire" placeholder="Salaire" min="0"><br><br>
+                        <input type='number' id='tarif' value="<?php if (isset($_POST['tarif'])){echo $_POST['tarif'];} ?>" name="tarif" placeholder="Tarif" min="0" style="display: none"><br><br>
+                    </div>            
+                    <script>
+                    function afficher(){
+                      var soustraitant = document.getElementById('st');
+                      var enportage = document.getElementById('ep');
+                      var salarie = document.getElementById('sa');  
+
+                        if (salarie.checked)
+                            {
+                            document.getElementById('salaire').style.display='block';
+                            document.getElementById('tarif').style.display='none';
+                            document.getElementById('salaire').setAttribute('required','required');
+                            }
+
+                        if (soustraitant.checked){
+                            document.getElementById('salaire').style.display='none';
+                            document.getElementById('tarif').style.display='block';
+                            document.getElementById('tarif').setAttribute('required','required');
+                            }
+
+                        if (enportage.checked) {
+                            document.getElementById('salaire').style.display='block';
+                            document.getElementById('tarif').style.display='block';
+                            document.getElementById('salaire').setAttribute('required','required');
+                            document.getElementById('tarif').setAttribute('required','required');
+                            }
+
+                    }
+                    </script>            
         </fieldset>
                  <p>* Champs obligatoire</p>
         
-                 <input type='submit' name='ajoutercontrat' value='Ajouter'>
+        <input type='submit' name='ajoutercontrat' value='Ajouter'>
     </form>
+</div>
+        </table>
 </div>
