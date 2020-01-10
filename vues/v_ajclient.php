@@ -15,23 +15,6 @@
                 <input type="tel" min=0 name="bureau" value="<?php if (isset($_POST['bureau'])){echo $_POST['bureau'];} ?>" placeholder="Bureau"><br>
                 <input type="tel" min=0 name="fax" value="<?php if (isset($_POST['fax'])){echo $_POST['fax'];} ?>" placeholder="Fax"><br>
                 
-<<<<<<< HEAD
-<!--                <input type="hidden" name="addclient">-->
-            </fieldset>
-        </form>
-    </div> 
-    <div class="right">
-        
-            <fieldset>
-                <legend><span class="number"></span></legend>
-                <input type="email" name="email" value="<?php if (isset($_POST['email'])){echo $_POST['email'];} ?>" placeholder="Email 1"><br>
-                <input type="email" name="email2" value="<?php if (isset($_POST['email2'])){echo $_POST['email2'];} ?>" placeholder="Email 2 "><br>
-                <input type="email" name="email3" value="<?php if (isset($_POST['email3'])){echo $_POST['email3'];} ?>" placeholder="Email 3 "><br>
-                <input type="number" min=0 name="bureau" value="<?php if (isset($_POST['bureau'])){echo $_POST['bureau'];} ?>" placeholder="Bureau"><br>
-                <input type="number" min=0 name="fax" value="<?php if (isset($_POST['fax'])){echo $_POST['fax'];} ?>" placeholder="Fax"><br>
-                <input type="number" min=0 name="tel3" value="<?php if (isset($_POST['tel3'])){echo $_POST['tel3'];} ?>" placeholder="Téléphone"><br>
-=======
->>>>>>> 475419f40f8cd2327e8c8f64b00a61404aae921b
                 
                 <input type="submit" name="addclient" value="Ajouter">
             </fieldset>

@@ -102,6 +102,7 @@ class daoContrat{
         $rs= $this->pdo->query($req);
         $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
         return $ligne;
+        print_r($req);
     }
     
     //renvoie le dernier contrat 

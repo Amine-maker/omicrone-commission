@@ -52,9 +52,10 @@ class DaoClient {
     public function listeclient(){
         $req="SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id order by client.id ASC";
         $rs = $this->pdo->query($req);
-        //print_r($req);
+        print_r($req);
         $ligne = $rs->fetchall(PDO::FETCH_ASSOC);
         return $ligne;
+
     }
     
     public function collectionclient(){
