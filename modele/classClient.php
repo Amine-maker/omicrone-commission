@@ -73,6 +73,7 @@ class DaoClient {
     }
     
     
+    
     public function getdernieridclient(){
         $req="SELECT id FROM client WHERE id = (SELECT MAX(id) FROM client)";
         //print_r($req);
@@ -127,15 +128,10 @@ class DaoClient {
     }
     
     public function getclient($idduclient)/* recupère l'objet client par rapport à son l'id*/{
-        
        $client = R::load('client',$idduclient);
-//       $uncontact = new contact($client->getclecontact()->getemail(), $client->getclecontact()->getemail2(), 
-//               $client->getclecontact()->getemail3(), $client->getclecontact()->getnumbureau(), 
-//               $client->getclecontact()->getfax(), $client->getclecontact()->gettel());
        $unclient=new client($client->raisonsocial, $client->idcontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
        return($unclient);
-
-            }
+        }
     
     public function setclient($client,$idclient,$idcontact_fk){
         //$idclient = $client->getidclient();

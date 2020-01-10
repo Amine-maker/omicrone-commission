@@ -12,4 +12,8 @@ require_once ('modele/fct.inc.php');
 require_once ('modele/classContrat.php');
 require_once ('modele/classClient.php');
 require_once ('modele/classContact.php');
+require_once ('modele/classFacture.php');
+require_once ('modele/classCra.php');
+require_once ('modele/classConsultant.php');
+require_once ('modele/classPayer.php');
 require_once ('rb.php');
