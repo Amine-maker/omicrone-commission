@@ -8,7 +8,6 @@ function tableauContrat($contenu){
         ."<td>Salaire</td>"
         ."<td>Tarif</td>"
         ."<td>Raison Social</td>"
-        ."<td>Facture</td>"
         ."<td></td>"
         ."</TR>";
 $noligne=0;
@@ -30,15 +29,14 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
    $ligne_html .="<td class='filter_td'>$tabcontrat[$i]</td>";
    }
    
-   if($i==6){
-       $ligne_html .="<td><a href='index.php?uc=facture&action=afficherfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
-   }
+  
    if($i==6){
         $ligne_html .= "<TD ><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
                  . "<i class='fas fa-times'></i></a></TD>";
    }
+   
 }
-$id=$ligne['id'];
+$id=$ligne['idcontrat'];
 if($noligne%2==0){
 $tableau_html .="<TR bgcolor=#EEEDED>$ligne_html</TR>";
 }
