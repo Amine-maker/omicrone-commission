@@ -20,6 +20,10 @@ class consultant {
         $this->_tel=$unTel;
         $this->_email=$unEmail;   
     }
+    
+        public function getId(){
+            return $this->_id;
+        }
         public function getNom(){
             return($this->_nom);
         }
@@ -50,28 +54,28 @@ class consultantDao {
         
         $nom= $consultant->getNom();
         $prenom= $consultant->getPrenom();
-        $tel= $consultant->getTel();
-        $email= $consultant->getEmail();
         $adr=$consultant->getAdresse();
         $ville=$consultant->getVille();
         $cp=$consultant->getCp();
+        $tel= $consultant->getTel();
+        $email= $consultant->getEmail();
 
-        $consultant = R::dispense('consultant'); // on crée un consultant
-        $consultant->nom = $nom; // on lui donne les champs
-        $consultant->prenom = $prenom;
-        $consultant->adr=$adr;
-        $consultant->ville=$ville;
-        $consultant->cp=$cp;
-        $consultant->tel=$tel;
-        $consultant->email=$email;
+        $leconsultant = R::dispense('consultant'); // on crée un consultant
+        $leconsultant->nom = $nom; // on lui donne les champs
+        $leconsultant->prenom = $prenom;
+        $leconsultant->adr=$adr;
+        $leconsultant->ville=$ville;
+        $leconsultant->cp=$cp;
+        $leconsultant->tel=$tel;
+        $leconsultant->email=$email;
         
-        R::store($consultant); // on le sauvegarde en BDD
+        R::store($leconsultant); // on le sauvegarde en BDD
         
     }
     public function getCollectionConsultant()/*retourne une collection de consultant*/ 
         {
             $lesConsultant=array();
-            $les = R::find('consultant','order by id desc');
+            $les = R::find('consultant','order by id ASC');
             foreach ($les as $depe){
                 $uncons=new consultant($depe->nom,$depe->prenom,$depe->adr,$depe->ville,$depe->cp,$depe->tel,$depe->email);
                 $lesConsultant[]=$uncons;
@@ -95,24 +99,15 @@ class consultantDao {
         foreach($id as $unid){
             return($unid->id);
         }
-
-        
         }
         
-//        public function getCommercial($idC){
-//           
-//           $res = R::getAll("select nom, prenom, adr, ville, cp, tel, email codeagence ,compte ,iban ,bic, codebanque,clerib
-//            from consultant left join information_bancaire on consultant.id=information_bancaire.idconsultant where consultant.id=".$idC."");
-//           
-//            foreach($res as $resu){
-//            $cons=new consultant($resu["nom"],$resu["prenom"],$resu["tel"],
-//            $resu["email"],$resu["adr"],$resu["ville"],$resu["cp"]);
-//
-//            $fin=new information_bancaire(NULL,$cons,$resu["codeagence"],$resu["compte"],$resu["iban"],
-//                 $resu["bic"],$resu["codebanque"],$resu["clerib"]);
-//             return($fin);
-//            }
-//        }
+        public function getConsultantfromId($idC){
+            $req = R::getAll('select nom, prenom, adr, ville, cp, tel, email from consultant where consultant.id='.$idC.'');
+            foreach($req as $laligne){
+            $consultant=new consultant($laligne["nom"],$laligne["prenom"],$laligne["adr"],$laligne["ville"],$laligne["cp"],$laligne["tel"],$laligne["email"]);
+            return($consultant);
+            }
+        }
 
         public function update($consultant,$idC){
         

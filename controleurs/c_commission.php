@@ -23,8 +23,7 @@ switch($action){
 	}
 	
 	case 'updateCommission': {
-		$commissionDAO->getLaCommission($_REQUEST["idCommission"]);
-		//header('location:index.php?uc=commission&action=afficherCommission');
+		header('location:index.php?uc=commission&action=afficherCommission');
 		break;
 	}
 	case 'deleteCommission': {

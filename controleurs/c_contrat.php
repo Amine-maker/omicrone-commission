@@ -3,12 +3,6 @@ if(!isset($_REQUEST['action'])){
 	$_REQUEST['action'] = 'affichercontrat';
 }
 $action = $_REQUEST['action'];
-
-//if(isset($_POST['lesClients'])){
-//$_SESSION['idclient'] = $_POST['lesClients'];}
-
-$tabcontrat = new tableauContrat();
-
 switch($action){
 	case 'affichercontrat':{ 
         $lesClients = $contrat->selectClients();
@@ -47,16 +41,13 @@ switch($action){
             if(empty($salaire)){$salaire=0;}
             if(empty($tarif)){$tarif=0;}
             
-            //$tabcontrat = new tableauContrat();
             $dernieridcontrat = $contrat->getdernierid();
             $dernieridcontrat++;
             for ($i=0;$i<=$dernieridcontrat;$i++){
                 $objcontrat = new contrat($i, $idclient, $datedebut, $datefin, $salaire,  $tarif, $typecontrat);
-                //$tabcontrat->addContrat($objcontrat);
             }
             $ajouter = $contrat->insertcontrat($objcontrat);
-            if(!$ajouter){
-            include 'vues/v_contrat.php';}
+             header('location:index.php?uc=contrat&action=affichercontrat');
             break;
         }
         
@@ -104,10 +95,17 @@ switch($action){
             if(empty($salaire)){$salaire=0;}
             if(empty($tarif)){$tarif=0;}
             
+            //if(isset($typecontrat) == 'Salarie' || isset($typecontrat) == 'Sous-traitant'){
+//                if(!empty($salaire)){
+//                $tarif = 0;}
+//                
+//                if(!empty($tarif)){
+//                    $salaire = 0;}
+           // }
+            
+//            
             $modif = $contrat->setcontrat($idContrat, $idclient, $datedebut, $datefin, $salaire, $tarif, $typecontrat);
-            if(!$modif == TRUE){
-                include 'vues/v_contrat.php';
-            }
+             header('location:index.php?uc=contrat&action=affichercontrat');
             break;
             }
         case 'suppcontrat':{

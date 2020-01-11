@@ -4,20 +4,6 @@
 <div class="container">
   <table class="responsive-table">
 
-
-
-
-
-
-
-
-  <div class="interior">
-    <a class="btn" href="#open-modal">AJOUTER</a>
-  </div>
-  <br>
-<div id="open-modal" class="modal-window">
-  <div>
-   
   <div class="form-style-5">
 
 <form method="post" action="index.php?uc=commission&action=ajouterCommission">
@@ -52,27 +38,39 @@
  </div>
 
 
+<script>
+function afficher(){
+  var montant = document.getElementById('montant');
+  var pourcentage = document.getElementById('pourcentage');
+    if (montant.checked)
+        {
+        document.getElementById('INmontant').style.display='block';
+        document.getElementById('INpourcentage').style.display='none';
+        document.getElementById('INmontant').setAttribute('required','required');
+        }
+    
+       else {
+        document.getElementById('INmontant').style.display='none';
+        document.getElementById('INpourcentage').style.display='block';
+        document.getElementById('INpourcentage').setAttribute('required','required');
+                                  }
+        
+                    }
+</script>
 
 
 
 </fieldset>
 
 <input type="submit" name="envoyer" value="AJOUTER" />
-<a href="#" title="Close" id="close" class="modal-close">FERMER</a>
 </form>
 </div>
-
-
-
-  </div>
-</div>
-
-    <tr class="contrat">
+    <tr class="table-header">
+      <td class="col col-2">Id Commission</td>
       <td class="col col-2">Nom du Commercial</td>
       <td class="col col-2">Prenom du Commercial</td>
       <td class="col col-4">Montant</td>
       <td class="col col-3">Pourcentage</td>
-      <td class="col col-3"></td>
     </tr>
 
     
@@ -96,7 +94,8 @@ for ($i=0; $i<=count($lesCommissions)-3; $i=$i+4){// je recupere les attribut da
     ?>
     
     
-    <tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
+    <tr class="table-row" <?php if($noligne%2==0){echo"style='background-color:lightgrey;'";} ?>>
+      <td class="col col-2" data-label="Id commission"><?php echo $id; ?></td>
       <td class="col col-2" data-label="nom du Commercial"><?php echo $nom ;?></td>
       <td class="col col-2" data-label="prenom du commercial"><?php echo $prenom ;?></td>
       <td class="col col-3" data-label="Montant"><?php echo $montant;?> </td>

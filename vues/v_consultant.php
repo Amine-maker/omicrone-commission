@@ -1,4 +1,6 @@
-<div class='container'>
+
+<div class='container'><h3 class="intitule">Les consultants</h3>
+    <a href="index.php?uc=consultant&action=ajouterconsultant">Ajouter</a><br><br>
 <table>
 <tr class='contrat'>
       <td >Nom</td>
@@ -8,6 +10,7 @@
       <td >Code Postale</td>
       <td >Tel</td>
       <td >Email</td>
+      <td >Action</td>
  </tr>
 
  <?php foreach( $lesConsultants as $unConsultant){?>
@@ -24,7 +27,7 @@
 <td class="col col-6" data-label="Id commercial"><a class="tableau" href="index.php?uc=consultant&action=modifconsultant&idconsultant=<?php echo $consultantDao->getIdConsultantFromobject($unConsultant) ?>">
   <i class="fas fa-edit"></i></a>
   <a class="delete" onclick="if (confirm('voulez vous supprimer ?'))
-      {window.location.replace('index.php?uc=consultant&action=modifconsultant&idconsultant=<?php echo $consultantDao->getIdConsultantFromobject($unConsultant)?>');}">
+      {window.location.replace('index.php?uc=consultant&action=suppconsultant&idconsultant=<?php echo $consultantDao->getIdConsultantFromobject($unConsultant)?>');}">
   <i class="fas fa-times"></i></a></td>
 </tr>
  <?php } ?>
