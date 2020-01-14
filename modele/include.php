@@ -17,3 +17,4 @@ require_once ('modele/classCra.php');
 require_once ('modele/classConsultant.php');
 require_once ('modele/classPayer.php');
 require_once ('rb.php');
+//require_once ('modele/class.JPCalendar.php');

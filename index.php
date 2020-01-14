@@ -1,12 +1,5 @@
 
 <html lang="fr">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="style/style.css"/>
-    <script src="https://kit.fontawesome.com/8b3260e825.js" crossorigin="anonymous"></script>
-
-</head>
-<body class="content">
 <?php
 include("vues/v_entete.php");
 require_once ("modele/include.php");
