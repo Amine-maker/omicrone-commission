@@ -23,6 +23,19 @@ switch($action){
 	}
 	
 	case 'updateCommission': {
+		
+		$_REQUEST["heri"]=explode(",",$_REQUEST["tableau"]);
+		if($_REQUEST["heri"][0]==''){$_REQUEST["heri"][0]="Null";}
+		$commercial=$commerciauxDAO->getCommercial($_REQUEST["idCommercial"])->getOCommercial();
+		if(!stristr($_REQUEST["heri"][0],"Null")){
+			$commission=new one_shot($_REQUEST["heri"][0],$commercial);
+			$commissionDAO->update($commission,$_REQUEST["idCommission"]);
+		}
+		else{
+			$commission=new pourcentage($_REQUEST["heri"][1],$commercial);
+			$commissionDAO->update($commission,$_REQUEST["idCommission"]);
+		}
+		
 		header('location:index.php?uc=commission&action=afficherCommission');
 		break;
 	}
