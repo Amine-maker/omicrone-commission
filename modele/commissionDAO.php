@@ -73,25 +73,9 @@ class commissionDAO {
                 }
     }
 
-   public function update($commission,$idCommission){
-      
-        $dao=new commerciauxDAO;
-        $commercial=$commission->getOCommercial(); 
-        $idCommercial=$dao->getIdCommercial($commercial);
-        if(method_exists($commission ,"getValeur")){
-            $valeur=$commission->getValeur();
-            $pourcentage=r::load("pourcentage",$idCommission);
-            $pourcentage->valeur=$valeur;
-            r::store($pourcentage);
-             
-        }
-        else {
-            $montant=$commission->getMontant();
-            $one_shot=r::load("one_shot",$idCommission);
-            $one_shot->montant=$montant;
-            r::store($one_shot);
-        }
-
+   public function update($commission,$idC){
+         $dao=new commerciauxDAO;
+      //  $idcommercial=$commission->getOCommercial()->
     }
 
     public function delete($id){

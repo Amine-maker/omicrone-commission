@@ -22,19 +22,18 @@ function modalEvent(button) {
 
 function afficher(){
     var montant = document.getElementById('montant');
+    var pourcentage = document.getElementById('pourcentage');
       if (montant.checked)
           {
           document.getElementById('INmontant').style.display='block';
           document.getElementById('INpourcentage').style.display='none';
           document.getElementById('INmontant').setAttribute('required','required');
-          document.getElementById('INpourcentage').removeAttribute('required');
           }
       
          else {
           document.getElementById('INmontant').style.display='none';
           document.getElementById('INpourcentage').style.display='block';
           document.getElementById('INpourcentage').setAttribute('required','required');
-          document.getElementById('INmontant').removeAttribute('required');
         }
           
         }
@@ -55,71 +54,3 @@ function afficherRib(){
             }
             
         }
-
-
-    
-        function modif(monId,monName){
-            
-         var id=monId;
-         var form = 'de'+id;
-         var tdform = 'td'+id;
-         var fas='de'+monName;
-         var i=0;
-         document.getElementsByName(form).forEach(()=>{
-                document.getElementsByName(form)[i].style.display="";
-                document.getElementsByName(form)[i].size=8;
-                document.getElementsByName(id)[i].style.display="none";
-                document.getElementsByName(tdform)[i].style.display="";
-                document.getElementById(monName).style.display="none";
-                document.getElementById(fas).style.display="";
-                if(document.getElementsByName(form).value=="<i>Null</i>"){
-                    document.getElementsByName(form).setAttribute("readonly","readonly");
-                                                                         }
-                                                                         
-                        i++;
-                        })
-           }         
-   
-        function submit(mon,idCommission,idCommercial){
-        var arra=[];
-        var id=mon;
-        var form = 'de'+id;
-            
-            for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;} 
-
-            if(!document.getElementsByName(form)[1].hasAttribute("readonly")){
-
-                  if(document.getElementsByName(form)[1].value<=100 && document.getElementsByName(form)[1].value>=0)
-                  {
-                     return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);
-                  }
-                  else{alert('Le pourcentage ne peut dépasser 100% ou être nul ')}
-          }
-          else{return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);}
-        }
-        
-           function submitDepense(mon,idDepense){
-            var arra=[];
-            var id=mon;
-            var form = 'de'+id;
-            
-            for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;   }     
-                 
-            return(window.location.href="index.php?uc=depense&action=updateDepense&tableau="+arra+"&idDepense="+idDepense);
-
-           }
-
-           function submitCommercial(mon,idCommercial){
-            var arra=[];
-            var id=mon;
-            var form = 'de'+id;
-            
-            for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
-                 
-            return(window.location.href="index.php?uc=commercial&action=modifCommercial&tableau="+arra+"&idCommercial="+idCommercial);
-
-           }
-
-
-
-

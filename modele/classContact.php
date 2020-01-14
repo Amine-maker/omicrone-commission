@@ -58,7 +58,7 @@
         foreach($idcontact as $unidcontact){
             return($unidcontact->id);}     
     }
-    
+       
     public function getdernieridcontact(){ //recupere l'id du contact le plus grand
         $req="SELECT id FROM contact WHERE id = (SELECT MAX(id) FROM contact)";
         //print_r($req);

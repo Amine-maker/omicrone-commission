@@ -52,10 +52,9 @@ class DaoClient {
     public function listeclient(){
         $req="SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id order by client.id ASC";
         $rs = $this->pdo->query($req);
-        print_r($req);
+        //print_r($req);
         $ligne = $rs->fetchall(PDO::FETCH_ASSOC);
         return $ligne;
-
     }
     
     public function collectionclient(){
@@ -72,6 +71,7 @@ class DaoClient {
         }
         return $collectionclient;
     }
+    
     
     
     public function getdernieridclient(){
@@ -128,15 +128,10 @@ class DaoClient {
     }
     
     public function getclient($idduclient)/* recupère l'objet client par rapport à son l'id*/{
-        
        $client = R::load('client',$idduclient);
-//       $uncontact = new contact($client->getclecontact()->getemail(), $client->getclecontact()->getemail2(), 
-//               $client->getclecontact()->getemail3(), $client->getclecontact()->getnumbureau(), 
-//               $client->getclecontact()->getfax(), $client->getclecontact()->gettel());
        $unclient=new client($client->raisonsocial, $client->idcontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
        return($unclient);
-
-            }
+        }
     
     public function setclient($client,$idclient,$idcontact_fk){
         //$idclient = $client->getidclient();
