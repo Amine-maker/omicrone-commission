@@ -11,8 +11,8 @@
                 <?php if ($UnContrat->getsalaire() == 0 ){
                     ?><p>Le montant dû est :<?php $tarif = $UnContrat->gettarif();?></p>
                       <input type='hidden' name='tarif' required='required' value='<?php echo $tarif?>' placeholder='Le montant dû '>
-                <?php} 
-                else {?>
+                <?php } 
+                else { ?>
                      <p>Le montant dû est : <?php $salaire = $UnContrat->getsalaire();?></p>
                     <input type='hidden' name='salaire' required='required' value='<?php echo $salaire?>' placeholder='Le montant dû '>
                 <?php }?>

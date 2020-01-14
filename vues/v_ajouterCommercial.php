@@ -1,4 +1,7 @@
-<script>
+
+    
+     
+     <script>
 function afficher(){
     if (document.getElementById('voir').checked)
         {

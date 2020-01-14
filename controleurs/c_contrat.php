@@ -3,10 +3,15 @@ if(!isset($_REQUEST['action'])){
 	$_REQUEST['action'] = 'affichercontrat';
 }
 $action = $_REQUEST['action'];
+
+//if(isset($_POST['lesClients'])){
+//$_SESSION['idclient'] = $_POST['lesClients'];}
+
+$tabcontrat = new tableauContrat();
+
 switch($action){
 	case 'affichercontrat':{ 
         $lesClients = $contrat->selectClients();
-        $lesConsultants = $contrat->selectConsultants();
         include("vues/v_contrat.php");
            
             break;
@@ -14,64 +19,54 @@ switch($action){
         
         case 'ajoutC':{
             $lesClients = $contrat->selectClients();
-            $lesConsultants = $contrat->selectConsultants();
             include("vues/v_ajContrat.php");
             break;
         }
         
         case 'validAjoutC':{
             $lesClients = $contrat->selectClients();
-            $lesConsultants = $contrat->selectConsultants();
             if(isset($_POST['lesClients'])){$_SESSION['id'] = $_POST['lesClients'];}
             if (isset($_SESSION['id'])) {$idclient = $_SESSION['id'];}
             else {$idclient = "" ;}
-            
-            if(isset($_POST['lesConsultants'])){$_SESSION['id'] = $_POST['lesConsultants'];}
-             if (isset($_SESSION['id'])) {$idconsultant = $_SESSION['id'];}
-            else {$idconsultant = "" ;}
-            
-            if(isset($_POST['datedebut'])){$datedebut = $_POST['datedebut'];}
+            if(isset($_REQUEST['datedebut'])){$datedebut = $_REQUEST['datedebut'];}
             else {$datedebut = "";}
-            if(isset($_POST['datefin'])){$datefin = $_POST['datefin'];}
+            if(isset($_REQUEST['datefin'])){$datefin = $_REQUEST['datefin'];}
             else {$datefin="";}
-            if (isset($_POST['salaire'])){$salaire= $_POST['salaire'];}
+            if (isset($_REQUEST['salaire'])){$salaire= $_REQUEST['salaire'];}
             else {$salaire="";}
-            if(isset($_POST['tarif'])){$tarif = $_POST['tarif'];}
+            if(isset($_REQUEST['tarif'])){$tarif = $_REQUEST['tarif'];}
             else {$tarif="";}
-            if(isset($_POST['typecontrat'])){$typecontrat=$_POST['typecontrat'];}
+            if(isset($_REQUEST['typecontrat'])){$typecontrat=$_REQUEST['typecontrat'];}
             else {$typecontrat="";}
             
             //verifier si les champs sont vide
             if(empty($datedebut) OR empty($datefin)){
                 $lesClients = $contrat->selectClients();
-                 $lesConsultants = $contrat->selectConsultants();
                 include("vues/v_ajContrat.php");
             }
             if(empty($salaire)){$salaire=0;}
             if(empty($tarif)){$tarif=0;}
             
+            //$tabcontrat = new tableauContrat();
             $dernieridcontrat = $contrat->getdernierid();
             $dernieridcontrat++;
-            print_r($dernieridcontrat);
             for ($i=0;$i<=$dernieridcontrat;$i++){
-                $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $salaire,  $tarif, $typecontrat);
+                $objcontrat = new contrat($i, $idclient, $datedebut, $datefin, $salaire,  $tarif, $typecontrat);
+                //$tabcontrat->addContrat($objcontrat);
             }
             $ajouter = $contrat->insertcontrat($objcontrat);
-             header('location:index.php?uc=contrat&action=affichercontrat');
+            if(!$ajouter){
+            include 'vues/v_contrat.php';}
             break;
         }
         
         case 'modifC':{
             $idContrat = $_GET['idcontrat'];
             $lesClients = $contrat->selectClients();
-            $lesConsultants = $contrat->selectConsultants();
             $lesmodifcontrats = $contrat->getnfocontratModif($idContrat);
             //var_dump($lesmodifcontrats);
             foreach($lesmodifcontrats as $modifContrat){
             $idduclient = $modifContrat['idclient'];
-            $idduconsultant = $modifContrat['idconsultant'];
-            $lenom = $modifContrat['nom'];
-            $leprenom = $modifContrat['prenom'];
             $datedebut = $modifContrat['datedebut'];
             $datefin = $modifContrat['datefin'];
             $salaire = $modifContrat['salaire'];
@@ -84,27 +79,22 @@ switch($action){
         }
         
         case 'validmodifcontrat':{
-            //$lesClients = $contrat->selectClients();
+            $lesClients = $contrat->selectClients();
             $idContrat = $_GET['idcontrat'];
             if(isset($_POST['ModiflesClients'])){
                 $_SESSION['idclient'] = $_POST['ModiflesClients'];
             }
             if (isset($_SESSION['idclient'])) {$idclient = $_SESSION['idclient'];}
             else {$idclient = "" ;}
-            
-             if(isset($_POST['ModiflesConsultants'])){$_SESSION['id'] = $_POST['ModiflesConsultants'];}
-             if (isset($_SESSION['id'])) {$idconsultant = $_SESSION['id'];}
-            else {$idconsultant = "" ;}
-            
-            if(isset($_POST['datedebut'])){$datedebut = $_POST['datedebut'];}
+            if(isset($_REQUEST['datedebut'])){$datedebut = $_REQUEST['datedebut'];}
             else {$datedebut = "";}
-            if(isset($_POST['datefin'])){$datefin = $_POST['datefin'];}
+            if(isset($_REQUEST['datefin'])){$datefin = $_REQUEST['datefin'];}
             else {$datefin="";}
-            if (isset($_POST['salaire'])){$salaire= $_POST['salaire'];}
+            if (isset($_REQUEST['salaire'])){$salaire= $_REQUEST['salaire'];}
             else {$salaire="";}
-            if(isset($_POST['tarif'])){$tarif = $_POST['tarif'];}
+            if(isset($_REQUEST['tarif'])){$tarif = $_REQUEST['tarif'];}
             else {$tarif="";}
-            if(isset($_POST['typecontrat'])){$typecontrat=$_POST['typecontrat'];}
+            if(isset($_REQUEST['typecontrat'])){$typecontrat=$_REQUEST['typecontrat'];}
             else {$typecontrat="";}
             
             if(empty($datedebut) OR empty($datefin)){
@@ -113,9 +103,11 @@ switch($action){
             }
             if(empty($salaire)){$salaire=0;}
             if(empty($tarif)){$tarif=0;}
-               
-            $modif = $contrat->setcontrat($idContrat, $idclient, $idconsultant, $datedebut, $datefin, $salaire, $tarif, $typecontrat);
-             header('location:index.php?uc=contrat&action=affichercontrat');
+            
+            $modif = $contrat->setcontrat($idContrat, $idclient, $datedebut, $datefin, $salaire, $tarif, $typecontrat);
+            if(!$modif == TRUE){
+                include 'vues/v_contrat.php';
+            }
             break;
             }
         case 'suppcontrat':{
