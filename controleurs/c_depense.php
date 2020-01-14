@@ -25,18 +25,16 @@ switch($action){
 		break;
 	}
 	
-	case 'updateDepense': {
-		$_REQUEST["tab"]=explode(",",$_REQUEST["tableau"]);
-		$montant=$_REQUEST["tab"][0];
-		$libelle=$_REQUEST["tab"][1];
+	case 'modifierDepense': {
 		$lesDepenses = $depenseDao->getDepenses();
 		$depense=$depenseDao->getDepense($_REQUEST["idDepense"]);
-			
-				$depense=new depense($montant,$libelle);
-				$depenseDao->update($depense,$_REQUEST["idDepense"]);
-				
+			if (isset($_POST["modifier"])) {
+				$depense=new depense($_POST["montant"],$_POST["libelle"]);
+				$depenseDao->update($depense,$_POST["idDepense"]);
+				include("vues/v_confirmation.php");
 				header('location:index.php?uc=depense&action=afficherDepense');
-			
+			}
+		include('vues/v_modifDepense.php');
 		break;
 	}
 	case 'deleteDepense': {
