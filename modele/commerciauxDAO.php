@@ -76,13 +76,13 @@ class commerciauxDAO{
 
         public function update($commercial,$idC){
         
-            $nom= $commercial->getNom();
-            $prenom= $commercial->getPrenom();
-            $tel= $commercial->getTel();
-            $email= $commercial->getEmail();
-            $adresse=$commercial->getAdresse();
-            $ville=$commercial->getVille();
-            $cp=$commercial->getCp();
+            $nom = $commercial->getNom();
+            $prenom = $commercial->getPrenom();
+            $tel = $commercial->getTel();
+            $email = $commercial->getEmail();
+            $adresse =$commercial->getAdresse();
+            $ville = $commercial->getVille();
+            $cp = $commercial->getCp();
 
             $commercial=r::load('commerciaux',$idC);// on recupere le commercial
             $commercial->nom = $nom; // on lui donne les champs
@@ -98,8 +98,23 @@ class commerciauxDAO{
 
         public function delete($commercial){
             $id=$this->getIdCommercial($commercial);
+            $idcommission=r::find("commission", " idcommerciaux = ?", array($id));
+
+            foreach($idcommission as $unid){
+                $pourcentage=r::load('pourcentage',$unid);
+                r::trash($pourcentage);
+                $one_shot=r::load('one_shot',$unid); 
+                r::trash($one_shot);
+                $commission=r::load('commission',$unid);
+                r::trash($commission);
+            }
             $commercial=r::load('commerciaux',$id);
             r::trash($commercial);
             
+
+            
+
+        
+
         }
 }

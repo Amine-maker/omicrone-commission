@@ -14,10 +14,10 @@
                 <input type="tel" min=0 name="tel3" value="<?php if (isset($_POST['tel3'])){echo $_POST['tel3'];} ?>" required="required" placeholder="Téléphone"><br>
                 <input type="tel" min=0 name="bureau" value="<?php if (isset($_POST['bureau'])){echo $_POST['bureau'];} ?>" placeholder="Bureau"><br>
                 <input type="tel" min=0 name="fax" value="<?php if (isset($_POST['fax'])){echo $_POST['fax'];} ?>" placeholder="Fax"><br>
-
+                
+                
                 <input type="submit" name="addclient" value="Ajouter">
             </fieldset>
-            lol
         </form>
     </div> 
      
