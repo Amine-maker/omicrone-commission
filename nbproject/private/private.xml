@@ -11,6 +11,8 @@
             <file>file:/C:/wamp64/www/omicrone-commun/modele/fct.inc.php</file>
             <file>file:/C:/wamp64/www/omicrone-commun/modele/classFacture.php</file>
             <file>file:/C:/wamp64/www/omicrone-commun/modele/classContrat.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_contrat.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_modifcontrat.php</file>
         </group>
     </open-files>
 </project-private>
