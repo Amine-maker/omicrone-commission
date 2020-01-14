@@ -8,8 +8,9 @@ function tableauContrat($contenu){
         ."<td>Salaire</td>"
         ."<td>Tarif</td>"
         ."<td>Raison Social</td>"
+        ."<td>Consultant</td>"
         ."<td>Facture</td>"
-        ."<td></td>"
+        ."<td>Action</td>"
         ."</TR>";
 $noligne=0;
 foreach ($contenu as $ligne){
@@ -22,21 +23,21 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
 {
     if($i==0){
         $idContrat = $tabcontrat[$i];
-        //print_r($idContrat);
+       // print_r($idContrat);
     }
    
-   
-   if($i<7){
+   if($i<8){
    $ligne_html .="<td class='filter_td'>$tabcontrat[$i]</td>";
    }
-   
-   if($i==6){
+    if($i==7){
        $ligne_html .="<td><a href='index.php?uc=facture&action=afficherfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
    }
-   if($i==6){
+   if($i==7){
         $ligne_html .= "<TD ><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
                  . "<i class='fas fa-times'></i></a></TD>";
    }
+   
+  
 }
 $id=$ligne['id'];
 if($noligne%2==0){

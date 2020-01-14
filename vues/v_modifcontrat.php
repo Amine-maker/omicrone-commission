@@ -13,8 +13,17 @@
                  
                  <option value='<?php echo $idclient?>'><?php echo $raisonsocial?></option>
                     <?php  }?>
-        </select>
-        <br><br>               
+             </select>
+              Consultant : <select class="select" name="ModiflesConsultants">
+                <option selected value='<?php echo $idduconsultant?>'><?php echo $lenom.' '.$leprenom;?></option>
+                            <?php foreach($lesConsultants as $unConsultant){
+                                $idconsultant = $unConsultant['id'];
+                                $nom = $unConsultant['nom'];
+                                $prenom = $unConsultant['prenom']; ?>
+                            <option value="<?php echo $idconsultant?>"><?php echo $nom.' '.$prenom?></option>
+                         <?php } ?>
+
+                        </select>               
                 <?php
                 if(isset($_POST['validmodifcontrat'])){
                     if(empty($_POST['datedebut'])){   

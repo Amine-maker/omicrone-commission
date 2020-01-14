@@ -93,7 +93,7 @@ class consultantDao {
         $tel= $consultant->getTel();
         $email= $consultant->getEmail();
 
-        $id=r::find("consultant", "nom = ? and prenom = ? and adr = ? and ville = ? and cp = ? and tel = ? and email = ? ",
+        $id=r::find('consultant', 'nom = ? and prenom = ? and adr = ? and ville = ? and cp = ? and tel = ? and email = ? ',
         array($nom,$prenom,$adr,$ville,$cp,$tel,$email));
 
         foreach($id as $unid){
@@ -104,7 +104,7 @@ class consultantDao {
         public function getConsultantfromId($idC){
             $req = R::getAll('select nom, prenom, adr, ville, cp, tel, email from consultant where consultant.id='.$idC.'');
             foreach($req as $laligne){
-            $consultant=new consultant($laligne["nom"],$laligne["prenom"],$laligne["adr"],$laligne["ville"],$laligne["cp"],$laligne["tel"],$laligne["email"]);
+            $consultant=new consultant($laligne['nom'],$laligne['prenom'],$laligne['adr'],$laligne['ville'],$laligne['cp'],$laligne['tel'],$laligne['email']);
             return($consultant);
             }
         }
@@ -137,5 +137,13 @@ class consultantDao {
             r::trash($consultant);
             
         }
-}
+        
+//        public function selectconsultant(){
+//            $consultant = R::getAll('select id, nom, prenom from consultant');
+//            foreach($consultant as $cons){
+//                $obj = new consultant ()
+//            }
+//            
+//        }
+}   
 ?>
