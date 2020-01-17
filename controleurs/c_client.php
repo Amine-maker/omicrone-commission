@@ -5,6 +5,10 @@ if(!isset($_REQUEST['action'])){
 $action = $_REQUEST['action'];
 switch($action){
 	case 'afficherclient':{ 
+//            echo $contactDao->getidcontactfromidclient(21);
+//            print_r($objcontact = $contactDao->getobjetcontact($contactDao->getidcontactfromidclient(21)));
+//            $contactDao->suppcontact($objcontact);
+            //$lesClients = $clientDao->collectionclient();
             include("vues/v_client.php");
             break;
 	}
