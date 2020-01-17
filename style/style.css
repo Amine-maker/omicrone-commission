@@ -147,7 +147,6 @@ body{
 .form-style-5 input[type="search"],
 .form-style-5 input[type="time"],
 .form-style-5 input[type="url"],
-.form-style-5 input[type="month"],
 .form-style-5 textarea,
 .form-style-5 select {
 	font-family: sans-serif;
@@ -177,7 +176,6 @@ body{
 .form-style-5 input[type="search"]:focus,
 .form-style-5 input[type="time"]:focus,
 .form-style-5 input[type="url"]:focus,
-.form-style-5 input[type="month"]:focus,
 .form-style-5 textarea:focus,
 .form-style-5 select:focus{
 	background: #d2d9dd;
@@ -595,6 +593,3 @@ span.commentaire{
   button#button:hover{
 	  background-color: black;
   }
-.cra{
-	background-color: white;
-}
