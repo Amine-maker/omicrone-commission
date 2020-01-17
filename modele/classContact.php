@@ -59,15 +59,15 @@
             return($unidcontact->id);}     
     }
        
-    public function getdernieridcontact(){ //recupere l'id du contact le plus grand
-        $req="SELECT id FROM contact WHERE id = (SELECT MAX(id) FROM contact)";
-        //print_r($req);
-        $resultat = $this->pdo->query($req);
-        $ligne = $resultat->fetch();
-        $donnees = $ligne['id'];
-        //return intval($donnees);
-        return $donnees;
-    }
+//    public function getdernieridcontact(){ //recupere l'id du contact le plus grand
+//        $req="SELECT id FROM contact WHERE id = (SELECT MAX(id) FROM contact)";
+//        //print_r($req);
+//        $resultat = $this->pdo->query($req);
+//        $ligne = $resultat->fetch();
+//        $donnees = $ligne['id'];
+//        //return intval($donnees);
+//        return $donnees;
+//    }
     
     public function getobjetcontact($idcontact){ //retourne un objet contact en fonction de l'id
        $contact = r::load('contact',$idcontact);
