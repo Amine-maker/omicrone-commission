@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+<<<<<<< HEAD
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_ajContrat.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/controleurs/c_contrat.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_facture.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/classConsultant.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/controleurs/c_facture.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/fct.inc.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/classFacture.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/classContrat.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_contrat.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_modifcontrat.php</file>
+=======
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/classClient.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/classContact.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_client.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/controleurs/c_client.php</file>
+>>>>>>> 0a4d4b55c49db328b3a91ebd4d340caa219aefa0
+        </group>
+    </open-files>
+</project-private>
