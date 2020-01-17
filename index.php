@@ -6,6 +6,8 @@ require_once ("modele/include.php");
 $contrat = new daoContrat();
 $clientDao = new DaoClient();
 $contactDao = new DaoContact();
+$factureDao = new FactureDao();
+$payerDao = new PayerDao();
 R::setup('pgsql:host=localhost;dbname=comm','postgres','test');
 R::freeze(true);
 session_start();
@@ -49,5 +51,6 @@ switch ($uc) {
         break;
     }
 }
+include("vues/v_piedpage.php");
 ?>
 

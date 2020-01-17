@@ -83,7 +83,9 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
          $ligne_html .="<td class='filter_td'>$tabclient[$i]</td>";
         //print_r($idclient);
     }
-   
+   elseif ($i==1){
+        $ligne_html .="<td class='filter_td'><span class='filter_span'>$tabclient[$i]</span></td>";
+   }
    elseif($i<12){
    $ligne_html .="<td>$tabclient[$i]</td>";
    }

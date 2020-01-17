@@ -6,7 +6,7 @@
   <a href="index.php?uc=client&action=afficherclient" class="sidebarA">Clients</a>
   <a href="index.php?uc=depense&action=afficherDepense" class="sidebarA">D&eacute;penses</a> 
   <a href="index.php?uc=paiement&action=afficherpaiement" class="sidebarA">Paiement</a> 
-  <a href="index.php?uc=facture&action=afficherfacture" class="sidebarA">Facture</a> 
+<!--  <a href="index.php?uc=facture&action=afficherfacture" class="sidebarA">Facture</a> -->
   <a href="index.php?uc=consultant&action=afficherConsultant" class="sidebarA">Les consultants</a> 
 </div>
 
