@@ -20,8 +20,6 @@ function modalEvent(button) {
 }
 
 
-
-
 function afficher(){
     var montant = document.getElementById('montant');
       if (montant.checked)
