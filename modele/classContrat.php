@@ -61,7 +61,7 @@ class daoContrat{
     
     public function getlistecontrat(){ //liste de contrat
         $req="select contrat.id, typecontrat, datedebut, datefin, salaire, tarif, raisonsocial, nom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id order by id ASC";
-        //print_r($req);
+        print_r($req);
         $rs= $this->pdo->query($req);
         $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
         return $ligne;
@@ -72,6 +72,7 @@ class daoContrat{
         $lescontrats = R::find('contrat');
         foreach ($lescontrats as $uncontrat) {
              $objcontrat = new contrat($uncontrat->id, $uncontrat->idclient, $uncontrat->idconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
+       
         $collectionC[] = $objcontrat;
         }
     return $collectionC;
@@ -81,15 +82,12 @@ class daoContrat{
         $uncontrat = R::load('contrat', $idcontrat);
         $idclient = $uncontrat->idclient;
         $client = R::load('client', $idclient);
-        $idcontact = $client->idcontact;
-        $contact = r::load('contact', $idcontact);
-        $uncontact = new contact ($contact->email1, $contact->email2, $contact->email3, $contact->bureau, $contact->fax, $contact->tel3);
-        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
+        $unclient =  new client($client->raisonsocial, $client->idcontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
         $idconsultant = $uncontrat->idconsultant;
         $consultant = R::load('consultant', $idconsultant);
         $unconsultant = new consultant ($consultant->nom ,$consultant->prenom ,$consultant->adr ,$consultant->ville, $consultant->cp, $consultant->tel, $consultant->email);
         $contrat = new contrat($uncontrat->id, $unclient, $unconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
-        //var_dump($contrat);
+        var_dump($contrat);
         return $contrat;
     }
     

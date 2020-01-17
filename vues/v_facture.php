@@ -56,7 +56,7 @@
         </thead>
         <tbody>
         <tr>
-            <!-- <td><?php// echo $UnContrat->getdatedebut(). ' au ' . $UnContrat->getdatefin(); ?></td> -->
+            <!-- <td><?php // echo $UnContrat->getdatedebut(). ' au ' . $UnContrat->getdatefin(); ?></td> -->
             <td>Dévelopement .... </td>
             <td></td>
             <td><?php if($UnContrat->getsalaire() == 0){

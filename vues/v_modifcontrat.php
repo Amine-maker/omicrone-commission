@@ -87,20 +87,20 @@
                             {
                             document.getElementById('salaire').style.display='block';
                             document.getElementById('tarif').style.display='none';
-//                            document.getElementById('salaire').setAttribute('required','required');
+                            document.getElementById('salaire').setAttribute('required','required');
                             }
 
                         if (soustraitant.checked){
                             document.getElementById('salaire').style.display='none';
                             document.getElementById('tarif').style.display='block';
-//                            document.getElementById('tarif').setAttribute('required','required');
+                            document.getElementById('tarif').setAttribute('required','required');
                             }
 
                         if (enportage.checked) {
                             document.getElementById('salaire').style.display='block';
                             document.getElementById('tarif').style.display='block';
-//                            document.getElementById('salaire').setAttribute('required','required');
-//                            document.getElementById('tarif').setAttribute('required','required');
+                            document.getElementById('salaire').setAttribute('required','required');
+                            document.getElementById('tarif').setAttribute('required','required');
                             }
 
                     }
