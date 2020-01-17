@@ -99,14 +99,6 @@ class DeepCopy
         ];
     }
 
-    public function prependFilter(Filter $filter, Matcher $matcher)
-    {
-        array_unshift($this->filters, [
-            'matcher' => $matcher,
-            'filter'  => $filter,
-        ]);
-    }
-
     public function addTypeFilter(TypeFilter $filter, TypeMatcher $matcher)
     {
         $this->typeFilters[] = [
@@ -237,12 +229,6 @@ class DeepCopy
         }
 
         $property->setAccessible(true);
-
-        // Ignore uninitialized properties (for PHP >7.4)
-        if (method_exists($property, 'isInitialized') && !$property->isInitialized($object)) {
-            return;
-        }
-
         $propertyValue = $property->getValue($object);
 
         // Copy the property
