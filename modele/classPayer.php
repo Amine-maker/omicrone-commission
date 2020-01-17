@@ -1,24 +1,24 @@
 <?php
 
 class payer {
-    private $_facture;
-    private $_contrat;
-    private $_client;
+    private $_idfinance;
+    private $_idcontrat;
+    private $_idclient;
     
-   public function __construct($facture, $contrat,$client){
-       $this->_facture = $facture;
-       $this->_contrat = $contrat;
-       $this->_client = $client;
+   public function __construct($unIdF, $unIdClient, $unIdContrat){
+       $this->_idfinance = $unIdF;
+       $this->_idclient = $unIdClient;  
+       $this->_idcontrat = $unIdContrat;
    }
    
-   public function getclefacture(){
-       return $this->_facture;
+   public function getidfinance(){
+       return $this->_idfinance;
    }
-   public function getclecontrat(){
-       return $this->_contrat;
+   public function getidclient(){
+       return $this->_idclient;
    }
-   public function getcleclient(){
-       return $this->_client;
+   public function getidcontrat(){
+       return $this->_idcontrat;
    }
 }
 
@@ -27,10 +27,4 @@ class PayerDao{
         $this->pdo = PdoCommission::getInstance();
     }
    
-    public function addpayer($paiement){
-        $idfacture = $paiement->getclefacture();
-        $idcontrat = $paiement->getclecontrat();
-        $idclient = $paiement->getcleclient();
-        r::exec('insert into payer values ('.$idfacture.','.$idcontrat.','.$idclient.')');        
-    }
 }
