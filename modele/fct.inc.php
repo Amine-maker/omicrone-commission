@@ -54,7 +54,6 @@ return "<TABLE id='filter'>$tableau_html</TABLE>";
 //tableau renvoyant la liste des clients
 function tableauClient($contenu){
     $tableau_html ="<TR class='contrat'>"
-        ."<td >N°</td>"
         ."<td >Raison Social</td>"
         ."<td >Siret</td>"
         ."<td >Adresse</td>"
@@ -80,7 +79,7 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
 {
     if($i==0){
         $idclient = $tabclient[$i];
-         $ligne_html .="<td class='filter_td'>$tabclient[$i]</td>";
+        // $ligne_html .="<td class='filter_td'>$tabclient[$i]</td>";
         //print_r($idclient);
     }
    
@@ -106,4 +105,21 @@ $noligne++;
 }
 return "<TABLE id='filter'>$tableau_html</TABLE>";
 }
+
+$mois=1;
+
+
+function getMoisFr($mois){
+
+    $tab=array("Janvier","Fevrier", "Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Decembre");
+
+        for($l=0;$l<=12;$l++){
+        
+        switch($mois){       
+        case $l :{ $leMois=$tab[$l-1]; break;}
+                                        }
+                            }
+                    
+                return $leMois;
+                        }
 ?>
