@@ -1,6 +1,5 @@
 <div class='container'>
     <div class='form-style-5'>
-         <form method='POST' action='index.php?uc=facture&action=creerfacture&idcontrat=<?php echo $idContrat?>'>
          <header>
     <h1>FACTURE <h2>Omicrone</h2></h1>
   </header>
@@ -56,7 +55,6 @@
         </thead>
         <tbody>
         <tr>
-            <!-- <td><?php// echo $UnContrat->getdatedebut(). ' au ' . $UnContrat->getdatefin(); ?></td> -->
             <td>Dévelopement .... </td>
             <td></td>
             <td><?php if($UnContrat->getsalaire() == 0){
@@ -85,10 +83,10 @@
     <p>Moyen de paiement : chèque, virement bancaire</p>
     <p>Délai de réglement à 30 jours</p>
   </footer>
-         </form>
 
 </div>
 </div>
+
 <style>
 /*** @media all  ***/
 * {

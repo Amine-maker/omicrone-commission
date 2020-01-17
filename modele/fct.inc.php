@@ -108,4 +108,20 @@ $noligne++;
 }
 return "<TABLE id='filter'>$tableau_html</TABLE>";
 }
+
+
+// $mois=1;
+function getMoisFr($mois){
+
+    $tab=array("Janvier","Fevrier", "Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Decembre");
+
+        for($l=0;$l<=12;$l++){
+        
+        switch($mois){       
+        case $l :{ $leMois=$tab[$l-1]; break;}
+                                        }
+                            }
+                    
+                return $leMois;
+}
 ?>

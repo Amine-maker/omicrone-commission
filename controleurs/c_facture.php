@@ -32,25 +32,5 @@ switch($action){
         break;
     }
     
-    case 'creerfacture':{
-         require_once  __DIR__  .  ' /../vendor/autoload.php ' ;
-       
-        $mpdf = new \Mpdf\Mpdf();
-        
-        $pdf = '';
-        $pdf .='<h1 style= "color:red">Facture du client</h1>';
-        $pdf .='<p>Montant '.$montant ; 
-
-        $mpdf->WriteHTML($pdf);
-        $mpdf->Output('lafacture.pdf', 'D');
-        // header('location:index.php?uc=facture&action=pdffacture');
-        break;
-    }
-    
-    
-    
-    // case 'pdffacture':{
-       
-    //     require_once 'vues/v_genererpdf.php';
-    // }
+  
 }

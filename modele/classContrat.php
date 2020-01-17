@@ -9,11 +9,13 @@ class contrat{
    private $_tarif;
    private $_typecontrat;
    private $_consultant;
+   private $_cra;
      
    public function __construct($unIdContrat ,$unClient, $unConsultant, $uneDateDebut, $uneDateFin, $unSalaire, $unTarif, $unTypeContrat){
        $this->_idContrat = $unIdContrat;
        $this->_client = $unClient;
        $this->_consultant = $unConsultant;
+    //    $this->_cra = $uncra;
        $this->_datedebut = $uneDateDebut;
        $this->_datefin = $uneDateFin;
        $this->_salaire = $unSalaire;
@@ -51,6 +53,8 @@ class contrat{
    public function getcleconsultant(){
        return $this->_consultant;
    }
+
+  
 } 
 
 class daoContrat{
@@ -71,7 +75,7 @@ class daoContrat{
         $collectionC= array();
         $lescontrats = R::find('contrat');
         foreach ($lescontrats as $uncontrat) {
-             $objcontrat = new contrat($uncontrat->id, $uncontrat->idclient, $uncontrat->idconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
+             $objcontrat = new contrat($uncontrat->id, $uncontrat->idclient, $uncontrat->idconsultant, $uncontrat->idcra ,$uncontrat->datedebut,$uncontrat->datefin, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
         $collectionC[] = $objcontrat;
         }
     return $collectionC;
@@ -81,10 +85,10 @@ class daoContrat{
         $uncontrat = R::load('contrat', $idcontrat);
         $idclient = $uncontrat->idclient;
         $client = R::load('client', $idclient);
+        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
         $idcontact = $client->idcontact;
         $contact = r::load('contact', $idcontact);
         $uncontact = new contact ($contact->email1, $contact->email2, $contact->email3, $contact->bureau, $contact->fax, $contact->tel3);
-        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
         $idconsultant = $uncontrat->idconsultant;
         $consultant = R::load('consultant', $idconsultant);
         $unconsultant = new consultant ($consultant->nom ,$consultant->prenom ,$consultant->adr ,$consultant->ville, $consultant->cp, $consultant->tel, $consultant->email);

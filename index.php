@@ -50,6 +50,9 @@ switch ($uc) {
         include 'controleurs/c_consultant.php';
         break;
     }
+     case 'cra':{
+        include 'controleurs/c_cra.php';
+    }
 }
 include("vues/v_piedpage.php");
 ?>

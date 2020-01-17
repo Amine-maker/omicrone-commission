@@ -9,8 +9,9 @@ class consultant {
     private $_adr;
     private $_ville;
     private $_cp;
+    private $_cra;
 
-    public function __construct($unNom,$unPrenom,$uneAdresse,$uneVille,$unCp,$unTel, $unEmail)
+    public function __construct($unNom,$unPrenom,$uneAdresse,$uneVille,$unCp,$unTel, $unEmail/*, $uncra*/)
     {
         $this->_nom = $unNom;
         $this->_prenom=$unPrenom;
@@ -19,6 +20,7 @@ class consultant {
         $this->_cp=$unCp;
         $this->_tel=$unTel;
         $this->_email=$unEmail;   
+        //$this->_cra = $uncra;
     }
     
         public function getId(){
@@ -45,6 +47,9 @@ class consultant {
         }
         public function getEmail(){
             return($this->_email);
+        }
+        public function getclecra(){
+            return $this->_cra;
         }
 }
 

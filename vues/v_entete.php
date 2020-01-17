@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="js/recherche.js"></script>
     <script src="https://kit.fontawesome.com/8b3260e825.js" crossorigin="anonymous"></script>
+    
     <script src="modele/comm.js"></script>
     <div id="entete">
            <?php include 'vues/v_sommaire.php' ?>
