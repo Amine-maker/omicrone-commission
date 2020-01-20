@@ -94,7 +94,7 @@ public function __construct()
         $finance->compte = $compte;
         $finance->iban = $iban;
         $finance->bic = $bic;
-        $financee->codebanque = $cb;
+        $finance->codebanque = $cb;
         $finance->clerib = $clerib;
 
         r::store($finance);

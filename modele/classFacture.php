@@ -8,8 +8,8 @@ class facture{
     public function __construct($unedatef, $unmontant /*, $unprixht, $unetva*/) {
         $this->_datef = $unedatef;
         $this->_montant = $unmontant;
-        $this->_prixht = $unprixht;
-        $this->_tva = $unetva;
+        // $this->_prixht = $unprixht;
+        // $this->_tva = $unetva;
     }
     public function getidfinance(){
         return $this->_idfinance;
@@ -29,10 +29,6 @@ class facture{
         $montant = $montant / getTotal(); // diviser par le nb jour travailler 
         return $montant;
     }
-
-    public function tva(){
-      
-    }
     
 }
 
@@ -41,27 +37,29 @@ class FactureDao{
         $this->pdo = PdoCommission::getInstance();
     }
     
-    public function collectionfacture(){
-        $collectionF = array();
-        $lesfactures = R::load('facture');
-        foreach ($lesfactures as $unefacture) {
-            $objfacture = new facture($unefacture->datef, $unefacture->montant, $unefacture->prixht, $unefacture);
-            $collectionF[] = $objfacture;
-        }
-        return $collectionF;
+    public function getobjectfromid($idfacture){
+        $facture = r::load('facture', $idfacture);
+        $unefacture = new facture ($facture->datef, $facture->montant);
+        return ($unefacture);
     }
     
-    public function getidffromchamps($facture){
-        $datef = $facture->getdatef();
+    public function addfacture($facture){
+        $date = $facture-> getdatef();
         $montant = $facture->getmontant();
-        $prixht = $facture->getprixht();
-        $tva = $facture->gettva();
         
-        $idfacture = R::find('facture',"datef = ? and montant = ? and prixht = ? and tva = ?", 
-        array( $datef, $montant, $prixht, $tva));
-
-        foreach($idfacture as $unidf){
-            return($unidf->id);
-        }
+        $lafacture = R::dispense('facture');
+        $lafacture->datef = $date;
+        $lafacture->montant = $montant;
+        R::store($lafacture);
+    }
+    
+    public function dernieridfacture(){
+        $req="SELECT id FROM facture WHERE id = (SELECT MAX(id) FROM facture)";
+        //print_r($req);
+        $resultat = $this->pdo->query($req);
+        $ligne = $resultat->fetch();
+        $donnees = $ligne['id'];
+        return intval($donnees);
+        //return $donnees;
     }
 }

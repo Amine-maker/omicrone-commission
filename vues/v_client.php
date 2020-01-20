@@ -2,13 +2,12 @@
 <h1>Client</h1>
 <label><strong>Recherche</strong></label>
 <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
-<a href="index.php?uc=client&action=ajclient">Ajouter</a><br><br>
+
+<div class="interior">
+    <a class="btn" href="#open-modal">Ajouter</a><br><br>
+  </div>
 <?php print tableauClient($lesclients);?>
 
-<!-- <a href="index.php?uc=client&action=ajclient">Ajouter</a><br><br> -->
-<div class="interior">
-    <a class="btn" href="#open-modal">Ajouter</a>
-  </div>
   <br>
 <div id="open-modal" class="modal-window">
   <div>
@@ -37,7 +36,4 @@ input {margin-bottom: 15px!important;}
 </form>
 </div>
   </div>
-</div>
-
-<?php print tableauClient($clientDao->listeclient());?>
 </div>
