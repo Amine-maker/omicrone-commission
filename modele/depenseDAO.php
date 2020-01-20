@@ -14,10 +14,14 @@ public function add($depense){
     
 }
 
-public function getDepenses()/*retourne une collection de depense*/ 
+public function getDepenses($limit)/*retourne une collection de depense*/ 
         {
+            if($limit!=0){
+                $limit=$limit*5;
+            }
+          
             $lesDep=array();
-            $les = R::find('depense','order by id desc');
+            $les = R::find('depense','order by id DESC limit 5 offset '.$limit);
             foreach ($les as $depe){
                $dep=new depense($depe->montant,$depe->libelle);
                 $lesDep[]=$dep;
@@ -49,6 +53,10 @@ public function getDepenses()/*retourne une collection de depense*/
        return($dep);
 
             }
+    public function nbLigne(){
+          $nb=  r::getAll('select count(*)from depense');
+          return($nb[0]["count"]);
+    }
 
 
     public function update($depense,$idD){

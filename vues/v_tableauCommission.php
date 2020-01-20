@@ -4,6 +4,9 @@
 
   <table id='filter' class="responsive-table"> 
 
+
+<div class="container"><h3 class='intitule'>Les commissions</h3>
+  <table class="responsive-table">
    <div class="interior">
     <a class="btn" href="#open-modal">AJOUTER</a>
   </div>
@@ -123,6 +126,8 @@ $noligne++;
 ?>
 </form>
 </table>
+
+
 </div>
 
 

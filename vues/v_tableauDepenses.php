@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container"><h3 class='intitule'>Les depenses</h3>
 <label><strong>Recherche</strong></label>
 <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
   <table id="filter" class="responsive-table">
@@ -27,7 +27,7 @@
     <tr class="contrat">
       <td class="col col-4">Montant</td>
       <td class="col col-3">Libelle</td>
-      <td class=""></td>
+      <td class="col col-3">Action</td>
     </tr>
 
   
@@ -46,7 +46,7 @@ foreach ($lesDepenses as $uneDep){
 
       <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?></td>
     <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
-    <input class="col col-3" name="demodif<?php echo $noligne ?>" type="number" min="0" placeholder="Montant *" value="<?php echo $montant;?>"></td>
+    <input class="col col-3" style="width: 6em;" name="demodif<?php echo $noligne ?>" type="number" min="0" placeholder="Montant *" value="<?php echo $montant;?>"></td>
 
 
     <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="libelle"><?php echo $libelle ;?></td>
@@ -70,7 +70,18 @@ foreach ($lesDepenses as $uneDep){
 $noligne++;
 }
 ?>
-</table>
+</table><br>
+
+<p style="text-align:center;">Affichage</p>
+<div class="footer"> 
+  <?php  for($i=0;$i<=$depenseDao->nbLigne()/5;$i++){
+
+
+    echo '<span class="foot"><a class="fit" href="index.php?uc=depense&action=afficherDepense&limit='. round($i) .'">'.round($i+1).'</a></span> ';
+
+  } ?>
+</div>
+
 </div>
 
 

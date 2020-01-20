@@ -6,14 +6,14 @@
 <select class="select" name="idConsultant">
 <?php
 
-foreach ($lesConsultants as $unConsultant){
+foreach ($lesContrats as $unContrat){
+        var_dump($unContrat);
     ?>
 
-    <option value=" <?php echo $consultantDAO->getIdConsultantFromobject($unConsultant) ?>"> <?php echo $unConsultant->getNom()." ".$unConsultant->getPrenom() ?></option>
+    <option value=" <?php echo $unContrat->getidContrat(); ?>"> <?php echo $unContrat->getcleconsultant()->getNom()." ".$unContrat->getcleconsultant()->getPrenom() ?></option>
 
                                             <?php
                                             }
-
                                             ?> 
 </select>
 <input type="month" name="annee" min="<?php echo $dateMin; ?>" max="<?php echo $dateMax; ?>" required/>

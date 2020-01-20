@@ -20,6 +20,8 @@ function modalEvent(button) {
 }
 
 
+
+
 function afficher(){
     var montant = document.getElementById('montant');
       if (montant.checked)
@@ -117,6 +119,17 @@ function afficherRib(){
             for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
                  
             return(window.location.href="index.php?uc=commercial&action=modifCommercial&tableau="+arra+"&idCommercial="+idCommercial);
+
+           }
+
+           function submitConsultant(mon,idConsultant){
+            var arra=[];
+            var id=mon;
+            var form = 'de'+id;
+            
+            for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
+                 
+            return(window.location.href="index.php?uc=consultant&action=modifconsultant&tableau="+arra+"&idConsultant="+idConsultant);
 
            }
 

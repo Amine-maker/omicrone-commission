@@ -4,9 +4,9 @@
   <a href="index.php?uc=contrat&action=affichercontrat" class="sidebarA">Contrats</a> 
   <a href="index.php?uc=commission&action=afficherCommission" class="sidebarA">Commissions</a> 
   <a href="index.php?uc=client&action=afficherclient" class="sidebarA">Clients</a>
-  <a href="index.php?uc=depense&action=afficherDepense" class="sidebarA">D&eacute;penses</a> 
-  <a href="index.php?uc=consultant&action=afficherConsultant" class="sidebarA">Les consultants</a> 
-  <a href="index.php?uc=cra&action=choisirCra" class="sidebarA">Cra</a> 
+  <a href="index.php?uc=depense&action=afficherDepense" class="sidebarA">D&eacute;penses</a>  
+  <a href="index.php?uc=consultant&action=afficherConsultant" class="sidebarA">Consultants</a> 
+  <a href="index.php?uc=cra&action=choisirCra" class="sidebarA">Generer un CRA</a> 
 </div>
 
 <div id="main">

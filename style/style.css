@@ -598,7 +598,20 @@ span.commentaire{
 .cra{
 	background-color: white;
 }
-
-#categoryFilter {
-	border-radius: 14px 14px 14px 14px;
+.footer{
+text-align: center;
+padding: 15px;
+}
+span.foot{
+	color: red;
+	font-size: 30px!important;
+}
+a.fit{
+	border: 1px solid black;
+	background-color: inherit;
+	color:black;
+}
+a.fit:hover{
+	color: red;
+	text-decoration: underline;
 }

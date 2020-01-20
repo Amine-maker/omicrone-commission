@@ -10,7 +10,6 @@ class contrat{
    private $_tarif;
    private $_typecontrat;
    private $_consultant;
-   private $_cra;
      
    public function __construct($unIdContrat ,$unClient, $unConsultant, $uneDateDebut, $uneDateFin, $unemission, $unSalaire, $unTarif, $unTypeContrat){
        $this->_idContrat = $unIdContrat;
@@ -58,8 +57,6 @@ class contrat{
    public function getcleconsultant(){
        return $this->_consultant;
    }
-
-  
 } 
 
 class daoContrat{
@@ -77,15 +74,34 @@ class daoContrat{
     }
     
     public function collectioncontrat(){
+        // $collectionC= array();
+        // // $lescontrats = R::find('contrat');
+        // // $lesclients = R::find('client');
+        // // $lesconsultants = R::find('consultant');
+        // $lesContrats::getAll();
+        // foreach ($lescontrats as $uncontrat) {
+        //    // foreach ($lesclients as $unclient){
+
+        //         $objclient = new client ($unclient->raisonsocial, $unclient->idcontact, $unclient->siret, $unclient->adr, $unclient->ville, $unclient->codepostale);
+            
+        //     //foreach ($lesconsultants as $unconsultant){
+        //         $objconsultant = new consultant ($unconsultant->nom,$unconsultant->prenom,$unconsultant->adr,$unconsultant->ville,$unconsultant->cp,$unconsultant->tel,$unconsultant->email);
+            
+        //         $objcontrat = new contrat($uncontrat->id, $objclient, $objconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->mission,$uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
+        //         $collectionC[] = $objcontrat;
+        // }}}
         $collectionC= array();
-        $lescontrats = R::find('contrat');
-        foreach ($lescontrats as $uncontrat) {
-            foreach ($esclients as $unclient){
-                $objclient = new client ($unclient->raisonsocial, $unclient->idcontact, $unclient->siret, $unclient->adr, $unclient->ville, $unclient->codepostale);
-            $objcontrat = new contrat($uncontrat->id, $objclient, $uncontrat->idconsultant, $uncontrat->datedebut,$uncontrat->datefin,$uncontrat->mission, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
-        $collectionC[] = $objcontrat;
-        }}
+        $lesContrats= r::getAll('select consultant.id as idconsultant, nom, prenom, consultant.adr as adrcons, consultant.ville as villecons, cp, tel, email, contrat.id as idcontrat, datedebut, datefin, salaire, tarif, typecontrat, mission, client.id as idclient, idcontact, raisonsocial, siret, client.adr as clientadr, client.ville as clientville, codepostale from consultant join contrat on consultant.id=contrat.idconsultant join client on client.id=contrat.idclient');
+        //var_dump($lesContrats);
+        for ($i=0; $i<=count($lesContrats)-1; $i++) {
+                $objclient = new client ($lesContrats[$i]['raisonsocial'],$lesContrats[$i]['idcontact'],$lesContrats[$i]['siret'], $lesContrats[$i]['clientadr'], $lesContrats[$i]['clientville'], $lesContrats[$i]['codepostale']);
+                $objconsultant = new consultant ($lesContrats[$i]['nom'], $lesContrats[$i]['prenom'], $lesContrats[$i]['adrcons'], $lesContrats[$i]['villecons'], $lesContrats[$i]['cp'], $lesContrats[$i]['tel'], $lesContrats[$i]['email']);
+            
+                $objcontrat = new contrat($lesContrats[$i]['idcontrat'], $objclient, $objconsultant, $lesContrats[$i]['datedebut'],$lesContrats[$i]['datefin'], $lesContrats[$i]['mission'],$lesContrats[$i]['salaire'], $lesContrats[$i]['tarif'], $lesContrats[$i]['typecontrat']);
+                $collectionC[] = $objcontrat;
+        }
     return $collectionC;
+    //var_dump($collectionC);
     }
     
     public function getobjcontrat($idcontrat){ //retourne un objet contrat en fonction de son id 
@@ -170,8 +186,25 @@ class daoContrat{
         $this->pdo->exec($req);
     }
     
-    public function getidcontratfromchamps(){
-        
+    public function getIdContratFromObject($contrat){ //récupère l'id du contrat en fonction de l'objet
+            $consultantDao = new consultantDao();
+            $clientDao = new DaoClient();
+
+            $idclient = $clientDao-> getidclientfromchamps($contrat->getcleclient());
+            $datedebut= $contrat->getdatedebut();
+            $datefin= $contrat->getdatefin();
+            $salaire= $contrat->getsalaire();
+            $tarif=$contrat->gettarif();
+            $typecontrat= $contrat->gettypecontrat();
+            $idconsultant = $consultantDao->getIdConsultantFromobject($contrat->getcleconsultant());
+            $mission = $contrat->getmission();
+                
+            $id=r::find("contrat", "idclient = ? and datedebut = ? and datefin = ? and salaire = ? and tarif = ? and typecontrat = ? and idconsultant = ? and mission = ?",
+            array($idclient, $datedebut, $datefin, $salaire, $tarif, $typecontrat, $idconsultant, $mission));
+    
+            foreach($id as $unid){
+                return($unid->id);
+            }
     }
     
 }

@@ -1,1 +1,0 @@
-<p>Créer la facture au format PDF</p>

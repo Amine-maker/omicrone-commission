@@ -9,9 +9,8 @@ class consultant {
     private $_adr;
     private $_ville;
     private $_cp;
-    private $_cra;
 
-    public function __construct($unNom,$unPrenom,$uneAdresse,$uneVille,$unCp,$unTel, $unEmail/*, $uncra*/)
+    public function __construct($unNom,$unPrenom,$uneAdresse,$uneVille,$unCp,$unTel, $unEmail)
     {
         $this->_nom = $unNom;
         $this->_prenom=$unPrenom;
@@ -20,7 +19,6 @@ class consultant {
         $this->_cp=$unCp;
         $this->_tel=$unTel;
         $this->_email=$unEmail;   
-        //$this->_cra = $uncra;
     }
     
         public function getId(){
@@ -141,12 +139,5 @@ class consultantDao {
             
         }
         
-//        public function selectconsultant(){
-//            $consultant = R::getAll('select id, nom, prenom from consultant');
-//            foreach($consultant as $cons){
-//                $obj = new consultant ()
-//            }
-//            
-//        }
 }   
 ?>

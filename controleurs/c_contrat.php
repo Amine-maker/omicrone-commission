@@ -60,7 +60,7 @@ switch($action){
                 $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire,  $tarif, $typecontrat);
             }
             $ajouter = $contrat->insertcontrat($objcontrat);
-            header('location:index.php?uc=contrat&action=affichercontrat');
+             header('location:index.php?uc=contrat&action=affichercontrat');
             break;
         }
         

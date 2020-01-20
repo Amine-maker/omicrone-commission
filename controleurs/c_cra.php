@@ -6,13 +6,13 @@ if (!isset($_REQUEST['action'])){
 }
 $action = $_REQUEST['action'];
 $craDAO=new craDAO();
-$consultantDAO=new consultantDao;
 switch($action){
 
 	case 'choisirCra':{
 		$dateMin = date('Y-m', strtotime('-5 month'));
 		$dateMax = date('Y-m', strtotime('+1 month'));
-		$lesConsultants=$consultantDAO->getCollectionConsultant();
+		$lesContrats=$contrat->collectioncontrat();
+		//print_r($lesContrats);
 		include ("vues/v_choixCra.php");
 
 		break;
@@ -54,7 +54,7 @@ switch($action){
 
 
 		
-		$cra=new cra($TJF,$TJM,$TJC);
+		$cra=new cra($TJF,$TJM,$TJC,$_POST["astreinte"]);
 		$craDAO->add($cra);
 		
 	

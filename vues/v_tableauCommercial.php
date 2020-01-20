@@ -1,13 +1,13 @@
-<head><script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="js/recherche.js"></script></head>
-<div class="container">
+<!-- <head><script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="js/recherche.js"></script></head> -->
+<div class="container"><h3 class='intitule'>Les commerciaux</h3>
 <label><strong>Recherche</strong></label>
 <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
     
   <table id='filter' class="responsive-table">
 <div class="interior">
     <a class="btn" href="#open-modal">AJOUTER</a>
-</div>
+  </div>
   <br>
 <div id="open-modal" name="demo" class="modal-window">
   <div>
@@ -117,7 +117,7 @@ foreach ($lesFinance as $uneFinance){
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" placeholder="Ville *" value="<?php echo $ville;?>">
     </td>
 
-    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" class="filter_td" data-label="Code Postal"><?php echo $cp ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Code Postal"><?php echo $cp ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input style="width: 100px;" class="col col-4" name="demodif<?php echo $noligne ?>" type="number" pattern="[0-9]{10}" min="0" placeholder="Code >Postale *" value="<?php echo $cp;?>">
     </td>
@@ -141,6 +141,16 @@ $noligne++;
 }
 ?>
 </table>
+
+<p style="text-align:center;">Affichage</p>
+<div class="footer"> 
+  <?php  for($i=0;$i<=$commerciauxDao->nbLigne()/5;$i++){
+    
+    echo '<span class="foot"><a class="fit" href="index.php?uc=commercial&action=afficherTableau&limit='. round($i) .'">'.round($i+1).'</a></span> ';
+
+  } ?>
+</div>
 </div>
 
-</form>
+
+
