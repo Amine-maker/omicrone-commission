@@ -42,7 +42,7 @@
                 }}?>
                 <label>Fin du Contrat : *</label>
                 <input type='date'  value='<?php echo $datefin?>' name='datefin' ><br><br>
-                
+                <input type='text'  value='<?php echo $mission?>' name='mission' >
                 <label>Type de contrat : *</label>
                     <div style='display: flex;'>
                         <?php if($typecontrat == 'Salarie'){?>

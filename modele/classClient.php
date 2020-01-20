@@ -163,8 +163,8 @@ class DaoClient {
             return($unidclient->id);}   
     }
     
-    public function suppclient($client){
-            $idclient = $this->getidclientfromchamps($client);
+    public function suppclient($client){ 
+            $idclient = $this->getidclientfromchamps($client); 
             $client = R::load('client', $idclient);
             R::trash($client);
         }

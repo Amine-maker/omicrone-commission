@@ -27,8 +27,6 @@ switch($action){
         $Unefacture = $factureDao->getobjectfromid($idfacture); //retourne l'objet facture en fonctiond de son id
         //var_dump($Unefacture);
         require_once 'vues/v_facture.php';
-        
-        //header('location:index.php?uc=facture&action=creerfacture');
         break;
     }
     

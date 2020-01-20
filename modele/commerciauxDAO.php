@@ -62,7 +62,7 @@ class commerciauxDAO{
         public function getCommercial($idC){
            
            $res = R::getAll("select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-            from commerciaux left join information_bancaire on commerciaux.id=information_bancaire.idcommerciaux where commerciaux.id=".$idC."");
+            from commerciaux left join infob on commerciaux.id=infob.idcommerciaux where commerciaux.id=".$idC."");
            
             foreach($res as $resu){
             $comm=new commerciaux($resu["nom"],$resu["prenom"],$resu["tel"],

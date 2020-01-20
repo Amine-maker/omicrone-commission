@@ -40,7 +40,7 @@
                         <label>Fin du Contrat : *</label>
 
                         <input type="date"  value="<?php if (isset($_POST['datefin'])){echo $_POST['datefin'];} ?>" name="datefin" >
-
+                        <input type="text" value="<?php if (isset($_POST['mission'])){echo $_POST['mission'];}?>" name="mission" placeholder='Description de la mission'>
                         <label>Type de contrat : *</label>
                             <div style="display: flex;">
                                 <input onclick="afficher();" type="radio" id="sa" name="typecontrat" value="Salarié" checked>

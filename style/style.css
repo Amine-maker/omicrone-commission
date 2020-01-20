@@ -1,5 +1,5 @@
 body{
-	background-color: #efefef;
+	/* background-color: #efefef; */
 	
 }
 
@@ -597,4 +597,8 @@ span.commentaire{
   }
 .cra{
 	background-color: white;
+}
+
+#categoryFilter {
+	border-radius: 14px 14px 14px 14px;
 }

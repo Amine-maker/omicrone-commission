@@ -55,7 +55,7 @@
         </thead>
         <tbody>
         <tr>
-            <td>Dévelopement .... </td>
+            <td><?php echo  $UnContrat->getmission();?></td>
             <td></td>
             <td><?php if($UnContrat->getsalaire() == 0){
              echo $UnContrat->gettarif();
@@ -279,7 +279,7 @@ a:hover {
 /*** @media screen  ***/
 html,
 body {
-  background: #333231;
+  background: #c4c4c4
 }
 header:before {
   content: '';

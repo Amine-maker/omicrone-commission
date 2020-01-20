@@ -24,8 +24,12 @@ class facture{
         $montant = $contrat->getsalaire() * 2; //salaire multiplié par 2 pour prendre en compte les charges sociales et fiscales
         $montant = $montant * 1.1; //ajouter 10% pour prendre en compte les congés payés
         $montant = $montant + $depenseDao->getDepenses(); //ajouter les charges de fonctionnement mensuelles (frais de location de bureau, communications, documentation, électricité, etc.).
-        $montant = $montant / $cra->nbjtravailler(); // diviser par le nb jour travailler 
+        $montant = $montant / getTotal(); // diviser par le nb jour travailler 
         return $montant;
+    }
+
+    public function tva(){
+      
     }
     
 }

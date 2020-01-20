@@ -5,6 +5,7 @@ if(!isset($_REQUEST['action'])){
 $action = $_REQUEST['action'];
 switch($action){
 	case 'affichercontrat':{ 
+        $lesContrats = $contrat->getlistecontrat();
         $lesClients = $contrat->selectClients();
         $lesConsultants = $contrat->selectConsultants();
         include("vues/v_contrat.php");
@@ -34,6 +35,8 @@ switch($action){
             else {$datedebut = "";}
             if(isset($_POST['datefin'])){$datefin = $_POST['datefin'];}
             else {$datefin="";}
+            if(isset($_POST['mission'])){$mission = $_POST['mission'];}
+            else {$mission="";}
             if (isset($_POST['salaire'])){$salaire= $_POST['salaire'];}
             else {$salaire="";}
             if(isset($_POST['tarif'])){$tarif = $_POST['tarif'];}
@@ -44,7 +47,7 @@ switch($action){
             //verifier si les champs sont vide
             if(empty($datedebut) OR empty($datefin)){
                 $lesClients = $contrat->selectClients();
-                 $lesConsultants = $contrat->selectConsultants();
+                $lesConsultants = $contrat->selectConsultants();
                 include("vues/v_ajContrat.php");
             }
             if(empty($salaire)){$salaire=0;}
@@ -54,7 +57,7 @@ switch($action){
             $dernieridcontrat++;
             print_r($dernieridcontrat);
             for ($i=0;$i<=$dernieridcontrat;$i++){
-                $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $salaire,  $tarif, $typecontrat);
+                $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire,  $tarif, $typecontrat);
             }
             $ajouter = $contrat->insertcontrat($objcontrat);
             header('location:index.php?uc=contrat&action=affichercontrat');
@@ -74,6 +77,7 @@ switch($action){
             $leprenom = $modifContrat['prenom'];
             $datedebut = $modifContrat['datedebut'];
             $datefin = $modifContrat['datefin'];
+            $mission = $modifContrat['mission'];
             $salaire = $modifContrat['salaire'];
             $tarif = $modifContrat['tarif'];
             $laraisonsocial = $modifContrat['raisonsocial'];
@@ -100,6 +104,8 @@ switch($action){
             else {$datedebut = "";}
             if(isset($_POST['datefin'])){$datefin = $_POST['datefin'];}
             else {$datefin="";}
+            if(isset($_POST['mission'])){$mission = $_POST['mission'];}
+            else {$mission="";}
             if (isset($_POST['salaire'])){$salaire= $_POST['salaire'];}
             else {$salaire="";}
             if(isset($_POST['tarif'])){$tarif = $_POST['tarif'];}
@@ -114,7 +120,7 @@ switch($action){
             if(empty($salaire)){$salaire=0;}
             if(empty($tarif)){$tarif=0;}
                
-            $modif = $contrat->setcontrat($idContrat, $idclient, $idconsultant, $datedebut, $datefin, $salaire, $tarif, $typecontrat);
+            $modif = $contrat->setcontrat($idContrat, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire, $tarif, $typecontrat);
              header('location:index.php?uc=contrat&action=affichercontrat');
             break;
             }

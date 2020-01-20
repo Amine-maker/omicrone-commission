@@ -48,9 +48,7 @@ class consultant {
         public function getEmail(){
             return($this->_email);
         }
-        public function getclecra(){
-            return $this->_cra;
-        }
+    
 }
 
 class consultantDao {

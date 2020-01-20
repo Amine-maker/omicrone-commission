@@ -5,17 +5,18 @@ class contrat{
    private $_client;
    private $_datedebut;
    private $_datefin;
+   private $_mission;
    private $_salaire;
    private $_tarif;
    private $_typecontrat;
    private $_consultant;
    private $_cra;
      
-   public function __construct($unIdContrat ,$unClient, $unConsultant, $uneDateDebut, $uneDateFin, $unSalaire, $unTarif, $unTypeContrat){
+   public function __construct($unIdContrat ,$unClient, $unConsultant, $uneDateDebut, $uneDateFin, $unemission, $unSalaire, $unTarif, $unTypeContrat){
        $this->_idContrat = $unIdContrat;
        $this->_client = $unClient;
        $this->_consultant = $unConsultant;
-    //    $this->_cra = $uncra;
+        $this->_mission = $unemission;
        $this->_datedebut = $uneDateDebut;
        $this->_datefin = $uneDateFin;
        $this->_salaire = $unSalaire;
@@ -34,6 +35,10 @@ class contrat{
      
    public function getdatefin(){
        return $this->_datefin;
+   }
+
+   public function getmission(){
+       return $this->_mission;
    }
     
    public function gettypecontrat(){
@@ -64,7 +69,7 @@ class daoContrat{
     }
     
     public function getlistecontrat(){ //liste de contrat
-        $req="select contrat.id, typecontrat, datedebut, datefin, salaire, tarif, raisonsocial, nom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id order by id ASC";
+        $req="select contrat.id, typecontrat, datedebut, datefin,  mission, salaire, tarif, raisonsocial, nom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id order by id ASC";
         //print_r($req);
         $rs= $this->pdo->query($req);
         $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -75,24 +80,26 @@ class daoContrat{
         $collectionC= array();
         $lescontrats = R::find('contrat');
         foreach ($lescontrats as $uncontrat) {
-             $objcontrat = new contrat($uncontrat->id, $uncontrat->idclient, $uncontrat->idconsultant, $uncontrat->idcra ,$uncontrat->datedebut,$uncontrat->datefin, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
+            foreach ($esclients as $unclient){
+                $objclient = new client ($unclient->raisonsocial, $unclient->idcontact, $unclient->siret, $unclient->adr, $unclient->ville, $unclient->codepostale);
+            $objcontrat = new contrat($uncontrat->id, $objclient, $uncontrat->idconsultant, $uncontrat->datedebut,$uncontrat->datefin,$uncontrat->mission, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
         $collectionC[] = $objcontrat;
-        }
+        }}
     return $collectionC;
     }
     
     public function getobjcontrat($idcontrat){ //retourne un objet contrat en fonction de son id 
-        $uncontrat = R::load('contrat', $idcontrat);
+        $uncontrat = R::load('contrat', $idcontrat); 
         $idclient = $uncontrat->idclient;
         $client = R::load('client', $idclient);
-        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
         $idcontact = $client->idcontact;
         $contact = r::load('contact', $idcontact);
         $uncontact = new contact ($contact->email1, $contact->email2, $contact->email3, $contact->bureau, $contact->fax, $contact->tel3);
         $idconsultant = $uncontrat->idconsultant;
+        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
         $consultant = R::load('consultant', $idconsultant);
         $unconsultant = new consultant ($consultant->nom ,$consultant->prenom ,$consultant->adr ,$consultant->ville, $consultant->cp, $consultant->tel, $consultant->email);
-        $contrat = new contrat($uncontrat->id, $unclient, $unconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
+        $contrat = new contrat($uncontrat->id, $unclient, $unconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->mission, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
         //var_dump($contrat);
         return $contrat;
     }
@@ -100,9 +107,9 @@ class daoContrat{
     
     
     public function insertcontrat(&$uncontrat){ //ajouter un contrat
-        $req="INSERT INTO contrat (id, idclient, idconsultant, datedebut, datefin, salaire, tarif, typecontrat) "
+        $req="INSERT INTO contrat (id, idclient, idconsultant, datedebut, datefin, mission, salaire, tarif, typecontrat) "
                 . "VALUES ('".$uncontrat->getidContrat()."','".$uncontrat->getcleclient()."','".$uncontrat->getcleconsultant()."','".$uncontrat->getdatedebut()."',"
-                . "'".$uncontrat->getdatefin()."','".$uncontrat->getsalaire()."','".$uncontrat->gettarif()."','".$uncontrat->gettypecontrat()."')";
+                . "'".$uncontrat->getdatefin()."', '".$uncontrat->getmission()."','".$uncontrat->getsalaire()."','".$uncontrat->gettarif()."','".$uncontrat->gettypecontrat()."')";
         //print_r($req);
         $this->pdo->exec($req);
     }
@@ -134,7 +141,7 @@ class daoContrat{
     
     //renvoie les infos d'un contrat à modifier
     public function getnfocontratModif($idContrat){
-        $req="SELECT contrat.id, idclient, idconsultant, datedebut, datefin, salaire, tarif, typecontrat, raisonsocial, nom, prenom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id where contrat.id='$idContrat';";
+        $req="SELECT contrat.id, idclient, idconsultant, datedebut, datefin, mission, salaire, tarif, typecontrat, raisonsocial, nom, prenom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id where contrat.id='$idContrat';";
         print_r($req);
         $resultat = $this->pdo->query($req);
         $ligne= $resultat->fetchAll(PDO::FETCH_ASSOC);
@@ -142,13 +149,14 @@ class daoContrat{
     }
     
     //maj des infos dans la bdd
-    public function setcontrat($idcontrat, $idclient, $idconsultant, $datedebut, $datefin, $salaire, $tarif, $typecontrat){
+    public function setcontrat($idcontrat, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire, $tarif, $typecontrat){
         $req="update contrat 
                 set 
                 idclient = '$idclient',
                 idconsultant = '$idconsultant',
                 datedebut = '$datedebut',
                 datefin = '$datefin',
+                mission = '$mission',
                 salaire = '$salaire',
                 tarif = '$tarif',
                 typecontrat = '$typecontrat'
