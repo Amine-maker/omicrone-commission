@@ -1,7 +1,7 @@
 
 
 
-<div class="container">
+<div class="container"><h3 class='intitule'>Les commissions</h3>
   <table class="responsive-table">
    <div class="interior">
     <a class="btn" href="#open-modal">AJOUTER</a>
@@ -122,6 +122,8 @@ $noligne++;
 ?>
 </form>
 </table>
+
+
 </div>
 
 

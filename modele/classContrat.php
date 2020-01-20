@@ -61,7 +61,6 @@ class daoContrat{
     
     public function getlistecontrat(){ //liste de contrat
         $req="select contrat.id, typecontrat, datedebut, datefin, salaire, tarif, raisonsocial, nom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id order by id ASC";
-        print_r($req);
         $rs= $this->pdo->query($req);
         $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
         return $ligne;
@@ -156,9 +155,24 @@ class daoContrat{
         $this->pdo->exec($req);
     }
     
-    public function getidcontratfromchamps(){
+    // public function getIdContratFromObject($contrat){
         
-    }
+
+    //         $datedebut= $contrat->getdatedebut();
+    //         $datefin= $contrat->getdatefin();
+    //         $typecontrat= $contrat->gettypecontrat();
+    //         $salaire= $contrat->getsalaire();
+    //         $tarif=$contrat->getAdresse();
+    //         $ville=$contrat->getVille();
+    //         $cp=$contrat->getCp();
+    
+    //         $id=r::find("commerciaux", "nom = ? and prenom = ? and tel = ? and email = ? and adresse = ? and ville = ? and cp = ?",
+    //         array($nom,$prenom,$tel,$email,$adresse,$ville,$cp));
+    
+    //         foreach($id as $unid){
+    //             return($unid->id);
+    //         }
+    // }
     
 }
 ?>

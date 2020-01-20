@@ -138,12 +138,5 @@ class consultantDao {
             
         }
         
-//        public function selectconsultant(){
-//            $consultant = R::getAll('select id, nom, prenom from consultant');
-//            foreach($consultant as $cons){
-//                $obj = new consultant ()
-//            }
-//            
-//        }
 }   
 ?>

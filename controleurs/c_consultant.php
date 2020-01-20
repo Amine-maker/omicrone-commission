@@ -30,16 +30,26 @@ switch($action){
         break;
     }
     case 'modifconsultant':{
-        $idConsultant = $_GET['idconsultant'];
-        $consultant = $consultantDao->getConsultantfromId($idConsultant);
-        include 'vues/v_modifconsultant.php';
-        break;
-    }
-    case 'validmodif':{
-        $idconsultant = $_GET['idconsultant'];
-        $modifobjet = new consultant ($_POST['nom'], $_POST['prenom'], $_POST['adr'], $_POST['ville'], $_POST['cp'], $_POST['tel'], $_POST['email']);
-        $consultantDao->update($modifobjet, $idconsultant);
-        header('location:index.php?uc=consultant&action=afficherConsultant');
+       // $idConsultant = $_GET['idconsultant'];
+       // $consultant = $consultantDao->getConsultantfromId($idConsultant);
+
+       $lesconsultants=$consultantDao->getCollectionConsultant();
+		$_comm=explode(",",$_REQUEST["tableau"]);
+		$nom=$_comm[0];
+		$prenom=$_comm[1];
+		$adresse=$_comm[2];
+		$ville=$_comm[3];
+		$cp=$_comm[4];
+		$tel=$_comm[5];
+        $email=$_comm[6];
+        var_dump($_REQUEST["tableau"]);
+
+			$idconsultant=$_REQUEST["idConsultant"];
+			$comm=$consultantDao->getConsultantfromId($idconsultant);
+
+				$consultant = new consultant($nom,$prenom,$adresse,$ville,$cp ,$tel,$email);
+				$consultantDao->update($consultant,$idconsultant);
+                header('location:index.php?uc=consultant&action=afficherConsultant');
         break;
     }
     case 'suppconsultant':{

@@ -28,9 +28,10 @@ class commerciauxDAO{
     }
     public function getCommerciaux()/*retourne une collection de commercial*/ 
         {
-            
+          
+              $limit=0;
             $lesComm=array();
-            $les = R::find('commerciaux','order by id desc');
+            $les = R::find('commerciaux','limit 5 offset 5');
             foreach ($les as $depe){
                 $comm=new commerciaux($depe->nom,$depe->prenom,$depe->tel,
                 $depe->email,$depe->adresse,$depe->ville,$depe->cp);
@@ -95,6 +96,10 @@ class commerciauxDAO{
             R::store($commercial); // on le sauvegarde en BDD
 
             }
+            public function nbLigne(){
+                $nb=  r::getAll('select count(*)from commerciaux');
+                return($nb[0]["count"]);
+          }
 
         public function delete($commercial){
             $id=$this->getIdCommercial($commercial);

@@ -81,6 +81,7 @@ for($i=1;$i<=$number;$i++){
 ?>
    </tr>
 
+    
 
 
 <tr>
@@ -102,6 +103,12 @@ for($i=1;$i<=$number;$i++){
 ?>
    </tr>
 
+   <tr><td></td></tr>
+   <tr>
+    <td style="border:2px solid;">Astreinte</td>
+    <td colspan="<?php echo $number; ?>" style="border:2px solid;"><textarea placeholder="Décrire les astreintes" style="width:100%;" rows="4"  name="astreinte"></textarea></td>
+   </tr>
+
    <?php $idConsultant=$_POST["idConsultant"];  ?>
 
 <input type="hidden" name="number" value="<?php echo $number ?>">
@@ -113,6 +120,9 @@ for($i=1;$i<=$number;$i++){
 
 
 </table>
+
+
+
 <input type="submit" value="Generer le CRA" class="form-style-5" style="width: 100%;background-color:lightgray;"/>
 </form>
     </div>

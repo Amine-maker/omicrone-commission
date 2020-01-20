@@ -48,25 +48,25 @@ else {
 }
 $noligne++;
 }
-return "<TABLE id='filter'>$tableau_html</TABLE>";
+return "<TABLE id='filter' class='responsive-table'>$tableau_html</TABLE>";
 }
 
 //tableau renvoyant la liste des clients
 function tableauClient($contenu){
+
     $tableau_html ="<TR class='contrat'>"
-        ."<td >Raison Social</td>"
-        ."<td >Siret</td>"
-        ."<td >Adresse</td>"
-        ."<td >Ville</td>"
-        ."<td >Code Postale</td>"
-        ."<td >Email 1</td>"
-        ."<td >Email 2</td>"
-        ."<td >Email 3</td>"
-        ."<td >Bureau</td>"
-        ."<td >Fax</td>"
-        ."<td >Tel</td>"
-        ."<td >Modifier</td>"
-        ."<td >Supprimer</td>"
+        ."<td class='col col-5'>Raison Social</td>"
+        ."<td class='col col-5'>Siret</td>"
+        ."<td class='col col-5'>Adresse</td>"
+        ."<td class='col col-5'>Ville</td>"
+        ."<td class='col col-5'>Code Postale</td>"
+        ."<td class='col col-5'>Email 1</td>"
+        ."<td class='col col-5'>Email 2</td>"
+        ."<td class='col col-5'>Email 3</td>"
+        ."<td class='col col-5'>Bureau</td>"
+        ."<td class='col col-5'>Fax</td>"
+        ."<td class='col col-5'>Tel</td>"
+        ."<td colspan='2' class='col col-5'>Action</td>"
         ."</TR>";
 $noligne=0;
 foreach ($contenu as $ligne){
@@ -87,12 +87,11 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
    $ligne_html .="<td>$tabclient[$i]</td>";
    }
    if($i==11){
-        $ligne_html .= "<TD><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></TD>";
-   }
-   if($i==11){ 
-        $ligne_html .= "<TD><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
-                 . "<i class='fas fa-times'></i></a></TD>";
-   }
+        $ligne_html .= "<TD class='col col-5'><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></td>";
+        $ligne_html .= "<td><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
+        . "<i class='fas fa-times'></i></a></td>";
+    }
+
 }
 $id=$ligne['id'];
 if($noligne%2==0){
@@ -107,6 +106,7 @@ return "<TABLE id='filter'>$tableau_html</TABLE>";
 }
 
 $mois=1;
+
 
 
 function getMoisFr($mois){

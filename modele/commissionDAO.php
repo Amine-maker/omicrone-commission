@@ -2,10 +2,6 @@
 
 class commissionDAO {
 
-    public function __construct()
-    {
-        $this->pdo = PdoCommission::getInstance();
-    } 
 
     public function add($uneCommission,$commDAO,$valeur){
         $commercial=$uneCommission->getOCommercial()->getOCommercial();

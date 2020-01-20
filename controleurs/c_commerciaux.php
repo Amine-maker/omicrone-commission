@@ -2,6 +2,12 @@
 if (!isset($_REQUEST['action'])){
 	$_REQUEST['action']="ajouterCommercial";
 }
+if(!isset($_REQUEST["limit"])){
+	$limit=0;
+}
+else{
+	$limit=$_REQUEST["limit"];
+}
 $action = $_REQUEST['action'];
 $commerciauxDao=new commerciauxDAO();
 $financeDAO = new financeDAO();
@@ -25,13 +31,13 @@ switch($action){
 
 	case 'afficherTableau':{
 		$lesFinance=$financeDAO->getFinances();
-		$lesCommerciaux=$commerciauxDao->getCommerciaux();
+		$lesCommerciaux=$commerciauxDao->getCommerciaux($limit);
 		include("vues/v_tableauCommercial.php");
 		break;
 	}
 
 	case 'modifCommercial':{
-		$lesCommerciaux=$commerciauxDao->getCommerciaux();
+		$lesCommerciaux=$commerciauxDao->getCommerciaux($limit);
 		$_comm=explode(",",$_REQUEST["tableau"]);
 		$nom=$_comm[0];
 		$prenom=$_comm[1];
@@ -62,7 +68,7 @@ switch($action){
 			if(gettype($idFinance) == 'integer' || $idFinance == '1'){
 				$financeDAO->delete($financeDAO->getFinance($idFinance));
 			}
-		$lesCommerciaux=$commerciauxDao->getCommerciaux();
+		$lesCommerciaux=$commerciauxDao->getCommerciaux($limit);
 
 		foreach($lesCommerciaux as $unCommercial)
 		{

@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container"><h3 class='intitule'>Les commerciaux</h3>
   <table class="responsive-table">
 
 
@@ -140,6 +140,16 @@ $noligne++;
 }
 ?>
 </table>
+
+<p style="text-align:center;">Affichage</p>
+<div class="footer"> 
+  <?php  for($i=0;$i<=$commerciauxDao->nbLigne()/5;$i++){
+    
+    echo '<span class="foot"><a class="fit" href="index.php?uc=commercial&action=afficherTableau&limit='. round($i) .'">'.round($i+1).'</a></span> ';
+
+  } ?>
+</div>
 </div>
 
-</form>
+
+

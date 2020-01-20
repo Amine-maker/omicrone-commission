@@ -122,6 +122,17 @@ function afficherRib(){
 
            }
 
+           function submitConsultant(mon,idConsultant){
+            var arra=[];
+            var id=mon;
+            var form = 'de'+id;
+            
+            for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
+                 
+            return(window.location.href="index.php?uc=consultant&action=modifconsultant&tableau="+arra+"&idConsultant="+idConsultant);
+
+           }
+
 
 
 
