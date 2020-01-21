@@ -3,22 +3,18 @@
 $mois=$_POST["mois"];
 $annee=$_POST["annee"];
 $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
+$mpdf->showImageErrors = true;
 $data='';
 
-$mpdf->Image('logo/omicrone.png', 0, 0, 200, 88, 'png', '', true, false);
-
-
-
 $data.='<div>';
-$data.='<h3 style="float : right;"> Periode : <u> '. getMoisFr($mois).' '.$annee .'</u></h3>';
-$data.='</div>';
-    
-$data.='<div style="float:left;">';
-$data.='<h3> Intervenant : <u>' . $consultant->getNom()." ".$consultant->getPrenom() .'</u></h3>';
+$data.=' <img src="logo/omicrone.jpg" width="250" style="float:right;" />'; // 90 pixels, just like HTML
 $data.='</div>';
 
+
 $data.='<div style="float:left;">';
-$data.='<h3> Client : <u>' . $nomClient .'</u></h3>';
+$data.='<h3 style="margin-top:-100px;"> Periode : <u> '. getMoisFr($mois).' '.$annee .'</u></h3>';
+$data.='<h3 style=""> Intervenant : <u>' . $consultant->getNom()." ".$consultant->getPrenom() .'</u></h3>';
+$data.='<h3 style=""> Client : <u>' . $nomClient .'</u></h3>';
 $data.='</div>';
 $data.='<table style="border-collapse: collapse;">';
    
@@ -36,10 +32,10 @@ for($i=1;$i<=$number;$i++){
     $timestamp = mktime(0, 0, 0, $mois, $i, $annee); // Donne le timestamp correspondant à cette date
  
         if (date('D', $timestamp)=="Sat" || date('D', $timestamp)=="Sun" ){
-            $data.= '<td style="border:2px solid;background-color:#e1ecfd;font-weight: bold;">'.date('D', $timestamp).'</td>';
+            $data.= '<td style="border:2px solid;background-color:#e1ecfd;font-weight: bold;">'.date('D', $timestamp)." ".$i.'</td>';
         }
         else{
-            $data.= '<td style="border:2px solid;font-weight: bold;">'.date('D', $timestamp).'</td>';
+            $data.= '<td style="border:2px solid;font-weight: bold;">'.date('D', $timestamp)."  ".$i.'</td>';
         }
 }
 
@@ -130,7 +126,7 @@ $data.='<br />';
 
 $data.=' <tr>';
 $data.='  <td style="border:2px solid;">Astreinte</td>';
-$data.='   <td colspan='. $number.' style="border:2px solid;"><textarea style="width:100%;height:6%;">'.$_POST["astreinte"] .' il faut encore ajouter le nom du client au cra et le logo omicrone</textarea></td>
+$data.='   <td colspan='. $number.' style="border:2px solid;"><textarea style="width:100%;height:6%;">'.$_POST["astreinte"] .'</textarea></td>
         </tr>';
 
         $data.='<tr><td></td></tr>';

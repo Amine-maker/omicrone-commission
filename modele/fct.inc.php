@@ -106,8 +106,6 @@ $noligne++;
 return "<TABLE id='filter'>$tableau_html</TABLE>";
 }
 
-$mois=1;
-
 
 
 function getMoisFr($mois){

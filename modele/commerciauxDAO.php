@@ -106,6 +106,8 @@ class commerciauxDAO{
             $idcommission=r::find("commission", " idcommerciaux = ?", array($id));
 
             foreach($idcommission as $unid){
+               
+                r::exec('delete from prendre where idcommission='.$unid->id.'');
                 $pourcentage=r::load('pourcentage',$unid);
                 r::trash($pourcentage);
                 $one_shot=r::load('one_shot',$unid); 
@@ -116,10 +118,6 @@ class commerciauxDAO{
             $commercial=r::load('commerciaux',$id);
             r::trash($commercial);
             
-
-            
-
-        
 
         }
 }

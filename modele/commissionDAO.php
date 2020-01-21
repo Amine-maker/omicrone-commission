@@ -3,7 +3,8 @@
 class commissionDAO {
 
 
-    public function add($uneCommission,$commDAO,$valeur){
+    public function add($uneCommission,$valeur){
+        $commDAO=new commerciauxDAO;
         $commercial=$uneCommission->getOCommercial()->getOCommercial();
         $idcommercial=$commDAO->getIdCommercial($commercial);
 
@@ -22,6 +23,9 @@ class commissionDAO {
            else{
                 r::exec("insert into one_shot(id,montant) values (".$idC.",".$valeur["montant"].")");
                 }
+                $idContrat=$valeur["idContrat"];
+                r::exec("insert into prendre (idcontrat,idcommission) values (".$idContrat.",".$idC.")");
+    
     }
     
     public function getCommissions(){
@@ -30,7 +34,7 @@ class commissionDAO {
             $lesComm=array();
             $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from
             commission left join one_shot on commission.id=one_shot.id
-            left join pourcentage on commission.id=pourcentage.id");
+            left join pourcentage on commission.id=pourcentage.id order by id desc");
         
             foreach($lesCommissions as $uneCommission){
                $commission=new commission($dao->getCommercial($uneCommission['idcommerciaux'])->getOCommercial());
@@ -71,9 +75,7 @@ class commissionDAO {
 
    public function update($commission,$idCommission){
       
-        $dao=new commerciauxDAO;
-        $commercial=$commission->getOCommercial(); 
-        $idCommercial=$dao->getIdCommercial($commercial);
+
         if(method_exists($commission ,"getValeur")){
             $valeur=$commission->getValeur();
             $pourcentage=r::load("pourcentage",$idCommission);
@@ -97,5 +99,7 @@ class commissionDAO {
         r::trash($one_shot);
         $commission=r::load('commission',$id);
         r::trash($commission);
+        $prendre = r::find("prendre","idcommission = ?", array($id));
+        r::trash($prendre);
         }
 }

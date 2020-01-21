@@ -45,7 +45,7 @@ switch($action){
             else {$typecontrat="";}
             
             if($datefin <= $datedebut){
-                include("vues/v_ajContrat.php");
+                include("vues/v_contrat.php");
             }
 
             //verifier si les champs sont vide

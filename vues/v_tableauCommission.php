@@ -6,7 +6,7 @@
 
 
 <div class="container"><h3 class='intitule'>Les commissions</h3>
-  <table class="responsive-table">
+  <table class="responsive-table" id="filter">
    <div class="interior">
     <a class="btn" href="#open-modal">AJOUTER</a>
   </div>
@@ -35,6 +35,24 @@
   }
   ?> 
   </select>
+  <h4>Choisir le contrat</h4>
+    <select name="idContrat">
+    
+    <?php
+
+  foreach ($lesContrats as $unContrat)
+  {
+      ?>
+
+      <option value="<?php echo $unContrat->getidContrat() ?>"> <?php echo 'Debut : '. $unContrat->getdatedebut()." - Fin : ".$unContrat->getdatefin() ?></option>';
+
+  <?php
+  }
+  ?> 
+  </select>
+
+
+
   <h4>selectionner le type de commission</h4>
 
 <div style="display: flex;">
