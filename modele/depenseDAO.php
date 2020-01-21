@@ -21,7 +21,7 @@ public function getDepenses($limit)/*retourne une collection de depense*/
             }
           
             $lesDep=array();
-            $les = R::find('depense',' limit 5 offset '.$limit.'');
+            $les = R::find('depense','order by id DESC limit 5 offset '.$limit);
             foreach ($les as $depe){
                $dep=new depense($depe->montant,$depe->libelle);
                 $lesDep[]=$dep;

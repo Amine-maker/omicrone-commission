@@ -5,10 +5,7 @@ if(!isset($_REQUEST['action'])){
 $action = $_REQUEST['action'];
 switch($action){
 	case 'afficherclient':{ 
-//            echo $contactDao->getidcontactfromidclient(21);
-//            print_r($objcontact = $contactDao->getobjetcontact($contactDao->getidcontactfromidclient(21)));
-//            $contactDao->suppcontact($objcontact);
-            //$lesClients = $clientDao->collectionclient();
+        $lesclients = $clientDao->listeclient();
             include("vues/v_client.php");
             break;
 	}
@@ -41,6 +38,10 @@ switch($action){
             $objcontact = new contact($email, $email2, $email3, $bureau, $fax, $tel3);
             $objclient = new client($raisonsocial, $objcontact, $siret, $adr, $ville, $cp);
             $clientDao->ajouterclient($objclient,$contactDao);
+            if(isset($_POST["regarder"])=="on"){
+				$finance=new information_bancaire($objclient,NULL,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
+				$financeDAO->addfinance($finance, $clientDao);
+			}
             header('location:index.php?uc=client&action=afficherclient');
             break;
         }

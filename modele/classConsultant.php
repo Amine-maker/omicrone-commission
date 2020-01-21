@@ -46,6 +46,7 @@ class consultant {
         public function getEmail(){
             return($this->_email);
         }
+    
 }
 
 class consultantDao {

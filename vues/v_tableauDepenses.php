@@ -1,8 +1,7 @@
-
-
-
 <div class="container"><h3 class='intitule'>Les depenses</h3>
-  <table class="responsive-table">
+<label><strong>Recherche</strong></label>
+<input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
+  <table id="filter" class="responsive-table">
   <div class="interior">
     <a class="btn" href="#open-modal">Ajouter</a>
   </div>
@@ -45,12 +44,12 @@ foreach ($lesDepenses as $uneDep){
     <tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
     
 
-      <td class="col col-3" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?></td>
+      <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?></td>
     <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
     <input class="col col-3" style="width: 6em;" name="demodif<?php echo $noligne ?>" type="number" min="0" placeholder="Montant *" value="<?php echo $montant;?>"></td>
 
 
-    <td class="col col-3" name="modif<?php echo $noligne ?>" data-label="libelle"><?php echo $libelle ;?></td>
+    <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="libelle"><?php echo $libelle ;?></td>
     <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
     <input class="col col-3" name="demodif<?php echo $noligne ?>" type="text" min="0" placeholder="Libelle *" value="<?php echo $libelle;?>"></td>
 

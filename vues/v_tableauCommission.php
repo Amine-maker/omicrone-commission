@@ -1,4 +1,8 @@
+<div class="container">
+<label><strong>Recherche</strong></label>
+<input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
 
+  <table id='filter' class="responsive-table"> 
 
 
 <div class="container"><h3 class='intitule'>Les commissions</h3>
@@ -89,18 +93,18 @@ for ($i=0; $i<=count($lesCommissions)-3; $i=$i+4){// je recupere les attribut da
     <tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
       
     
-    <td class="col col-2" name="modif" data-label="nom du Commercial"> <?php echo $nom ;?></td>
+    <td class="col col-2 filter_td" name="modif" data-label="nom du Commercial"> <?php echo $nom ;?></td>
     
-    <td class="col col-2" name="modif"  data-label="prenom du commercial"> <?php echo $prenom ;?></td>
+    <td class="col col-2 filter_td" name="modif"  data-label="prenom du commercial"> <?php echo $prenom ;?></td>
     
     
-    <td class="col col-3" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?></td>
-    <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
+    <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?></td>
+    <td class="col col-3 filter_td" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input style="display: none" class="col col-2" name="demodif<?php echo $noligne ?>" type="number" pattern="[0-9]{10}" min="0" max="100" placeholder="Montant *" value="<?php echo substr($montant,0,-4);?>" <?php if($montant=="<i>Null</i>"){echo 'readonly';} ?>>
     </td>
      
     
-    <td class="col col-4" name="modif<?php echo $noligne ?>" data-label="Pourcentage"><?php echo $valeur ;?></td>
+    <td class="col col-4 filter_td" name="modif<?php echo $noligne ?>" data-label="Pourcentage"><?php echo $valeur ;?></td>
     <td class="col col-4" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input style="display: none" class="col col-2" name="demodif<?php echo $noligne ?>" type="number" pattern="[0-9]{10}" value="<?php echo substr($valeur,0,-1) ;?>" min="0" max="100" placeholder="Pourcentage *" <?php if($valeur=="<i>Null</i>"){echo 'readonly';} ?>>
     </td>

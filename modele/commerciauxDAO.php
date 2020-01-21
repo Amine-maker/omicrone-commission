@@ -29,9 +29,9 @@ class commerciauxDAO{
     public function getCommerciaux()/*retourne une collection de commercial*/ 
         {
           
-              $limit=0;
+             // $limit=0;
             $lesComm=array();
-            $les = R::find('commerciaux','limit 5 offset 5');
+        $les = R::find('commerciaux'/*,'limit 5 offset 5'*/);
             foreach ($les as $depe){
                 $comm=new commerciaux($depe->nom,$depe->prenom,$depe->tel,
                 $depe->email,$depe->adresse,$depe->ville,$depe->cp);
@@ -63,7 +63,7 @@ class commerciauxDAO{
         public function getCommercial($idC){
            
            $res = R::getAll("select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-            from commerciaux left join information_bancaire on commerciaux.id=information_bancaire.idcommerciaux where commerciaux.id=".$idC."");
+            from commerciaux left join infob on commerciaux.id=infob.idcommerciaux where commerciaux.id=".$idC."");
            
             foreach($res as $resu){
             $comm=new commerciaux($resu["nom"],$resu["prenom"],$resu["tel"],

@@ -68,7 +68,7 @@ switch($action){
 			if(gettype($idFinance) == 'integer' || $idFinance == '1'){
 				$financeDAO->delete($financeDAO->getFinance($idFinance));
 			}
-		$lesCommerciaux=$commerciauxDao->getCommerciaux($limit);
+		$lesCommerciaux=$commerciauxDao->getCommerciaux();
 
 		foreach($lesCommerciaux as $unCommercial)
 		{

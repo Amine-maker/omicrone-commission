@@ -13,7 +13,34 @@
                 <input type="email" name="email3" value="<?php if (isset($_POST['email3'])){echo $_POST['email3'];} ?>" placeholder="Email (facultatif)  "><br>
                 <input type="tel" min=0 name="tel3" value="<?php if (isset($_POST['tel3'])){echo $_POST['tel3'];} ?>" required="required" placeholder="Téléphone"><br>
                 <input type="tel" min=0 name="bureau" value="<?php if (isset($_POST['bureau'])){echo $_POST['bureau'];} ?>" placeholder="Bureau"><br>
-                <input type="tel" min=0 name="fax" value="<?php if (isset($_POST['fax'])){echo $_POST['fax'];} ?>" placeholder="Fax"><br>               
+                <input type="tel" min=0 name="fax" value="<?php if (isset($_POST['fax'])){echo $_POST['fax'];} ?>" placeholder="Fax"><br>  
+                
+                <script>
+                function afficher(){
+                    if (document.getElementById('voir').checked)
+                        {
+                            document.getElementById('affichage').style.display='block';
+                        }
+                    else {
+                             document.getElementById('affichage').style.display='none';
+                        }
+                }
+                </script>
+                <div class="control-group">
+                    <label class="control control-checkbox">
+                        Ajouter un RIB
+                        <input onclick="afficher()" type="checkbox" id="voir" name="regarder">
+                        <div class="control_indicator"></div>
+                    </label>
+                </div>
+                <div style="display: none" id="affichage" class="cacher">
+                <input type="text" pattern="[0-9]{5}" name="codeAgence" placeholder="Code de l'agence * (ex : 12345)">
+                <input type="number" min="0" name="compte" placeholder="N° compte * (ex : 0000000X000)">
+                <input type="text" pattern="[a-zA-Z0-9]{27}" name="iban" placeholder="IBAN * (27 caractères)">
+                <input type="text" pattern="{8|11}" name="bic" placeholder="BIC * (ex: XXXXXXXXXXX)">
+                <input type="text" pattern="[0-9]{5}" name="codeBanque" placeholder="Code de la banque *">
+                <input type="text" pattern="[0-9]{2}" name="cleRib" placeholder="cle RIB * (ex : 45)">
+                </div>
                 <input type="submit" name="addclient" value="Ajouter">
             </fieldset>
         </form>

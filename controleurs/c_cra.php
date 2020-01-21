@@ -6,13 +6,13 @@ if (!isset($_REQUEST['action'])){
 }
 $action = $_REQUEST['action'];
 $craDAO=new craDAO();
-$contratdao=new daoContrat;
 switch($action){
 
 	case 'choisirCra':{
 		$dateMin = date('Y-m', strtotime('-5 month'));
 		$dateMax = date('Y-m', strtotime('+1 month'));
-		$lesContrats=$contratdao->collectioncontrat();
+		$lesContrats=$contrat->collectioncontrat();
+		//print_r($lesContrats);
 		include ("vues/v_choixCra.php");
 
 		break;
@@ -20,7 +20,7 @@ switch($action){
 
 	case 'afficherCra':{
 
-		$consultant=$consultantDAO->getConsultantfromId($_POST["idConsultant"]);
+		$consultant=$contrat->getobjcontrat($_POST["idContrat"])->getcleconsultant();
 		$annee=substr($_POST["annee"],0,4);
 		$mois=substr($_POST["annee"],5,6);
 		$number = cal_days_in_month(CAL_GREGORIAN, $mois, $annee);
@@ -29,8 +29,11 @@ switch($action){
 	}
 	
 	case 'update': {
+		
 		$idConsultant=$_POST["idConsultant"];
-		$consultant=$consultantDAO->getConsultantfromId($idConsultant);
+		$contrat=$contrat->getobjcontrat($_POST["idContrat"]);
+		$consultant=$consultantDao->getConsultantfromId($idConsultant);
+		$nomClient=$contrat->getcleclient()->getraisonsocial();
 		
 		$TJF=0;
 		$TJM=0;
@@ -52,9 +55,11 @@ switch($action){
 
 		echo "tjf : ".$TJF." tjm : ".$TJM." tjc : ".$TJC;
 
-
+		 $periode = strtolower(getMoisFr($_POST["mois"]).$_POST["annee"]);
+		 echo $periode;
 		
-		$cra=new cra($TJF,$TJM,$TJC,$_POST["astreinte"]);
+		$cra=new cra($TJF,$TJM,$TJC,$_POST["astreinte"],$contrat,$periode);
+		
 		$craDAO->add($cra);
 		
 	

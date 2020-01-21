@@ -99,6 +99,7 @@
         $lecontact->tel3 = $tel;   
         R::store($lecontact); //envoie dans la bdd
     }
+    
     public function suppcontact($contact){
         $idcontact = $this->getIdContactFromChamps($contact);
         $contact = R::load('contact', $idcontact);

@@ -1,10 +1,11 @@
-
+<!-- <head><script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="js/recherche.js"></script></head> -->
 <div class="container"><h3 class='intitule'>Les commerciaux</h3>
-  <table class="responsive-table">
-
-
-
-  <div class="interior">
+<label><strong>Recherche</strong></label>
+<input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
+    
+  <table id='filter' class="responsive-table">
+<div class="interior">
     <a class="btn" href="#open-modal">AJOUTER</a>
   </div>
   <br>
@@ -84,39 +85,39 @@ foreach ($lesFinance as $uneFinance){
 
 <form>
 
-<td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Nom"><?php echo $nom ;?></td>
+<td class="col col-5 filter_td" name="modif<?php echo $noligne ?>"  data-label="Nom"><?php echo $nom ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" pattern="[0-9]{10}" min="0" placeholder="Nom *" value="<?php echo $nom;?>">
     </td>
 
 
-    <td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Prenom"><?php echo $prenom ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>"  data-label="Prenom"><?php echo $prenom ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" pattern="[0-9]{10}" min="0" placeholder="Prenom *" value="<?php echo $prenom;?>">
     </td>
 
 
-    <td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Telephone"><?php echo $tel ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Telephone"><?php echo $tel ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input  class="col col-4" name="demodif<?php echo $noligne ?>" type="text" pattern="[0-9]{10}" min="0" placeholder="Telephone *" value="<?php echo $tel;?>">
     </td>
 
-    <td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Email"><?php echo $email ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Email"><?php echo $email ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="email" pattern="[0-9]{10}" min="0" placeholder="Email *" value="<?php echo $email;?>">
     </td>
 
-    <td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Adresse"><?php echo $adresse ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Adresse"><?php echo $adresse ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" pattern="[0-9]{10}" min="0" placeholder="Adresse *" value="<?php echo $adresse;?>">
     </td>
 
-    <td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Ville"><?php echo $ville ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Ville"><?php echo $ville ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" placeholder="Ville *" value="<?php echo $ville;?>">
     </td>
 
-    <td class="col col-5" name="modif<?php echo $noligne ?>" data-label="Code Postal"><?php echo $cp ;?></td>
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Code Postal"><?php echo $cp ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
       <input style="width: 100px;" class="col col-4" name="demodif<?php echo $noligne ?>" type="number" pattern="[0-9]{10}" min="0" placeholder="Code >Postale *" value="<?php echo $cp;?>">
     </td>

@@ -5,6 +5,8 @@ $annee=$_POST["annee"];
 $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
 $data='';
 
+$mpdf->Image('logo/omicrone.png', 0, 0, 200, 88, 'png', '', true, false);
+
 
 
 $data.='<div>';
@@ -13,6 +15,10 @@ $data.='</div>';
     
 $data.='<div style="float:left;">';
 $data.='<h3> Intervenant : <u>' . $consultant->getNom()." ".$consultant->getPrenom() .'</u></h3>';
+$data.='</div>';
+
+$data.='<div style="float:left;">';
+$data.='<h3> Client : <u>' . $nomClient .'</u></h3>';
 $data.='</div>';
 $data.='<table style="border-collapse: collapse;">';
    
@@ -176,4 +182,4 @@ $data.='   <td colspan='. $number.' style="border:2px solid;"><textarea style="w
   $data.='</div>';
 
 		$mpdf->WriteHTML($data);
-		$mpdf->Output('CRA_'.getMoisFr($mois).'_'.$annee.'.PDF',"D");
+		$mpdf->Output('CRA_'.getMoisFr($mois).'_'.$annee.'.pdf',"D");

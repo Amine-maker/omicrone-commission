@@ -9,7 +9,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
     <script src="https://kit.fontawesome.com/8b3260e825.js" crossorigin="anonymous"></script>
-    <script src="modele/comm.js"></script>
+    
+    <script src="js/comm.js"></script>
     <div id="entete">
            <?php include 'vues/v_sommaire.php' ?>
       </div>

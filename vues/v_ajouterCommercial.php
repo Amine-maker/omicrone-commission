@@ -10,7 +10,7 @@ function afficher(){
     else {
         document.getElementById('affichage').style.display='none';
         }
-                    }
+        }
 </script>
 
       <div class="form-style-5">

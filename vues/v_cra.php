@@ -109,9 +109,13 @@ for($i=1;$i<=$number;$i++){
     <td colspan="<?php echo $number; ?>" style="border:2px solid;"><textarea placeholder="Décrire les astreintes" style="width:100%;" rows="4"  name="astreinte"></textarea></td>
    </tr>
 
-   <?php $idConsultant=$_POST["idConsultant"];  ?>
-
+   
+   <?php $consultant=$contrat->getobjcontrat($_POST["idContrat"])->getcleconsultant();
+    $idConsultant=$consultantDao->getIdConsultantFromobject($consultant);
+    $idContrat=$_POST["idContrat"];
+   ?>
 <input type="hidden" name="number" value="<?php echo $number ?>">
+<input type="hidden" name="idContrat" value="<?php echo $idContrat ?>">
 <input type="hidden" name="idConsultant" value="<?php echo $idConsultant ?>">
 <input type="hidden" name="annee" value="<?php echo $annee ?>">
 <input type="hidden" name="mois" value="<?php echo $mois ?>">
