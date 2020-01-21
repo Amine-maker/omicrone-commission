@@ -63,7 +63,7 @@ class DaoClient {
         $rs = $this->pdo->query($req);
         //print_r($req);
         $lesclients = $rs->fetchall(PDO::FETCH_ASSOC);
-        for($i; $i<=sizeof($lesclients)-1;$i++){
+        for($i=0; $i<=sizeof($lesclients)-1;$i++){
             $objcontact = new contact ($lesclients[$i]['email1'],$lesclients[$i]['email2'],$lesclients[$i]['email3'],$lesclients[$i]['bureau'],$lesclients[$i]['fax'],$lesclients[$i]['tel3']);
             $objclient = new client ($lesclients[$i]['raisonsocial'],$objcontact,$lesclients[$i]['siret'],$lesclients[$i]['adr'],$lesclients[$i]['ville'],$lesclients[$i]['codepostale']);
     
