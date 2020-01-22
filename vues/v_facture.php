@@ -6,7 +6,7 @@
     <section class="flex">
         <dl>
             <dt>Facture # :</dt><dd><?php echo $idfacture ?></dd>
-            <dt>Date de facturation : </dt><dd> <?php echo date('d/m/Y');?></dd>
+            <dt>Date de facturation : </dt><dd> <?php echo $date;?></dd>
         </dl>
     </section>
   <section class="flex">
@@ -40,7 +40,6 @@
     <table>
         <thead>
         <tr> 
-            <!-- <th>Période</th> -->
             <th>Mission</th>
             <th>Jour de travail</th>
             <th>TJM</th>
@@ -69,7 +68,7 @@
           <td><?php echo $Unefacture->MontantAvecTVA(); ?>€</td>
           </tr>
         <tr> 
-            <td colspan="3">− Faire les chèques payable au nom de moi −</td>
+            <td colspan="3">− Faire les chèques payable à l'ordre de ... −</td>
             <td>Total:</td>
             <td><?php echo $Unefacture->MontantAvecTVA(); ?>€</td>
         </tr>
@@ -77,7 +76,7 @@
     </table>
   <footer>
     <p>Moyen de paiement : chèque, virement bancaire</p>
-    <p>Délai de réglement à 30 jours</p>
+    <p>Délai de réglement : 30 jours</p>
   </footer>
 
 </div>

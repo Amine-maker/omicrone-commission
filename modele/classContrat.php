@@ -198,12 +198,12 @@ class daoContrat{
     }
 
     public function timecontrat($idcontrat){ //retourne le nb de mois où le consultant à travailler sur la période du contrat
-        $req = 'select EXTRACT(YEAR FROM datefin) - EXTRACT(YEAR FROM datedebut) as nbannee, EXTRACT(MONTH FROM datefin) - EXTRACT(MONTH FROM datedebut) as nbmois from contrat where id='.$idcontrat.'';
-        //print_r($req);
-        $laperiode = $this->pdo->exec($req);
-        print_r($laperiode);
-        $nbmois = $laperiode['nbmois'] ;
-       for ($i=0; $i<= sizeof($laperiode['nbannee'])-1;$i++){
+        $req = "SELECT EXTRACT(YEAR FROM datefin) - EXTRACT(YEAR FROM datedebut) as nbannee, EXTRACT(MONTH FROM datefin) - EXTRACT(MONTH FROM datedebut) as nbmois from contrat where id='$idcontrat'";
+        print_r($req);
+        $resultat = $this->pdo->query($req);
+        $laperiode = $resultat->fetch();
+        $nbmois = intval($laperiode['nbmois']) ;
+       for ($i=0; $i<=$laperiode['nbannee']-1;$i++){; 
             $nbmois = $nbmois + (12*$i);       
         }
         return $nbmois;

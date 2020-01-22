@@ -16,24 +16,24 @@ switch($action){
         if ($nbmois == 0 ){
             $nbmois = 1;
         }
+
         $tauxjm = $craDAO->getJFfromidcontrat($idContrat);
         //print_r($tauxjm);
-        if($UnContrat->getsalaire() == 0 && $UnContrat->gettarif() <> 0){
+
+        if($UnContrat->getsalaire() == 0){
              $montant = $UnContrat->gettarif() * $tauxjm;
         }
         
-       // else {
+        else {
+             $montant = $UnContrat->getsalaire() * $nbmois;
             if($UnContrat->getsalaire() > 0 && $UnContrat->gettarif() > 0){
             $tarif = $UnContrat->gettarif() * $tauxjm;
             $salaire = $UnContrat->getsalaire() * $nbmois;
             $montant = $tarif + $salaire;
             }
-            else {
-                $montant = $UnContrat->getsalaire() * $nbmois;
-                }
-        //    }
+        }
     
-        $date =  date('d/m/Y');
+        $date = $UnContrat->getdatefin();
         $objfacture = new facture($date,$montant); //créer un objet
         $factureDao->addfacture($objfacture); //ajouter l'objet facture dans la bdd
         $idfacture = $factureDao->dernieridfacture(); //recupère l'id de l'objet créer précédemment
@@ -41,7 +41,7 @@ switch($action){
         $unpaiement = new payer ($idfacture, $idContrat, $idclient); //créer un nouvel objet facture
         $payerDao->addpayer($unpaiement);  //ajoute cette objet dans la bdd
         $Unefacture = $factureDao->getobjectfromid($idfacture); //retourne l'objet facture en fonctiond de son id
-        var_dump($Unefacture);
+        //var_dump($Unefacture);
         require_once 'vues/v_facture.php';
         break;
     }
