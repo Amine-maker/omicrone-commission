@@ -1,7 +1,7 @@
 <?php
 function tableauContrat($contenu){
     $tableau_html ="<TR class='contrat'>"
-        ."<td>N°</td>"
+        // ."<td>N°</td>"
         ."<td>Type de contrat</td>"
         ."<td>Date Début</td>"
         ."<td>Date fin</td>"
@@ -27,7 +27,7 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
        // print_r($idContrat);
     }
    
-   if($i<9){
+   if($i>0 && $i<9){
    $ligne_html .="<td class='filter_td'>$tabcontrat[$i]</td>";
    }
     if($i==8){
@@ -42,10 +42,10 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
 }
 $id=$ligne['id'];
 if($noligne%2==0){
-$tableau_html .="<TR bgcolor=#EEEDED>$ligne_html</TR>";
+$tableau_html .="<TR bgcolor=#e1ecfd>$ligne_html</TR>";
 }
 else {
-  $tableau_html .="<TR  bgcolor=#F6F6F6>$ligne_html</TR>";
+  $tableau_html .="<TR  bgcolor=#ffffff>$ligne_html</TR>";
 }
 $noligne++;
 }
@@ -96,15 +96,17 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
 }
 $id=$ligne['id'];
 if($noligne%2==0){
-$tableau_html .="<TR bgcolor=#EEEDED>$ligne_html</TR>";
+$tableau_html .="<TR bgcolor=#e1ecfd>$ligne_html</TR>";
 }
 else {
-  $tableau_html .="<TR bgcolor=#F6F6F6>$ligne_html</TR>";
+  $tableau_html .="<TR bgcolor=#ffffff>$ligne_html</TR>";
 }
 $noligne++;
 }
-return "<TABLE id='filter'>$tableau_html</TABLE>";
+return "<TABLE id='filter'  class='responsive-table'>$tableau_html</TABLE>";
 }
+
+$mois=1;
 
 
 

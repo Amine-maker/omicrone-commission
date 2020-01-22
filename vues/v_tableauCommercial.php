@@ -80,7 +80,7 @@ foreach ($lesFinance as $uneFinance){
     ?>
 
 
-<tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
+<tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
 
 
 <form>

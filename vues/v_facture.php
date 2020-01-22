@@ -6,7 +6,7 @@
     <section class="flex">
         <dl>
             <dt>Facture # :</dt><dd><?php echo $idfacture ?></dd>
-            <dt>Date de facturation : </dt><dd> <?php echo date('d/m/Y');?></dd>
+            <dt>Date de facturation : </dt><dd> <?php echo $date;?></dd>
         </dl>
     </section>
   <section class="flex">
@@ -34,54 +34,49 @@
       Email : <?php echo $UnContrat->getcleconsultant()->getEmail(); ?>
       </dd>
       <dt>Période totale:</dt>
-      <dd>Du <?php echo $UnContrat->getdatedebut(). ' au ' . $UnContrat->getdatefin(); ?></dd>
+      <dd>Du <?php echo $datedebut = $UnContrat->getdatedebut(). ' au ' . $datefin = $UnContrat->getdatefin(); ?></dd>
     </dl>
   </section>
     <table>
         <thead>
         <tr> 
-            <!-- <th>Période</th> -->
             <th>Mission</th>
+            <th>Jour de travail</th>
             <th>TJM</th>
-            <?php if ($UnContrat->getsalaire() == 0) {
-                echo "<th>Tarif</th>";
-            } 
-            else {
-                echo "<th>Salaire</th>";
-           }?>
-            
+            <th>Salaire</th>            
             <th>Montant</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td><?php echo  $UnContrat->getmission();?></td>
-            <td></td>
-            <td><?php if($UnContrat->getsalaire() == 0){
-             echo $UnContrat->gettarif();
-                }   
-            else {
-                echo  $UnContrat->getsalaire();
-            } ?></td>
-            <td><?php $Unefacture->getmontant(); ?>€</td>
+            <td><?php echo $tauxjm ; ?></td>
+            <td><?php if($UnContrat->gettarif() <> 0 ){ echo $UnContrat->gettarif();} else {echo '-';}?></td>
+            <td><?php if($UnContrat->getsalaire() <> 0){echo  $UnContrat->getsalaire();} else {echo '-';} ?></td>
+            <td><?php echo  $Unefacture->getmontant(); ?>€</td>
         </tr>
         </tbody>
         <tfoot>
           <tr>
-          <td colspan="2"></td>
+          <td colspan="3"></td>
           <td>TVA :</td>
-          <td><?php  ?>%</td>
+          <td>20%</td>
+          </tr>
+          <tr>
+          <td colspan="3"></td>
+          <td>TTC :</td>
+          <td><?php echo $Unefacture->MontantAvecTVA(); ?>€</td>
           </tr>
         <tr> 
-            <td colspan="2">− Faire les chèques payable au nom de moi −</td>
+            <td colspan="3">− Faire les chèques payable à l'ordre de ... −</td>
             <td>Total:</td>
-            <td><?php $Unefacture->getmontant(); ?>€</td>
+            <td><?php echo $Unefacture->MontantAvecTVA(); ?>€</td>
         </tr>
         </tfoot>
     </table>
   <footer>
     <p>Moyen de paiement : chèque, virement bancaire</p>
-    <p>Délai de réglement à 30 jours</p>
+    <p>Délai de réglement : 30 jours</p>
   </footer>
 
 </div>

@@ -75,7 +75,6 @@ class commissionDAO {
 
    public function update($commission,$idCommission){
       
-
         if(method_exists($commission ,"getValeur")){
             $valeur=$commission->getValeur();
             $pourcentage=r::load("pourcentage",$idCommission);

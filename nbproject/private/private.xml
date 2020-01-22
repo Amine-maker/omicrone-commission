@@ -17,6 +17,10 @@
             <file>file:/C:/wamp64/www/omicrone-commun/modele/classContact.php</file>
             <file>file:/C:/wamp64/www/omicrone-commun/vues/v_client.php</file>
             <file>file:/C:/wamp64/www/omicrone-commun/controleurs/c_client.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_facture.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/controleurs/c_facture.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/modele/classFacture.php</file>
+            <file>file:/C:/wamp64/www/omicrone-commun/vues/v_entete.php</file>
         </group>
     </open-files>
 </project-private>

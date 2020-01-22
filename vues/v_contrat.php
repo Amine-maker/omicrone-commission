@@ -5,4 +5,7 @@
    <a href="index.php?uc=contrat&action=ajoutC">Ajouter un contrat</a><br><br>
     <?php print(tableauContrat($lesContrats));?>  
    
+   
+   
+   
    </div>
