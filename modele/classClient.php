@@ -132,7 +132,8 @@ class DaoClient {
        $unclient=new client($client->raisonsocial, $client->idcontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
        return($unclient);
         }
-    
+
+
     public function setclient($client,$idclient,$idcontact_fk){
         //$idclient = $client->getidclient();
         //$idcontact_fk = $contactDao->getIdContactFromChamps($client->getclecontact());

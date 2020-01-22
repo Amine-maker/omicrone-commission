@@ -46,37 +46,36 @@ switch($action){
             break;
         }
         
-        case 'modifclient':{
-            $idclient = $_GET['idclient'];
-            $lesinfosclient = $clientDao->getinfoclient($idclient);
-            var_dump($lesinfosclient);
-            foreach ($lesinfosclient as $uneinfo) {
-                $raisonsocial = $uneinfo['raisonsocial'];
-                $siret = $uneinfo['siret'];
-                $adr = $uneinfo['adr'];
-                $ville = $uneinfo['ville'];
-                $cp = $uneinfo['codepostale'];
-                $email = $uneinfo['email1'];
-                $email2 = $uneinfo['email2'];
-                $email3 = $uneinfo['email3'];
-                $bureau = $uneinfo['bureau'];
-                $fax = $uneinfo['fax'];
-                $tel3 = $uneinfo['tel3'];
-            }
-            include 'vues/v_modifclient.php';
-            break;
-        }
         
-        case 'validmodifclient':{
-            $idclient = $_GET['idclient'];
+        case 'modifclient':{
+            //print_r($_REQUEST);
+            $_client=explode(",",$_REQUEST["tableau"]);
+            $idclient = $_GET['idClient'];
+            var_dump($_client);
+            $raisonsocial=$_client[0];
+            $siret=$_client[1];
+            $adresse=$_client[2];
+            $ville=$_client[3];
+            $cp=$_client[4];
+            $email1=$_client[5];
+            $email2=$_client[6];
+            $email3=$_client[7];
+            $bureau=$_client[8];
+            $fax=$_client[9];
+            $tel=$_client[10];
+            
             $idcontact = $contactDao->getidcontactfromidclient($idclient);
-            if( empty($_POST['email2'])){echo $_POST['email2']='xxx@xxx.xx';}
-             if(empty($_POST['email3'])){echo $_POST['email3']='xxx@xxx.xx';}
-             if(empty($_POST['bureau'])){echo $_POST['bureau']='0000000000';}
-             if(empty($_POST['fax'])){ echo $_POST['fax']='0000000000';}  
-            $objcontact = new contact ($_POST['email'],$_POST['email2'], $_POST['email3'], $_POST['bureau'], $_POST['fax'], $_POST['tel3']);
-            $objclient = new client($_POST['rsl'], $objcontact, $_POST['siret'], $_POST['adr'], $_POST['ville'], $_POST['cp']);
-                          
+            if(empty($siret)){$siret='12345678910123';}
+            if(empty($cp)){$cp='0';}
+            if(empty($tel)){$tel='0';}
+            if(empty($email2)){$email2='xxx@xxx.xx';}
+            if(empty($email3)){$email3='xxx@xxx.xx';}
+            if(empty($bureau)){$bureau='0';}
+            if(empty($fax)){$fax='0';}  
+            $objcontact = new contact ($email1,$email2, $email3, $bureau, $fax, $tel);
+            $objclient = new client ($raisonsocial, $objcontact, $siret, $adresse, $ville, $cp);
+                    
+            
             $contactDao->setcontact($objcontact, $idcontact);
             $clientDao->setclient($objclient, $idclient, $idcontact);
             header('location:index.php?uc=client&action=afficherclient');
@@ -88,7 +87,7 @@ switch($action){
             $idcontact = $contactDao->getidcontactfromidclient($_GET['idclient']);
             $clientDao->suppclient($objclient);
             $objcontact = $contactDao->getobjetcontact($idcontact);
-             $contactDao->suppcontact($objcontact);
+            $contactDao->suppcontact($objcontact);
             header('location:index.php?uc=client&action=afficherclient');
             break;
         }

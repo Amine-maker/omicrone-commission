@@ -31,13 +31,14 @@ switch($action){
 
 	case 'afficherTableau':{
 		$lesFinance=$financeDAO->getFinances();
-		$lesCommerciaux=$commerciauxDao->getCommerciaux($limit);
+		$lesCommerciaux=$commerciauxDao->getCommerciaux();
 		include("vues/v_tableauCommercial.php");
 		break;
 	}
 
 	case 'modifCommercial':{
-		$lesCommerciaux=$commerciauxDao->getCommerciaux($limit);
+		//print_r($_REQUEST);
+		$lesCommerciaux=$commerciauxDao->getCommerciaux();
 		$_comm=explode(",",$_REQUEST["tableau"]);
 		$nom=$_comm[0];
 		$prenom=$_comm[1];
@@ -57,10 +58,9 @@ switch($action){
 				//$finance= new information_bancaire(NULL,$commercial,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
 				$commerciauxDao->update($commercial,$_REQUEST["idCommercial"]);
 				//$financeDAO->update($finance,$idFinance,$_REQUEST["idCommercial"]);
+				
 				header('location:index.php?uc=commercial&action=afficherTableau');
-			
-
-		//include("vues/v_modifCommercial.php");
+		
 		break;
 	}
 	case 'deleteCommercial': {

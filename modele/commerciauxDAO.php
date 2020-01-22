@@ -31,7 +31,7 @@ class commerciauxDAO{
           
              // $limit=0;
             $lesComm=array();
-        $les = R::find('commerciaux'/*,'limit 5 offset 5'*/);
+        $les = R::find('commerciaux'/*,'limit 5 offset 5'*/,"order by id desc");
             foreach ($les as $depe){
                 $comm=new commerciaux($depe->nom,$depe->prenom,$depe->tel,
                 $depe->email,$depe->adresse,$depe->ville,$depe->cp);
