@@ -5,11 +5,9 @@ class facture{
     private $_datef;
     private $_montant;
     
-    public function __construct($unedatef, $unmontant /*, $unprixht, $unetva*/) {
+    public function __construct($unedatef, $unmontant) {
         $this->_datef = $unedatef;
         $this->_montant = $unmontant;
-        // $this->_prixht = $unprixht;
-        // $this->_tva = $unetva;
     }
     public function getidfacture(){
         return $this->_idfacture;
@@ -44,6 +42,26 @@ class FactureDao{
         $lafacture->datef = $date;
         $lafacture->montant = $montant;
         R::store($lafacture);
+    }
+
+    public function factureexists($idContrat){
+       $req =  r::getAll("select EXISTS (select facture.id ,datef , montant from facture join payer on facture.id=payer.idfacture join contrat on contrat.id=payer.idcontrat where  contrat.id=".$idContrat.")");    
+      // print_r($req);
+       return $req[0]["exists"];
+    }
+    public function getobjetfacturefromcontrat($idContrat){
+        $lafacture = r::getAll("select facture.id ,datef , montant from facture join payer on facture.id=payer.idfacture join contrat on contrat.id=payer.idcontrat where  contrat.id=".$idContrat."");
+        for($i=0; $i<=sizeof($lafacture)-1;$i++){
+            $facture = new facture ($lafacture[$i]['datef'], $lafacture[$i]['montant']); 
+        }
+        return $facture;
+    }
+
+    public function getidfacutrefromcontrat($idContrat){
+       $idfacture =  r::getAll("select facture.id as idfacture from facture join payer on facture.id=payer.idfacture join contrat on contrat.id=payer.idcontrat where  contrat.id=".$idContrat."");
+       for($i=0; $i<=sizeof($idfacture)-1;$i++){
+        $IDFACTURE = $idfacture[$i]['idfacture'];}
+        return  $IDFACTURE;
     }
     
     public function dernieridfacture(){

@@ -73,7 +73,7 @@ class consultantDao {
         R::store($leconsultant); // on le sauvegarde en BDD
         
     }
-    public function getCollectionConsultant()/*retourne une collection de consultant*/ 
+    public function getCollectionConsultant()/*retourne une collection de consultants*/ 
         {
             $lesConsultant=array();
             $les = R::find('consultant','order by id ASC');

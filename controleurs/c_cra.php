@@ -5,7 +5,6 @@ if (!isset($_REQUEST['action'])){
 	$_REQUEST['action']=NULL;
 }
 $action = $_REQUEST['action'];
-
 switch($action){
 
 	case 'choisirCra':{

@@ -41,10 +41,6 @@ switch ($uc) {
         include 'controleurs/c_client.php';
         break;
         }
-    case 'paiement':{
-        include 'controleurs/c_paiement.php';
-        break;
-    }
     case 'facture':{
         include 'controleurs/c_facture.php';
         break;

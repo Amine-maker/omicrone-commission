@@ -5,8 +5,8 @@
   </header>
     <section class="flex">
         <dl>
-            <dt>Facture # :</dt><dd><?php echo $idfacture ?></dd>
-            <dt>Date de facturation : </dt><dd> <?php echo $date;?></dd>
+            <dt>Facture # :</dt><dd><?php  if ($factureDao->factureexists($idContrat) == 1 && isset($idexistant)){ echo $idexistant; } else { echo $idfacture;} ?></dd>
+            <dt>Date de facturation : </dt><dd> <?php if ($factureDao->factureexists($idContrat) == 1 && isset($dateX)){ echo  $dateX; } else {  echo date('d/m/Y'); } ?></dd>
         </dl>
     </section>
   <section class="flex">
@@ -50,10 +50,10 @@
         <tbody>
         <tr>
             <td><?php echo  $UnContrat->getmission();?></td>
-            <td><?php echo $tauxjm ; ?></td>
+            <td><?php echo $JF; ?></td>
             <td><?php if($UnContrat->gettarif() <> 0 ){ echo $UnContrat->gettarif();} else {echo '-';}?></td>
             <td><?php if($UnContrat->getsalaire() <> 0){echo  $UnContrat->getsalaire();} else {echo '-';} ?></td>
-            <td><?php echo  $Unefacture->getmontant(); ?>€</td>
+            <td><?php if ($factureDao->factureexists($idContrat) == 1 && isset($montantX)){ echo $montantX; } else { echo $Unefacture->getmontant(); } ?>€</td>
         </tr>
         </tbody>
         <tfoot>
@@ -65,12 +65,12 @@
           <tr>
           <td colspan="3"></td>
           <td>TTC :</td>
-          <td><?php echo $Unefacture->MontantAvecTVA(); ?>€</td>
+          <td><?php if ($factureDao->factureexists($idContrat) == 1 && isset($montantTvaX)){ echo $montantTvaX; } else { echo $Unefacture->MontantAvecTVA();  } ?>€</td>
           </tr>
         <tr> 
             <td colspan="3">− Faire les chèques payable à l'ordre de ... −</td>
             <td>Total:</td>
-            <td><?php echo $Unefacture->MontantAvecTVA(); ?>€</td>
+            <td><?php if ($factureDao->factureexists($idContrat) == 1 && isset($montantTvaX)){ echo $montantTvaX; } else { echo $Unefacture->MontantAvecTVA(); } ?>€</td>
         </tr>
         </tfoot>
     </table>

@@ -26,10 +26,10 @@ for($i=1;$i<=$number;$i++){
     $timestamp = mktime(0, 0, 0, $mois, $i, $annee); // Donne le timestamp correspondant à cette date
  
         if (date('D', $timestamp)=="Sat" || date('D', $timestamp)=="Sun" ){
-            echo '<td style="border:2px solid;background-color:#e1ecfd;font-weight: bold;">'.date('D', $timestamp).'</td>';
+            echo '<td style="border:2px solid;background-color:#e1ecfd;font-weight: bold;">'.date('D', $timestamp)."  ".$i.'</td>';
         }
         else{
-            echo '<td style="border:2px solid;font-weight: bold;">'.date('D', $timestamp).'</td>';
+            echo '<td style="border:2px solid;font-weight: bold;">'.date('D', $timestamp)." ".$i.'</td>';
         }
 }
 ?>
