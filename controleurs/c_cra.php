@@ -5,7 +5,7 @@ if (!isset($_REQUEST['action'])){
 	$_REQUEST['action']=NULL;
 }
 $action = $_REQUEST['action'];
-
+$craDAO=new craDAO();
 switch($action){
 
 	case 'choisirCra':{

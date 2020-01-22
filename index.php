@@ -10,7 +10,6 @@ $factureDao = new FactureDao();
 $payerDao = new PayerDao();
 $financeDAO = new financeDAO();
 $consultantDao = new consultantDao();
-$craDAO = new craDAO();
 R::setup('pgsql:host=localhost;dbname=comm','postgres','test');
 R::freeze(true);
 session_start();

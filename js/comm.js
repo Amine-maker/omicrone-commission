@@ -80,7 +80,7 @@ function afficherRib(){
                                                                          
                         i++;
                         })
-           }         
+           }
    
         function submit(mon,idCommission,idCommercial){
         var arra=[];
@@ -105,9 +105,14 @@ function afficherRib(){
             var id=mon;
             var form = 'de'+id;
             
-            for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;   }     
+            for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;
+            }     
+                if(isNaN(arra[1])){
+                    return(window.location.href="index.php?uc=depense&action=updateDepense&tableau="+arra+"&idDepense="+idDepense);
+                }
+                else{alert("Veuiller entrez un Libelle")}
                  
-            return(window.location.href="index.php?uc=depense&action=updateDepense&tableau="+arra+"&idDepense="+idDepense);
+           
 
            }
 
@@ -118,8 +123,11 @@ function afficherRib(){
             
             for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
                  
-            return(window.location.href="index.php?uc=commercial&action=modifCommercial&tableau="+arra+"&idCommercial="+idCommercial);
+            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4]) && isNaN(arra[5])){
+                 return(window.location.href="index.php?uc=commercial&action=modifCommercial&tableau="+arra+"&idCommercial="+idCommercial);
 
+            }
+                else {alert("Entrer les champs correctement SVP")}
            }
 
            function submitConsultant(mon,idConsultant){

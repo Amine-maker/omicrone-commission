@@ -8,9 +8,10 @@ $commissionDAO= new commissionDAO;
 switch($action){
 
 	case 'ajouterCommission':{
-
+		print_r($_POST);
+		$idContrat=$_POST["idContrat"];
 		$commission=new commission($commerciauxDAO->getCommercial($_POST["idCommercial"]));
-		$commissionDAO->add($commission,$commerciauxDAO,$_POST);
+		$commissionDAO->add($commission,$_POST);
 		header('location:index.php?uc=commission&action=afficherCommission');
 		break;
 	}
@@ -18,6 +19,7 @@ switch($action){
 	case 'afficherCommission':{
 		$lesCommerciaux=$commerciauxDAO->getCommerciaux();
 		$lesCommissions=$commissionDAO->getCommissions();
+		$lesContrats=$contrat->collectioncontrat();
 		include("vues/v_tableauCommission.php");
 		break;
 	}

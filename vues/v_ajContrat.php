@@ -29,6 +29,10 @@
                             if(isset($_POST['datefin']) <= isset($_POST['datedebut'])){
                                 echo '<p class="commentaire">Date de d&eacute;but ne doit pas exc&eacute;der la date de fin</p>';
                             }
+                            else { ?>
+                                <label>D&eacute;but du contrat :*</label>
+                        <input type="date" value="<?php if (isset($_POST['datedebut'])){echo $_POST['datedebut'];} ?>" name='datedebut'>
+                           <?php } 
                         }
                         ?>
                         <label>D&eacute;but du contrat :*</label>
