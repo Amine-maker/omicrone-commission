@@ -10,6 +10,7 @@ $factureDao = new FactureDao();
 $payerDao = new PayerDao();
 $financeDAO = new financeDAO();
 $consultantDao = new consultantDao();
+$craDAO = new craDAO();
 R::setup('pgsql:host=localhost;dbname=comm','postgres','test');
 R::freeze(true);
 session_start();
@@ -40,10 +41,10 @@ switch ($uc) {
         include 'controleurs/c_client.php';
         break;
         }
-    case 'paiement':{
-        include 'controleurs/c_paiement.php';
-        break;
-    }
+    // case 'paiement':{
+    //     include 'controleurs/c_paiement.php';
+    //     break;
+    // }
     case 'facture':{
         include 'controleurs/c_facture.php';
         break;

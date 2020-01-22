@@ -90,7 +90,7 @@ for ($i=0; $i<=count($lesCommissions)-3; $i=$i+4){// je recupere les attribut da
 
     ?>
     
-    <tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
+    <tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
       
     
     <td class="col col-2 filter_td" name="modif" data-label="nom du Commercial"> <?php echo $nom ;?></td>

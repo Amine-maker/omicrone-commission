@@ -41,7 +41,7 @@ foreach ($lesDepenses as $uneDep){
     ?>
     
 
-    <tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
+    <tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
     
 
       <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?></td>

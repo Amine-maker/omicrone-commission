@@ -44,10 +44,7 @@ switch($action){
             if(isset($_POST['typecontrat'])){$typecontrat=$_POST['typecontrat'];}
             else {$typecontrat="";}
             
-            if($datefin <= $datedebut){
-                include("vues/v_ajContrat.php");
-            }
-
+            
             //verifier si les champs sont vide
             if(empty($datedebut) OR empty($datefin)){
                 $lesClients = $contrat->selectClients();
@@ -63,9 +60,14 @@ switch($action){
             for ($i=0;$i<=$dernieridcontrat;$i++){
                 $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire,  $tarif, $typecontrat);
             }
+            if($datefin <= $datedebut){
+                include("vues/v_ajContrat.php");
+            }
+            else {
+            $ajouter = $contrat->insertcontrat($objcontrat); 
+            header('location:index.php?uc=contrat&action=affichercontrat');}
             
-            $ajouter = $contrat->insertcontrat($objcontrat);
-             header('location:index.php?uc=contrat&action=affichercontrat');
+            
             break;
         }
         

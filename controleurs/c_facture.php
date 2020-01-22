@@ -10,13 +10,29 @@ switch($action){
         $UnContrat = $contrat->getobjcontrat($idContrat); //print_r($UnContrat);
         $objclient = new client ($UnContrat->getcleclient()->getraisonsocial(),$UnContrat->getcleclient()->getclecontact() , $UnContrat->getcleclient()->getsiret(),$UnContrat->getcleclient()->getadr(),$UnContrat->getcleclient()->getville(),$UnContrat->getcleclient()->getcp());
         $idclient =  $clientDao->getidclientfromchamps($objclient); 
-
-        if($UnContrat->getsalaire() == 0){
-             $montant = $UnContrat->gettarif();
+        //$lescras = $craDAO->collectionCRA();
+       
+        $nbmois = $contrat->timecontrat($idContrat);
+        if ($nbmois == 0 ){
+            $nbmois = 1;
         }
-        else {
-            $montant = $UnContrat->getsalaire();
+        $tauxjm = $craDAO->getJFfromidcontrat($idContrat);
+        //print_r($tauxjm);
+        if($UnContrat->getsalaire() == 0 && $UnContrat->gettarif() <> 0){
+             $montant = $UnContrat->gettarif() * $tauxjm;
         }
+        
+       // else {
+            if($UnContrat->getsalaire() > 0 && $UnContrat->gettarif() > 0){
+            $tarif = $UnContrat->gettarif() * $tauxjm;
+            $salaire = $UnContrat->getsalaire() * $nbmois;
+            $montant = $tarif + $salaire;
+            }
+            else {
+                $montant = $UnContrat->getsalaire() * $nbmois;
+                }
+        //    }
+    
         $date =  date('d/m/Y');
         $objfacture = new facture($date,$montant); //créer un objet
         $factureDao->addfacture($objfacture); //ajouter l'objet facture dans la bdd
@@ -25,8 +41,7 @@ switch($action){
         $unpaiement = new payer ($idfacture, $idContrat, $idclient); //créer un nouvel objet facture
         $payerDao->addpayer($unpaiement);  //ajoute cette objet dans la bdd
         $Unefacture = $factureDao->getobjectfromid($idfacture); //retourne l'objet facture en fonctiond de son id
-        //var_dump($Unefacture);
-        require_once 'vues/v_facture.php';
+        var_dump($Unefacture);
         require_once 'vues/v_facture.php';
         break;
     }

@@ -5,7 +5,7 @@ $annee=$_POST["annee"];
 $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
 $data='';
 
-$mpdf->Image('logo/omicrone.png', 0, 0, 200, 88, 'png', '', true, false);
+//$mpdf->Image('logo/omicrone.png', 0, 0, 200, 88, 'png', '', true, false);
 
 
 

@@ -1,7 +1,7 @@
 <?php
 
 class facture{
-    private $_idfinance;
+    private $_idfacture;
     private $_datef;
     private $_montant;
     
@@ -11,25 +11,18 @@ class facture{
         // $this->_prixht = $unprixht;
         // $this->_tva = $unetva;
     }
-    public function getidfinance(){
-        return $this->_idfinance;
+    public function getidfacture(){
+        return $this->_idfacture;
     }
     public function getdatef(){
         return $this->_datef;
     }
     public function getmontant() {
         return $this->_montant;
+    }    
+    public function MontantAvecTVA(){
+        return $this->_montant * 1.2;
     }
-
-    
-    public function calculprixHT($contrat, $depenseDao, $cra){
-        $montant = $contrat->getsalaire() * 2; //salaire multiplié par 2 pour prendre en compte les charges sociales et fiscales
-        $montant = $montant * 1.1; //ajouter 10% pour prendre en compte les congés payés
-        $montant = $montant + $depenseDao->getDepenses(); //ajouter les charges de fonctionnement mensuelles (frais de location de bureau, communications, documentation, électricité, etc.).
-        $montant = $montant / getTotal(); // diviser par le nb jour travailler 
-        return $montant;
-    }
-    
 }
 
 class FactureDao{

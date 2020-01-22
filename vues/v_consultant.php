@@ -60,7 +60,7 @@
 
    ?>
  
-  <tr <?php if($noligne%2==0 ){echo"style='background-color:#dedede;'";}else{echo 'style="background-color:#F6F6F6"';} ?>>
+  <tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
 
   <!-- <td class="col col-5" data-label='Nom'><?php // echo $unConsultant->getNom() ?></td> -->
 

@@ -80,7 +80,6 @@ class daoContrat{
         for ($i=0; $i<=count($lesContrats)-1; $i++) {
                 $objclient = new client ($lesContrats[$i]['raisonsocial'],$lesContrats[$i]['idcontact'],$lesContrats[$i]['siret'], $lesContrats[$i]['clientadr'], $lesContrats[$i]['clientville'], $lesContrats[$i]['codepostale']);
                 $objconsultant = new consultant ($lesContrats[$i]['nom'], $lesContrats[$i]['prenom'], $lesContrats[$i]['adrcons'], $lesContrats[$i]['villecons'], $lesContrats[$i]['cp'], $lesContrats[$i]['tel'], $lesContrats[$i]['email']);
-            
                 $objcontrat = new contrat($lesContrats[$i]['idcontrat'], $objclient, $objconsultant, $lesContrats[$i]['datedebut'],$lesContrats[$i]['datefin'], $lesContrats[$i]['mission'],$lesContrats[$i]['salaire'], $lesContrats[$i]['tarif'], $lesContrats[$i]['typecontrat']);
                 $collectionC[] = $objcontrat;
         }
@@ -196,6 +195,18 @@ class daoContrat{
             foreach($id as $unid){
                 return($unid->id);
             }
+    }
+
+    public function timecontrat($idcontrat){ //retourne le nb de mois où le consultant à travailler sur la période du contrat
+        $req = 'select EXTRACT(YEAR FROM datefin) - EXTRACT(YEAR FROM datedebut) as nbannee, EXTRACT(MONTH FROM datefin) - EXTRACT(MONTH FROM datedebut) as nbmois from contrat where id='.$idcontrat.'';
+        //print_r($req);
+        $laperiode = $this->pdo->exec($req);
+        print_r($laperiode);
+        $nbmois = $laperiode['nbmois'] ;
+       for ($i=0; $i<= sizeof($laperiode['nbannee'])-1;$i++){
+            $nbmois = $nbmois + (12*$i);       
+        }
+        return $nbmois;
     }
     
 }
