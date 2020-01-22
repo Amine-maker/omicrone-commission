@@ -1,5 +1,4 @@
-<!-- <head><script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="js/recherche.js"></script></head> -->
+
 <div class="container"><h3 class='intitule'>Les commerciaux</h3>
 <label><strong>Recherche</strong></label>
 <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
@@ -83,7 +82,7 @@ foreach ($lesFinance as $uneFinance){
 <tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
 
 
-<form>
+
 
 <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>"  data-label="Nom"><?php echo $nom ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
@@ -99,7 +98,7 @@ foreach ($lesFinance as $uneFinance){
 
     <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Telephone"><?php echo $tel ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
-      <input  class="col col-4" name="demodif<?php echo $noligne ?>" type="text" min="0" placeholder="Telephone *" value="<?php echo $tel;?>">
+      <input style="width:9em;"  class="col col-4" name="demodif<?php echo $noligne ?>" type="number" min="0" placeholder="Telephone *" value="<?php echo $tel;?>">
     </td>
 
     <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Email"><?php echo $email ;?></td>
@@ -119,7 +118,7 @@ foreach ($lesFinance as $uneFinance){
 
     <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="Code Postal"><?php echo $cp ;?></td>
     <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
-      <input style="width: 100px;" class="col col-4" name="demodif<?php echo $noligne ?>" type="number" pattern="[0-9]{10}" min="0" placeholder="Code >Postale *" value="<?php echo $cp;?>">
+      <input style="width: 100px;" class="col col-4" name="demodif<?php echo $noligne ?>" type="number" min="0" placeholder="Code >Postale *" value="<?php echo $cp;?>">
     </td>
 
 

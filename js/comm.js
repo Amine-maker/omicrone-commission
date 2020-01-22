@@ -69,12 +69,12 @@ function afficherRib(){
          var i=0;
          document.getElementsByName(form).forEach(()=>{
                 document.getElementsByName(form)[i].style.display="";
-                document.getElementsByName(form)[i].size=8;
+                document.getElementsByName(form)[i].size=6;
                 document.getElementsByName(id)[i].style.display="none";
                 document.getElementsByName(tdform)[i].style.display="";
                 document.getElementById(monName).style.display="none";
                 document.getElementById(fas).style.display="";
-                if(document.getElementsByName(form).value=="<i>Null</i>"){
+                if(document.getElementsByName(form).value=="<i>Null</i>") {
                     document.getElementsByName(form).setAttribute("readonly","readonly");
                                                                          }
                                                                          
@@ -82,7 +82,7 @@ function afficherRib(){
                         })
            }
    
-        function submit(mon,idCommission,idCommercial){
+        function submit(mon,idCommission,idCommercial){// commissions
         var arra=[];
         var id=mon;
         var form = 'de'+id;
@@ -110,7 +110,7 @@ function afficherRib(){
                 if(isNaN(arra[1])){
                     return(window.location.href="index.php?uc=depense&action=updateDepense&tableau="+arra+"&idDepense="+idDepense);
                 }
-                else{alert("Veuiller entrez un Libelle")}
+                else{alert("Veuillez entrer un libelle")}
                  
            
 
@@ -123,24 +123,41 @@ function afficherRib(){
             
             for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
                  
-            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4]) && isNaN(arra[5])){
+            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[3]) && isNaN(arra[4]) && isNaN(arra[5])){
                  return(window.location.href="index.php?uc=commercial&action=modifCommercial&tableau="+arra+"&idCommercial="+idCommercial);
 
-            }
-                else {alert("Entrer les champs correctement SVP")}
            }
+               else {alert("Veuillez entrer les champs correctement")}
+          }
 
            function submitConsultant(mon,idConsultant){
             var arra=[];
             var id=mon;
             var form = 'de'+id;
             
-            for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
-                 
-            return(window.location.href="index.php?uc=consultant&action=modifconsultant&tableau="+arra+"&idConsultant="+idConsultant);
+            for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }  
+            
+            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[6])){
+                return(window.location.href="index.php?uc=consultant&action=modifconsultant&tableau="+arra+"&idConsultant="+idConsultant);
 
+          }
+              else {alert(" Veuillez entrer les champs correctement")}
+                 
            }
 
+           function submitClient(mon,idClient){
+            var arra=[];
+            var id=mon;
+            var form = 'de'+id;
+            
+            for(i=0;i<=10;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
+                 
+            if(isNaN(arra[0]) && isNaN(arra[1])==false && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5]) && isNaN(arra[8])==false && isNaN(arra[9])==false && isNaN(arra[10])==false){
+                 return(window.location.href="index.php?uc=client&action=modifclient&tableau="+arra+"&idClient="+idClient);
+           } else { alert("Veillez entrer les champs correctement")}
+           
 
+
+           }
 
 

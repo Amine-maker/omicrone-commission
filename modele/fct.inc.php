@@ -85,11 +85,18 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
     }
    
    elseif($i<12){
-   $ligne_html .="<td class='filter_td'>$tabclient[$i]</td>";
+   $ligne_html .="<td class='col col-5 filter_td' name='modif".$noligne."'>$tabclient[$i]</td>";
+   $ligne_html .="<td class='col col-5' style='display: none' name='tdmodif".$noligne."'>
+   <input class='col col-4' name='demodif".$noligne."' type='text' value='$tabclient[$i]'>
+ </td>";
    }
    if($i==11){
-        $ligne_html .= "<TD class='col col-5'><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></td>";
-        $ligne_html .= "<td><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
+        //$ligne_html .= "<TD class='col col-5'><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></td>";
+
+        $ligne_html .= "<td><a class='tableau' id='submit".$noligne."' name='modif".$noligne."' onclick='modif(this.name,this.id);'><i class='fas fa-edit'></i></a>
+        <a class='tableau' id='desubmit".$noligne."' style='display: none; padding:0px; margin-right:5px;'><button id='button' name='modif".$noligne."' onclick='submitClient(this.name,$idclient);'><i class='fas fa-check'></i></button></a>";
+
+        $ligne_html .= "<a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
         . "<i class='fas fa-times'></i></a></td>";
     }
 
