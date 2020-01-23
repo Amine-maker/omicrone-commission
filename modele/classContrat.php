@@ -156,17 +156,15 @@ class daoContrat{
     }
     
     //maj des infos dans la bdd
-    public function setcontrat($idcontrat, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire, $tarif, $typecontrat){
+    public function setcontrat($idcontrat, $datedebut, $datefin, $mission, $salaire, $tarif){
         $req="update contrat 
                 set 
-                idclient = '$idclient',
-                idconsultant = '$idconsultant',
+                
                 datedebut = '$datedebut',
                 datefin = '$datefin',
                 mission = '$mission',
                 salaire = '$salaire',
-                tarif = '$tarif',
-                typecontrat = '$typecontrat'
+                tarif = '$tarif'
                 where id = '$idcontrat'";
         $this->pdo->exec($req);
        // print_r($req);
@@ -175,6 +173,10 @@ class daoContrat{
         $req="DELETE FROM contrat where id = '$idContrat';";
         print_r($req);
         $this->pdo->exec($req);
+    }
+
+    public function update(){
+
     }
     
     public function getIdContratFromObject($contrat){ //récupère l'id du contrat en fonction de l'objet

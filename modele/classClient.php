@@ -135,8 +135,6 @@ class DaoClient {
 
 
     public function setclient($client,$idclient,$idcontact_fk){
-        //$idclient = $client->getidclient();
-        //$idcontact_fk = $contactDao->getIdContactFromChamps($client->getclecontact());
         $raisonsocial = $client->getraisonsocial();
         $siret = $client->getsiret();
         $adr = $client->getadr();
@@ -168,6 +166,13 @@ class DaoClient {
             $idclient = $this->getidclientfromchamps($client); 
             $client = R::load('client', $idclient);
             R::trash($client);
+        }
+    
+
+    public function getidclientfromRS($raisonsocial){
+       $idclient =  r::getAll('SELECT id from client where raisonsocial='.$raisonsocial.'');
+       print_r($idclient);
+        return $idclient;
         }
 }
 

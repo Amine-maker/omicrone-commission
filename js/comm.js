@@ -74,7 +74,7 @@ function afficherRib(){
                 document.getElementsByName(tdform)[i].style.display="";
                 document.getElementById(monName).style.display="none";
                 document.getElementById(fas).style.display="";
-                if(document.getElementsByName(form).value=="<i>Null</i>") {
+                if(document.getElementsByName(form).value=="<i>Null</i>" || document.getElementsByName(form).value == '0') {
                     document.getElementsByName(form).setAttribute("readonly","readonly");
                                                                          }
                                                                          
@@ -154,10 +154,26 @@ function afficherRib(){
                  
             if(isNaN(arra[0]) && isNaN(arra[1])==false && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5]) && isNaN(arra[8])==false && isNaN(arra[9])==false && isNaN(arra[10])==false){
                  return(window.location.href="index.php?uc=client&action=modifclient&tableau="+arra+"&idClient="+idClient);
-           } else { alert("Veillez entrer les champs correctement")}
+           } else { alert("Veuillez entrer les champs correctement")}
            
 
 
            }
+
+           function submitContrat(mon, idContrat){
+               var arra=[];
+               var id=mon;
+               var form = 'de'+id;
+
+               for(i=0;i<=5;i++){ arra[i] = document.getElementsByName(form)[i].value; }
+                    if( isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5])==false)
+                        {
+                            return(window.location.href="index.php?uc=contrat&action=modifcontrat&tableau="+arra+"&idcontrat="+idContrat);
+                        } 
+                        else { 
+                            alert("Veuillez entrer tous les champs correctement")
+                            }
+            }
+              
 
 

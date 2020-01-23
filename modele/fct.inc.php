@@ -27,14 +27,20 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
        // print_r($idContrat);
     }
    if($i>0 && $i<9){
-   $ligne_html .="<td class='filter_td'>$tabcontrat[$i]</td>"; }
+        $ligne_html .="<td class='col col-5 filter_td' name='modif".$noligne."'>$tabcontrat[$i]</td>";
+        $ligne_html .="<td class='col col-5' style='display: none' name='tdmodif".$noligne."'>
+        <input class='col col-4' name='demodif".$noligne."' type='text' value='$tabcontrat[$i]'></td>";
+   }
 
-    if($i==8){
+    if($i==8){ //bouton de la facture 
        $ligne_html .="<td><a href='index.php?uc=facture&action=creerfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
     }
-   if($i==8){
-        $ligne_html .= "<TD ><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
-                 . "<i class='fas fa-times'></i></a></TD>";
+   if($i==8){ //bouton modif et suppression
+            $ligne_html .= "<td><a class='tableau' id='submit".$noligne."' name='modif".$noligne."' onclick='modif(this.name,this.id);'><i class='fas fa-edit'></i></a>
+            <a class='tableau' id='desubmit".$noligne."' style='display: none; padding:0px; margin-right:5px;'><button id='button' name='modif".$noligne."' onclick='submitContrat(this.name,$idContrat);'><i class='fas fa-check'></i></button></a>";
+         
+            $ligne_html .= "<a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
+            . "<i class='fas fa-times'></i></a></TD>";
    }
    
   

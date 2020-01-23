@@ -110,6 +110,14 @@ class consultantDao {
             }
         }
 
+        public function getidConsulFromidContrat($idcontrat){
+            $req = "select consultant.id as idconsultant from consultant join contrat on consultant.id=contrat.idconsultant where contrat.id=".$idcontrat."";
+            $rs = $this->pdo->query($req);
+            $ligne = $rs->fetch();
+            $donnees = $ligne['idconsultant'];
+            return $donnees;
+        }
+
         public function update($consultant,$idC){
         
             $nom= $consultant->getNom();
