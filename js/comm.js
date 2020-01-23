@@ -86,19 +86,35 @@ function afficherRib(){
         var arra=[];
         var id=mon;
         var form = 'de'+id;
-            
+            var pourcent= document.getElementsByName(form)[1];
+            var montant = document.getElementsByName(form)[0];
             for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;} 
 
             if(!document.getElementsByName(form)[1].hasAttribute("readonly")){
 
-                  if(document.getElementsByName(form)[1].value<=100 && document.getElementsByName(form)[1].value>=0)
+                  if(pourcent.value<=100 && pourcent.value>=0 && pourcent.value!==null && montant.value!==null)
                   {
+                      if(pourcent.value!=''){
                      return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);
                   }
-                  else{alert('Le pourcentage ne peut dépasser 100% ou être nul ')}
+                  else{alert("Le pourcentage ne peux pas etre nul")}
+                }
+                  else{alert('Le pourcentage ne peut dépasser 100% ')}
           }
-          else{return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);}
-        }
+       
+          if(!montant.hasAttribute("readonly")){
+
+          if(montant.value!=''){
+              
+                     return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);
+             
+
+                   }  else{alert("Le montant ne peux pas être nul")}
+               
+            }
+          }       
+        
+
         
            function submitDepense(mon,idDepense){
             var arra=[];
@@ -107,10 +123,10 @@ function afficherRib(){
             
             for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;
             }     
-                if(isNaN(arra[1])){
+                if(isNaN(arra[1]) || arra[0].value!=null){
                     return(window.location.href="index.php?uc=depense&action=updateDepense&tableau="+arra+"&idDepense="+idDepense);
                 }
-                else{alert("Veuillez entrer un libelle")}
+                else{alert("Veuillez entrer correctement les champs")}
                  
            
 
