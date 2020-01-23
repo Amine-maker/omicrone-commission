@@ -1,11 +1,9 @@
-<div class="container">
+<div class="container"><h3 class='intitule'><center>Les commissions</center></h3>
 <label><strong>Recherche</strong></label>
 <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
 
   <table id='filter' class="responsive-table"> 
 
-
-<div class="container"><h3 class='intitule'>Les commissions</h3>
   <table class="responsive-table" id="filter">
    <div class="interior">
     <a class="btn" href="#open-modal">AJOUTER</a>
@@ -20,7 +18,7 @@
 
 <fieldset>
   <h4>Choisir le commercial</h4>
-  <select name="idCommercial">
+  <select name="idCommercial" required="required" >
   
     <?php
 
@@ -28,8 +26,7 @@
   {
       ?>
 
-      <option <?php if(isset($_POST['idCommercial']) && $commerciauxDao->getIdCommercial($unCommercial) == $_POST["idCommercial"]){echo 'selected';} ?>
-      value=" <?php echo $commerciauxDAO->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
+      <option  value=" <?php echo $commerciauxDAO->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
 
   <?php
   }
@@ -44,7 +41,7 @@
   {
       ?>
 
-      <option value="<?php echo $unContrat->getidContrat() ?>"> <?php echo 'Debut : '. $unContrat->getdatedebut()." - Fin : ".$unContrat->getdatefin() ?></option>';
+      <option value="<?php echo $unContrat->getidContrat() ?>"> <?php echo 'Consultant : '.$unContrat->getcleconsultant()->getNom().' - D&eacute;but : '. $unContrat->getdatedebut()." - Fin : ".$unContrat->getdatefin() ?></option>';
 
   <?php
   }

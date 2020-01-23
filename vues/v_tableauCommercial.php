@@ -41,8 +41,8 @@
 </fieldset>
 
 
-<input type="submit" name="envoyer" style="float: left;" value="AJOUTER" />
-<a href="#" title="Close" id="close" class="modal-close">FERMER</a>
+<input type="submit" name="envoyer" style="float: left;" value="Ajouter" />
+<a href="#" title="Close" id="close" class="modal-close">Fermer</a>
 </form>
 </div>
 
@@ -139,14 +139,14 @@ $noligne++;
 ?>
 </table>
 
-<p style="text-align:center;">Affichage</p>
+<!-- <p style="text-align:center;">Affichage</p>
 <div class="footer"> 
-  <?php  for($i=0;$i<=$commerciauxDao->nbLigne()/5;$i++){
+  <?php  //for($i=0;$i<=$commerciauxDao->nbLigne()/5;$i++){
     
-    echo '<span class="foot"><a class="fit" href="index.php?uc=commercial&action=afficherTableau&limit='. round($i) .'">'.round($i+1).'</a></span> ';
+   // echo '<span class="foot"><a class="fit" href="index.php?uc=commercial&action=afficherTableau&limit='. round($i) .'">'.round($i+1).'</a></span> ';
 
-  } ?>
-</div>
+  //} ?>
+</div> -->
 </div>
 
 

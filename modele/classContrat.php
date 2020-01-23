@@ -67,10 +67,8 @@ class daoContrat{
     }
     
     public function getlistecontrat(){ //liste de contrat
-        $req="select contrat.id, typecontrat, datedebut, datefin,  mission, salaire, tarif, raisonsocial, nom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id order by id ASC";
+        $ligne= r::getAll("select contrat.id, typecontrat, datedebut, datefin,  mission, salaire, tarif, raisonsocial, nom from consultant join contrat on consultant.id=contrat.idconsultant join client on contrat.idclient=client.id where contrat.cacher = false order by id ASC");
         //print_r($req);
-        $rs= $this->pdo->query($req);
-        $ligne= $rs->fetchAll(PDO::FETCH_ASSOC);
         return $ligne;
     }
     
@@ -170,9 +168,9 @@ class daoContrat{
        // print_r($req);
     }
     public function suppContrat($idContrat){
-        $req="DELETE FROM contrat where id = '$idContrat';";
-        print_r($req);
-        $this->pdo->exec($req);
+        $contrat = r::load('contrat',$idContrat);
+        $contrat->cacher=true;
+        r::store($contrat);
     }
 
     public function update(){

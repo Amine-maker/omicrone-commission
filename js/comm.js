@@ -37,7 +37,7 @@ function afficher(){
           document.getElementById('INpourcentage').style.display='block';
           document.getElementById('INpourcentage').setAttribute('required','required');
           document.getElementById('INmontant').removeAttribute('required');
-        }
+            }
           
         }
 
@@ -152,7 +152,7 @@ function afficherRib(){
             
             for(i=0;i<=10;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
                  
-            if(isNaN(arra[0]) && isNaN(arra[1])==false && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5]) && isNaN(arra[8])==false && isNaN(arra[9])==false && isNaN(arra[10])==false){
+            if(isNaN(arra[0]) && isNaN(arra[1])==false && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5]) && !isNaN(arra[8]) && !isNaN(arra[9]) && isNaN(arra[10])==false){
                  return(window.location.href="index.php?uc=client&action=modifclient&tableau="+arra+"&idClient="+idClient);
            } else { alert("Veuillez entrer les champs correctement")}
            
@@ -166,7 +166,7 @@ function afficherRib(){
                var form = 'de'+id;
 
                for(i=0;i<=5;i++){ arra[i] = document.getElementsByName(form)[i].value; }
-                    if( isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5])==false)
+                    if( isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4]) && isNaN(arra[5]))
                         {
                             return(window.location.href="index.php?uc=contrat&action=modifcontrat&tableau="+arra+"&idcontrat="+idContrat);
                         } 

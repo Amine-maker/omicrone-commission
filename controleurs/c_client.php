@@ -31,8 +31,8 @@ switch($action){
             if( empty($email2) OR empty($email3) OR empty($bureau) OR empty($fax)){
                 $email2='xxx@xxx.xx';
                 $email3='xxx@xxx.xx';
-                $bureau='0000000000';
-                $fax='0000000000';
+                $bureau='0';
+                $fax='0';
             }
             
             $objcontact = new contact($email, $email2, $email3, $bureau, $fax, $tel3);
@@ -51,7 +51,7 @@ switch($action){
             //print_r($_REQUEST);
             $_client=explode(",",$_REQUEST["tableau"]);
             $idclient = $_GET['idClient'];
-            var_dump($_client);
+            //var_dump($_client);
             $raisonsocial=$_client[0];
             $siret=$_client[1];
             $adresse=$_client[2];

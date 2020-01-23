@@ -76,9 +76,9 @@ class consultantDao {
     public function getCollectionConsultant()/*retourne une collection de consultants*/ 
         {
             $lesConsultant=array();
-            $les = R::find('consultant','order by id ASC');
+            $les = R::getAll('select nom, prenom , adr, ville, cp, tel, email from consultant where cacher = false order by id desc');
             foreach ($les as $depe){
-                $uncons=new consultant($depe->nom,$depe->prenom,$depe->adr,$depe->ville,$depe->cp,$depe->tel,$depe->email);
+                $uncons=new consultant($depe["nom"],$depe["prenom"],$depe["adr"],$depe["ville"],$depe["cp"],$depe["tel"],$depe["email"]);
                 $lesConsultant[]=$uncons;
             }
             return($lesConsultant);
@@ -143,7 +143,8 @@ class consultantDao {
         public function delete($consultant){
             $id=$this->getIdConsultantFromobject($consultant);
             $consultant=r::load('consultant',$id);
-            r::trash($consultant);
+            $consultant->cacher=true;
+            r::store($consultant);
             
         }
         

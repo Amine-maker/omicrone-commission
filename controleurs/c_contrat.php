@@ -61,7 +61,7 @@ switch($action){
                 $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire,  $tarif, $typecontrat);
             }
             if($datefin <= $datedebut){
-                include("vues/v_ajContrat.php");
+                header('location:index.php?uc=contrat&action=affichercontrat#open-modal');
             }
             else {
             $ajouter = $contrat->insertcontrat($objcontrat); 

@@ -9,7 +9,7 @@
 <div id="open-modal" class="modal-window">
   <div>
    <h2>Ajouter une depense</h2>
-    <div class="form-style-5">
+<div class="form-style-5">
 
 <form method="post" action="index.php?uc=depense&action=ajouterDepense">
 
@@ -72,15 +72,15 @@ $noligne++;
 ?>
 </table><br>
 
-<p style="text-align:center;">Affichage</p>
-<div class="footer"> 
-  <?php  for($i=0;$i<=$depenseDao->nbLigne()/5;$i++){
+<!--<p style="text-align:center;">Affichage</p>
+ <div class="footer"> 
+  <?php  /*for($i=0;$i<=$depenseDao->nbLigne()/5;$i++){
 
 
     echo '<span class="foot"><a class="fit" href="index.php?uc=depense&action=afficherDepense&limit='. round($i) .'">'.round($i+1).'</a></span> ';
 
-  } ?>
-</div>
+  } */?>
+</div> -->
 
 </div>
 

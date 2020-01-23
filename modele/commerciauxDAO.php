@@ -28,13 +28,13 @@ class commerciauxDAO{
     }
     public function getCommerciaux()/*retourne une collection de commercial*/ 
         {
-          
              // $limit=0;
             $lesComm=array();
-        $les = R::find('commerciaux'/*,'limit 5 offset 5'*/,"order by id desc");
+            $les = r::getAll('select nom, prenom, tel,email, adresse,ville,cp from commerciaux where cacher = false order by id desc');
+       // $les = R::find('commerciaux'/*,'limit 5 offset 5'*/,"order by id desc");
             foreach ($les as $depe){
-                $comm=new commerciaux($depe->nom,$depe->prenom,$depe->tel,
-                $depe->email,$depe->adresse,$depe->ville,$depe->cp);
+                $comm=new commerciaux($depe["nom"],$depe["prenom"],$depe["tel"],
+                $depe["email"],$depe["adresse"],$depe["ville"],$depe["cp"]);
                 $lesComm[]=$comm;
         }
             return($lesComm);
@@ -93,6 +93,7 @@ class commerciauxDAO{
             $commercial->adresse=$adresse;
             $commercial->ville=$ville;
             $commercial->cp=$cp;
+            $commercial->cacher=false;
             R::store($commercial); // on le sauvegarde en BDD
 
             }
@@ -107,16 +108,17 @@ class commerciauxDAO{
 
             foreach($idcommission as $unid){
                
-                r::exec('delete from prendre where idcommission='.$unid->id.'');
-                $pourcentage=r::load('pourcentage',$unid);
-                r::trash($pourcentage);
-                $one_shot=r::load('one_shot',$unid); 
-                r::trash($one_shot);
-                $commission=r::load('commission',$unid);
-                r::trash($commission);
+                // r::exec('delete from prendre where idcommission='.$unid->id.'');
+                // $pourcentage=r::load('pourcentage',$unid);
+                // r::trash($pourcentage);
+                // $one_shot=r::load('one_shot',$unid); 
+                // r::trash($one_shot);
+                // $commission=r::load('commission',$unid);
+                // r::trash($commission);
             }
             $commercial=r::load('commerciaux',$id);
-            r::trash($commercial);
+            $commercial->cacher = true;
+            r::store($commercial);
             
 
         }

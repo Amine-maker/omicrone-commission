@@ -96,14 +96,16 @@
         $lecontact->email3 = $email3;
         $lecontact->bureau = $bureau;
         $lecontact->fax = $fax;
-        $lecontact->tel3 = $tel;   
+        $lecontact->tel3 = $tel;  
+        $lecontact->cacher=false; 
         R::store($lecontact); //envoie dans la bdd
     }
     
     public function suppcontact($contact){
         $idcontact = $this->getIdContactFromChamps($contact);
         $contact = R::load('contact', $idcontact);
-        R::trash($contact);
+        $contact->cacher=false;
+        R::store($contact);
     }
  }
  

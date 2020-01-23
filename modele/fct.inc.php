@@ -11,7 +11,7 @@ function tableauContrat($contenu){
         ."<td>Raison Social</td>"
         ."<td>Consultant</td>"
         ."<td>Facture</td>"
-        ."<td>Action</td>"
+        ."<td colspan='2'>Action</td>"
         ."</TR>";
 $noligne=0;
 foreach ($contenu as $ligne){
@@ -33,12 +33,13 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
    }
 
     if($i==8){ //bouton de la facture 
-       $ligne_html .="<td><a href='index.php?uc=facture&action=creerfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
+       $ligne_html .="<td><a class='facture' href='index.php?uc=facture&action=creerfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
     }
    if($i==8){ //bouton modif et suppression
             $ligne_html .= "<td><a class='tableau' id='submit".$noligne."' name='modif".$noligne."' onclick='modif(this.name,this.id);'><i class='fas fa-edit'></i></a>
             <a class='tableau' id='desubmit".$noligne."' style='display: none; padding:0px; margin-right:5px;'><button id='button' name='modif".$noligne."' onclick='submitContrat(this.name,$idContrat);'><i class='fas fa-check'></i></button></a>";
-         
+   }
+            if($i==8){ 
             $ligne_html .= "<a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
             . "<i class='fas fa-times'></i></a></TD>";
    }
@@ -96,11 +97,10 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
  </td>";
    }
    if($i==11){
-        //$ligne_html .= "<TD class='col col-5'><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></td>";
-
         $ligne_html .= "<td><a class='tableau' id='submit".$noligne."' name='modif".$noligne."' onclick='modif(this.name,this.id);'><i class='fas fa-edit'></i></a>
         <a class='tableau' id='desubmit".$noligne."' style='display: none; padding:0px; margin-right:5px;'><button id='button' name='modif".$noligne."' onclick='submitClient(this.name,$idclient);'><i class='fas fa-check'></i></button></a>";
-
+   }
+   if($i==11){
         $ligne_html .= "<a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
         . "<i class='fas fa-times'></i></a></td>";
     }
