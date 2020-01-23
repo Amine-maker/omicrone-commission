@@ -50,7 +50,7 @@ class DaoClient {
     }
     
     public function listeclient(){
-        $req="SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id order by client.id ASC";
+        $req="SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id where client.cacher = false order by client.id ASC";
         $rs = $this->pdo->query($req);
         //print_r($req);
         $ligne = $rs->fetchall(PDO::FETCH_ASSOC);
@@ -59,10 +59,8 @@ class DaoClient {
     
     public function collectionclient(){
         $collectionclient = array();
-        $req="SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id order by client.id ASC";
-        $rs = $this->pdo->query($req);
+        $lesclients=r::getAll("SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id where client.cacher=false order by client.id desc");
         //print_r($req);
-        $lesclients = $rs->fetchall(PDO::FETCH_ASSOC);
         for($i=0; $i<=sizeof($lesclients)-1;$i++){
             $objcontact = new contact ($lesclients[$i]['email1'],$lesclients[$i]['email2'],$lesclients[$i]['email3'],$lesclients[$i]['bureau'],$lesclients[$i]['fax'],$lesclients[$i]['tel3']);
             $objclient = new client ($lesclients[$i]['raisonsocial'],$objcontact,$lesclients[$i]['siret'],$lesclients[$i]['adr'],$lesclients[$i]['ville'],$lesclients[$i]['codepostale']);
@@ -149,6 +147,7 @@ class DaoClient {
         $leclient->adr = $adr;
         $leclient->ville = $ville;
         $leclient->codepostale = $cp;
+        $leclient->cacher=false;
         R::store($leclient);
     }
     public function getidclientfromchamps($client){
@@ -167,7 +166,9 @@ class DaoClient {
     public function suppclient($client){ 
             $idclient = $this->getidclientfromchamps($client); 
             $client = R::load('client', $idclient);
-            R::trash($client);
+            $client->cacher=true;
+            //var_dump($client);
+            r::store($client);
         }
 }
 

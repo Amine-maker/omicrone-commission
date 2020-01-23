@@ -37,7 +37,7 @@ function afficher(){
           document.getElementById('INpourcentage').style.display='block';
           document.getElementById('INpourcentage').setAttribute('required','required');
           document.getElementById('INmontant').removeAttribute('required');
-        }
+            }
           
         }
 

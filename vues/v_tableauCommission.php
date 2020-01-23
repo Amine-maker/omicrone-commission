@@ -20,7 +20,7 @@
 
 <fieldset>
   <h4>Choisir le commercial</h4>
-  <select name="idCommercial">
+  <select name="idCommercial" required="required" >
   
     <?php
 
@@ -28,8 +28,7 @@
   {
       ?>
 
-      <option <?php if(isset($_POST['idCommercial']) && $commerciauxDao->getIdCommercial($unCommercial) == $_POST["idCommercial"]){echo 'selected';} ?>
-      value=" <?php echo $commerciauxDAO->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
+      <option  value=" <?php echo $commerciauxDAO->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
 
   <?php
   }

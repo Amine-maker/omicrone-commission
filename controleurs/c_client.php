@@ -51,7 +51,7 @@ switch($action){
             //print_r($_REQUEST);
             $_client=explode(",",$_REQUEST["tableau"]);
             $idclient = $_GET['idClient'];
-            var_dump($_client);
+            //var_dump($_client);
             $raisonsocial=$_client[0];
             $siret=$_client[1];
             $adresse=$_client[2];

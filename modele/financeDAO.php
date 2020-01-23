@@ -19,11 +19,9 @@ public function __construct()
 
     public function getFinances()/* retourne une collection de finance*/{
         $lesFinance=array();
-        $req = "select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-         from commerciaux left join infob on commerciaux.id=infob.idcommerciaux
-        ";
-        $rs=$this->pdo->query($req);
-        $lesLignes = $rs->fetchAll(PDO::FETCH_ASSOC);
+        $lesLignes =r::getAll("select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
+         from commerciaux left join infob on commerciaux.id=infob.idcommerciaux where commerciaux.cacher = false");
+        
         for($i=0;$i<=count($lesLignes)-1;$i++){
             // a finir quand on créra la table client, ajouter l'objet client a la collection quand la classe sera créée
            $comm=new commerciaux($lesLignes[$i]["nom"],$lesLignes[$i]["prenom"],$lesLignes[$i]["tel"],

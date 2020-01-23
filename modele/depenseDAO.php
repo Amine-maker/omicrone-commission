@@ -15,18 +15,22 @@ public function add($depense){
 }
 
 public function getDepenses($limit)/*retourne une collection de depense*/ 
+   
         {
+             $cacher=false;
             if($limit!=0){
                 $limit=$limit*5;
             }
           
             $lesDep=array();
-            $les = R::find('depense','order by id DESC limit 5 offset '.$limit);
+           // $les = R::find('depense','cacher = false','order by id DESC limit 5 offset '.$limit.'');
+           $les = r::getAll('select id, montant,libelle from depense where cacher=false order by id desc');
             foreach ($les as $depe){
-               $dep=new depense($depe->montant,$depe->libelle);
+               
+               $dep=new depense($depe["montant"],$depe["libelle"]);
                 $lesDep[]=$dep;
         }
-            return($lesDep);
+           return($lesDep);
             
           
         }
@@ -54,7 +58,7 @@ public function getDepenses($limit)/*retourne une collection de depense*/
 
             }
     public function nbLigne(){
-          $nb=  r::getAll('select count(*)from depense');
+          $nb=  r::getAll('select count(*)from depense where cacher = false');
           return($nb[0]["count"]);
     }
 
@@ -66,12 +70,15 @@ public function getDepenses($limit)/*retourne une collection de depense*/
         $depense=r::load('depense',$idD);
         $depense->montant=$montant;
         $depense->libelle=$libelle;
+        $depense->cacher=false;
         r::store($depense);
                 }
 
     public function delete($depense){
         $id=$this->getIdDepense($depense);
         $depense=r::load('depense',$id);
-        r::trash($depense);
+        $depense->cacher=true;
+        r::store($depense);
+        
                 }
 }

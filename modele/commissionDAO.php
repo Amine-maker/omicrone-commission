@@ -34,7 +34,7 @@ class commissionDAO {
             $lesComm=array();
             $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from
             commission left join one_shot on commission.id=one_shot.id
-            left join pourcentage on commission.id=pourcentage.id order by id desc");
+            left join pourcentage on commission.id=pourcentage.id where commission.cacher = false order by id desc");
         
             foreach($lesCommissions as $uneCommission){
                $commission=new commission($dao->getCommercial($uneCommission['idcommerciaux'])->getOCommercial());
@@ -92,13 +92,14 @@ class commissionDAO {
     }
 
     public function delete($id){
-        $pourcentage=r::load('pourcentage',$id);
-        r::trash($pourcentage);
-        $one_shot=r::load('one_shot',$id); 
-        r::trash($one_shot);
+        // $pourcentage=r::load('pourcentage',$id);
+        // r::trash($pourcentage);
+        // $one_shot=r::load('one_shot',$id); 
+        // r::trash($one_shot);
         $commission=r::load('commission',$id);
-        r::trash($commission);
-        $prendre = r::find("prendre","idcommission = ?", array($id));
-        r::trash($prendre);
+        $commission->cacher=true;
+        r::store($commission);
+        // $prendre = r::find("prendre","idcommission = ?", array($id));
+        // r::trash($prendre);
         }
 }
