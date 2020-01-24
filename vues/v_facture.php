@@ -1,7 +1,7 @@
-<div class='container'>
+<div class='container' style=" width: 100%; max-width: 7in; margin: 3px auto;">
     <div class='form-style-5'>
          <header>
-    <h1>FACTURE <h2>Omicrone</h2></h1>
+    <h1  style = "text-align:center">FACTURE <h2>Omicrone</h2></h1>
   </header>
     <section class="flex">
         <dl>
@@ -74,7 +74,7 @@
         </tr>
         </tfoot>
     </table>
-  <footer>
+  <footer style = "text-align:center">
     <p>Moyen de paiement : chèque, virement bancaire</p>
     <p>Délai de réglement : 30 jours</p>
   </footer>
@@ -117,13 +117,13 @@ header h1 {
   font-size: 27pt;
   letter-spacing: 4px;
 }
-body > * {
+/* body > * {
   width: 100%;
   max-width: 7in;
   margin: 3px auto;
-  /* background: #f0f0f0; */
-  text-align: center;
- }
+  /* background: #f0f0f0; 
+  text-align: center;*/
+ 
 
 footer {
   padding: 16px;

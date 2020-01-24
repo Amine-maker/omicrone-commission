@@ -153,11 +153,11 @@ function afficherRib(){
             
             for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }  
             
-            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[6])){
+            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && !isNaN(arra[4]) && !isNaN(arra[5]) && isNaN(arra[6])){
                 return(window.location.href="index.php?uc=consultant&action=modifconsultant&tableau="+arra+"&idConsultant="+idConsultant);
 
           }
-              else {alert(" Veuillez entrer les champs correctement")}
+            else {alert(" Veuillez entrer les champs correctement")}
                  
            }
 
@@ -175,5 +175,22 @@ function afficherRib(){
 
 
            }
+
+           function submitContrat(mon, idContrat){
+               var arra=[];
+               var id=mon;
+               var form = 'de'+id;
+
+               for(i=0;i<=4;i++){ arra[i] = document.getElementsByName(form)[i].value; }
+                    if( isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && !isNaN(arra[3]) && !isNaN(arra[4]))
+                        { 
+                            return(window.location.href="index.php?uc=contrat&action=modifcontrat&tableau="+arra+"&idcontrat="+idContrat);
+                        } 
+                        else { 
+                            alert("Veuillez entrer tous les champs correctement")
+                            }
+
+            }
+              
 
 

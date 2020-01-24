@@ -42,8 +42,10 @@ switch($action){
 		$cp=$_comm[4];
 		$tel=$_comm[5];
         $email=$_comm[6];
-        var_dump($_REQUEST["tableau"]);
+        // var_dump($_REQUEST["tableau"]);
 
+        if(empty($cp)){ $cp='0';}
+        if(empty($tel)){ $tel='Non renseigné';}
 			$idconsultant=$_REQUEST["idConsultant"];
 			$comm=$consultantDao->getConsultantfromId($idconsultant);
 

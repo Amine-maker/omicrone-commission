@@ -26,8 +26,21 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
         $idContrat = $tabcontrat[$i];
        // print_r($idContrat);
     }
-   if($i>0 && $i<9){
-   $ligne_html .="<td class='filter_td'>$tabcontrat[$i]</td>"; }
+    if($i==1){
+            $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
+        }
+   if($i>1 && $i<7){
+        $ligne_html .="<td class='col col-5 filter_td' name='modif".$noligne."'>$tabcontrat[$i]</td>";
+        $ligne_html .="<td class='col col-5' style='display: none' name='tdmodif".$noligne."'>
+        <input class='col col-4' name='demodif".$noligne."' type='text' value='$tabcontrat[$i]'></td>";   
+   }
+
+   if ($i==7){
+        $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
+   }
+   if ($i==8){
+    $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
+}
 
     if($i==8){
        $ligne_html .="<td><a href='index.php?uc=facture&action=creerfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
@@ -79,8 +92,6 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
 {
     if($i==0){
         $idclient = $tabclient[$i];
-        // $ligne_html .="<td class='filter_td'>$tabclient[$i]</td>";
-        //print_r($idclient);
     }
    
    elseif($i<12){

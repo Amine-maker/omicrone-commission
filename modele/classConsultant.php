@@ -128,7 +128,7 @@ class consultantDao {
             $consultant->cp=$cp;
             $consultant->tel=$tel;
             $consultant->email=$email;
-            $consultant->cacher=false;
+            $consultant->cacher = FALSE;
             R::store($consultant); // on le sauvegarde en BDD
 
             }

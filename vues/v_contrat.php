@@ -1,11 +1,10 @@
    <div class="container"> 
-   <label><strong>Recherche</strong></label>
-   <input type="text" name="category" class='rechercher' id="categoryFilter"><br>
-
-
-
    <div class="interior">
-    <a class="btn" href="#open-modal">Ajouter</a>
+    <div style = 'float : right'><label><strong>Recherche</strong></label>
+    <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br></div>
+    
+     <a class="btn" href="#open-modal">AJOUTER</a>
+</div>
   </div><br>
    <div id="open-modal" class="modal-window">
     <div class="form-style-5">
@@ -35,7 +34,7 @@
                             echo '<p class="commentaire">Le champs <span class="commentaire">D&eacute;but du contrat</span> est vide</p>';
                             }
                             if(isset($_POST['datefin']) <= isset($_POST['datedebut'])){
-                                echo '<p class="commentaire">Date de d&eacute;but ne doit pas exc&eacute;der la date de fin</p>';
+                               '<p class="commentaire">Date de d&eacute;but ne doit pas exc&eacute;der la date de fin</p>';
                             }
                         }
                         ?>

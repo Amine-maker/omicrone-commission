@@ -421,7 +421,7 @@ background-color: rgb(0, 0, 0);
 	position: fixed;
 	z-index: 1;
 	top: 0;
-	left: 0;
+	left: 0; 
 	background-color:#4e4e4e;
 	overflow-x: hidden;
 	transition: 0.5s;
@@ -561,6 +561,7 @@ span.commentaire{
 	padding: 1em 1.5em;
 	border-radius: 3px;
 	text-decoration: none;
+	background-color: #31b500!IMPORTANT;
   }
  
   td.col.col-5{
@@ -609,4 +610,7 @@ a.fit{
 a.fit:hover{
 	color: red;
 	text-decoration: underline;
+}
+input.rechercher{
+	border-radius: 14px 14px 14px 14px;
 }

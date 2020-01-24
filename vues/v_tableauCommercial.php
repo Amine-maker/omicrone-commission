@@ -1,11 +1,12 @@
 <div class="container"><h3 class='intitule'>Les commerciaux</h3>
-<label><strong>Recherche</strong></label>
-<input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
-    
+   
   <table id='filter' class="responsive-table">
 <div class="interior">
-    <a class="btn" href="#open-modal">AJOUTER</a>
-  </div>
+    <div style = 'float : right'><label><strong>Recherche</strong></label>
+    <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br></div>
+    
+     <a class="btn" href="#open-modal">AJOUTER</a>
+</div>
   <br>
 <div id="open-modal" name="demo" class="modal-window">
   <div>

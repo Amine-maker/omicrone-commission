@@ -1,15 +1,17 @@
 <div class="container">
-<label><strong>Recherche</strong></label>
-<input type="text" name="category" class='rechercher' id="categoryFilter"><br><br>
+
 
   <table id='filter' class="responsive-table"> 
 
 
 <div class="container"><h3 class='intitule'>Les commissions</h3>
   <table class="responsive-table" id="filter">
-   <div class="interior">
-    <a class="btn" href="#open-modal">AJOUTER</a>
-  </div>
+  <div class="interior">
+    <div style = 'float : right'><label><strong>Recherche</strong></label>
+    <input type="text" name="category" class='rechercher' id="categoryFilter"><br><br></div>
+    
+     <a class="btn" href="#open-modal">AJOUTER</a>
+</div>
   <br>
 <div id="open-modal" class="modal-window">
   <div>
