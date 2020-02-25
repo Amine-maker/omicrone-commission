@@ -98,10 +98,11 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
  </td>";
    }
    if($i==11){
+        //$ligne_html .= "<TD class='col col-5'><a class='tableau' href='index.php?uc=client&action=modifclient&idclient=$idclient'><i class='fas fa-edit'></i></a></td>";
+
         $ligne_html .= "<td><a class='tableau' id='submit".$noligne."' name='modif".$noligne."' onclick='modif(this.name,this.id);'><i class='fas fa-edit'></i></a>
         <a class='tableau' id='desubmit".$noligne."' style='display: none; padding:0px; margin-right:5px;'><button id='button' name='modif".$noligne."' onclick='submitClient(this.name,$idclient);'><i class='fas fa-check'></i></button></a>";
-   }
-   if($i==11){
+
         $ligne_html .= "<a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=client&action=suppclient&idclient=$idclient'\">"
         . "<i class='fas fa-times'></i></a></td>";
     }
