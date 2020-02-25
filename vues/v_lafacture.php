@@ -5,36 +5,37 @@
   </header>
     <section class="flex">
         <dl>
-            <dt>Facture # :</dt><dd><?php  if ($factureDao->factureexists($idContrat) == 1 && isset($idexistant)){ echo $idexistant; } else { echo $idfacture;} ?></dd>
-            <dt>Date de facturation : </dt><dd> <?php if ($factureDao->factureexists($idContrat) == 1 && isset($dateX)){ echo  $dateX; } else {  echo date('d/m/Y'); } ?></dd>
+            <dt>Facture # :</dt><dd><?php echo $idfacture; ?></dd>
+            <dt>Date de facturation : </dt><dd> <?php echo $unefacture->getdatef(); ?></dd>
+            <dt>Facture du : </dt><dd><?php echo $mois.' / '.$annee; ?></dd>
         </dl>
     </section>
   <section class="flex">
     <dl class="bloc">
       <dt>Facturé au client :</dt>
       <dd>
-        <?php echo $UnContrat->getcleclient()->getraisonsocial(); ?><br>
-        <?php echo $UnContrat->getcleclient()->getadr(); ?><br>
-        <?php echo $UnContrat->getcleclient()->getville().' - '. $UnContrat->getcleclient()->getcp()?>
+        <?php echo $uncontrat->getcleclient()->getraisonsocial(); ?><br>
+        <?php echo $uncontrat->getcleclient()->getadr(); ?><br>
+        <?php echo $uncontrat->getcleclient()->getville().' - '. $uncontrat->getcleclient()->getcp()?>
             <dl>
                 <dt>SIRET</dt>
-                <dd><?php echo $UnContrat->getcleclient()->getsiret(); ?></dd>
+                <dd><?php echo $uncontrat->getcleclient()->getsiret(); ?></dd>
                 <dt>Téléphone</dt>
-                <dd><?php echo $UnContrat->getcleclient()->getclecontact()->gettel(); ?></dd>
+                <dd><?php echo $uncontrat->getcleclient()->getclecontact()->gettel(); ?></dd>
                 <dt>Email </dt>
-                <dd><?php echo $UnContrat->getcleclient()->getclecontact()->getemail(); ?></dd>
+                <dd><?php echo $uncontrat->getcleclient()->getclecontact()->getemail(); ?></dd>
             </dl>
       </dd>
     </dl>
     <dl class="bloc">
       <dt>Le consultant:</dt>
-      <dd><?php echo $UnContrat->getcleconsultant()->getNom().' '.$UnContrat->getcleconsultant()->getPrenom()?><br>
-      <?php echo $UnContrat->getcleconsultant()->getAdresse();?><br>
-      <?php echo $UnContrat->getcleconsultant()->getVille(). ' - '.$UnContrat->getcleconsultant()->getCp()?><br><br>
-      Email : <?php echo $UnContrat->getcleconsultant()->getEmail(); ?>
+      <dd><?php echo $uncontrat->getcleconsultant()->getNom().' '.$uncontrat->getcleconsultant()->getPrenom()?><br>
+      <?php echo $uncontrat->getcleconsultant()->getAdresse();?><br>
+      <?php echo $uncontrat->getcleconsultant()->getVille(). ' - '.$uncontrat->getcleconsultant()->getCp()?><br><br>
+      Email : <?php echo$uncontrat->getcleconsultant()->getEmail(); ?>
       </dd>
       <dt>Période totale:</dt>
-      <dd>Du <?php echo $datedebut = $UnContrat->getdatedebut(). ' au ' . $datefin = $UnContrat->getdatefin(); ?></dd>
+      <dd>Du <?php echo $uncontrat->getdatedebut(). ' au ' . $uncontrat->getdatefin(); ?></dd>
     </dl>
   </section>
     <table>
@@ -49,11 +50,11 @@
         </thead>
         <tbody>
         <tr>
-            <td><?php echo  $UnContrat->getmission();?></td>
+            <td><?php echo  $uncontrat->getmission();?></td>
             <td><?php echo $JF; ?></td>
-            <td><?php if($UnContrat->gettarif() <> 0 ){ echo $UnContrat->gettarif();} else {echo '-';}?></td>
-            <td><?php if($UnContrat->getsalaire() <> 0){echo  $UnContrat->getsalaire();} else {echo '-';} ?></td>
-            <td><?php if ($factureDao->factureexists($idContrat) == 1 && isset($montantX)){ echo $montantX; } else { echo $Unefacture->getmontant(); } ?>€</td>
+            <td><?php  if( $uncontrat->getcleconsultant()->gettarif() <> 0 ){ echo $uncontrat->getcleconsultant()->gettarif(); } else { echo '-'; }?></td>
+            <td><?php  if($uncontrat->getcleconsultant()->getsalaire() <> 0){ echo $uncontrat->getcleconsultant()->getsalaire(); } else {echo '-';} ?></td>
+            <td><?php  echo $unefacture->getmontant(); ?>€</td>
         </tr>
         </tbody>
         <tfoot>
@@ -65,12 +66,12 @@
           <tr>
           <td colspan="3"></td>
           <td>TTC :</td>
-          <td><?php if ($factureDao->factureexists($idContrat) == 1 && isset($montantTvaX)){ echo $montantTvaX; } else { echo $Unefacture->MontantAvecTVA();  } ?>€</td>
+          <td><?php  echo $unefacture->MontantAvecTVA(); ?>€</td>
           </tr>
         <tr> 
             <td colspan="3">− Faire les chèques payable à l'ordre de ... −</td>
             <td>Total:</td>
-            <td><?php if ($factureDao->factureexists($idContrat) == 1 && isset($montantTvaX)){ echo $montantTvaX; } else { echo $Unefacture->MontantAvecTVA(); } ?>€</td>
+            <td><?php echo $unefacture->MontantAvecTVA(); ?>€</td>
         </tr>
         </tfoot>
     </table>
@@ -121,9 +122,9 @@ header h1 {
   width: 100%;
   max-width: 7in;
   margin: 3px auto;
-  /* background: #f0f0f0; */
-  text-align: center;
- } */
+  /* background: #f0f0f0; 
+  text-align: center;*/
+ 
 
 footer {
   padding: 16px;

@@ -6,23 +6,22 @@ $action = $_REQUEST['action'];
 switch($action){
 	case 'affichercontrat':{ 
         $lesContrats = $contrat->getlistecontrat();
-        $lesClients = $contrat->selectClients();
-        $lesConsultants = $contrat->selectConsultants();
+        $lesClients =$clientDao->selectClients();
+        $lesConsultants = $UconsultantDao->getconsultant();
         include("vues/v_contrat.php");
-           
-            break;
+        break;
 	}
         
         case 'ajoutC':{
-            $lesClients = $contrat->selectClients();
-            $lesConsultants = $contrat->selectConsultants();
+            $lesClients =$clientDao->selectClients();
+            $lesConsultants = $UconsultantDao->getconsultant();
             include("vues/v_ajContrat.php");
             break;
         }
         
         case 'validAjoutC':{
-            $lesClients = $contrat->selectClients();
-            $lesConsultants = $contrat->selectConsultants();
+            $lesClients =$clientDao->selectClients();
+            $lesConsultants = $UconsultantDao->getconsultant();
             if(isset($_POST['lesClients'])){$_SESSION['id'] = $_POST['lesClients'];}
             if (isset($_SESSION['id'])) {$idclient = $_SESSION['id'];}
             else {$idclient = "" ;}
@@ -37,63 +36,39 @@ switch($action){
             else {$datefin="";}
             if(isset($_POST['mission'])){$mission = $_POST['mission'];}
             else {$mission="";}
-            if (isset($_POST['salaire'])){$salaire= $_POST['salaire'];}
-            else {$salaire="";}
-            if(isset($_POST['tarif'])){$tarif = $_POST['tarif'];}
-            else {$tarif="";}
-            if(isset($_POST['typecontrat'])){$typecontrat=$_POST['typecontrat'];}
-            else {$typecontrat="";}
             
             
             //verifier si les champs sont vide
             if(empty($datedebut) OR empty($datefin)){
-                $lesClients = $contrat->selectClients();
-                $lesConsultants = $contrat->selectConsultants();
+                $lesClients =$clientDao->selectClients();
+                $lesConsultants = $UconsultantDao->getconsultant();
                 header('location:index.php?uc=contrat&action=affichercontrat#open-modal');
-               // include("vues/v_ajContrat.php");
-            }
-            if(empty($salaire)){$salaire=0;}
-            if(empty($tarif)){$tarif=0;}
-            
+            }  
             $dernieridcontrat = $contrat->getdernierid();
             $dernieridcontrat++;
             //print_r($dernieridcontrat);
             for ($i=0;$i<=$dernieridcontrat;$i++){
-                $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $mission, $salaire,  $tarif, $typecontrat);
+                $objcontrat = new contrat($i, $idclient, $idconsultant, $datedebut, $datefin, $mission);
             }
             if($datefin <= $datedebut){ ?>
                <script>
                    alert ('Date de début ne doit pas excéder la date de fin');
-                window.location.href="index.php?uc=contrat&action=affichercontrat#open-modal" </script> 
-                <?php //header('location:index.php?uc=contrat&action=affichercontrat#open-modal');
-
+                window.location.href="index.php?uc=contrat&action=affichercontrat#open-modal" </script><?php
             }
-            else {
-            $ajouter = $contrat->insertcontrat($objcontrat); 
-            header('location:index.php?uc=contrat&action=affichercontrat');}
-            
-            
+             else {
+            $contrat->insertcontrat($objcontrat); 
+            header('location:index.php?uc=contrat&action=affichercontrat');
+         }
             break;
         }
         
-        case 'modifcontrat' : {
-            $lecontrat=explode(",",$_REQUEST["tableau"]);
-            $idContrat = $_GET['idcontrat'];
-            var_dump($lecontrat);
-            $datedebut = $lecontrat[0];
-            $datefin = $lecontrat[1];
-            $mission = $lecontrat[2];
-            $salaire = $lecontrat[3];
-            $tarif = $lecontrat[4];
-
-            if(empty($salaire)){$salaire='0';}
-            if(empty($tarif)){$tarif='0';}                  
-            
-            $contrat->setcontrat($idContrat, $datedebut, $datefin, $mission, $salaire, $tarif);
-            header('location:index.php?uc=contrat&action=affichercontrat');
+        case 'modifcontrat':{
+            $lecontrat = explode(",",$_GET["tableau"]);          
+            $contrat->setcontrat($_GET["idcontrat"], $lecontrat[0] , $lecontrat[1], $lecontrat[2]);
+            header('location:index.php?uc=contrat&action=affichercontrat'); 
            break;
         }
-
+        
         case 'suppcontrat':{
             $lesClients = $contrat->selectClients();
             $idContrat = $_GET['idcontrat'];

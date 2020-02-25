@@ -19,12 +19,11 @@ public function __construct()
 
     public function getFinances()/* retourne une collection de finance*/{
         $lesFinance=array();
-        $lesLignes =r::getAll("select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-         from commerciaux left join infob on commerciaux.id=infob.idcommerciaux where commerciaux.cacher = false");
+        $lesLignes =r::getAll("select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib from utilisateur join commercial on utilisateur.id=commercial.idutilisateur left join infob on commercial.idutilisateur=infob.idcommercial where commercial.cacher = false");
         
         for($i=0;$i<=count($lesLignes)-1;$i++){
             // a finir quand on créra la table client, ajouter l'objet client a la collection quand la classe sera créée
-           $comm=new commerciaux($lesLignes[$i]["nom"],$lesLignes[$i]["prenom"],$lesLignes[$i]["tel"],
+           $comm=new commercial($lesLignes[$i]["nom"],$lesLignes[$i]["prenom"],$lesLignes[$i]["tel"],
                         $lesLignes[$i]["email"],$lesLignes[$i]["adresse"],$lesLignes[$i]["ville"],$lesLignes[$i]["cp"]);
 
             $fin=new information_bancaire(NULL,$comm,$lesLignes[$i]["codeagence"],$lesLignes[$i]["compte"],$lesLignes[$i]["iban"],
@@ -49,11 +48,10 @@ public function __construct()
             }
 
         public function getFinance($idF)/* retourne l'objet finance par rapport a l'id*/{
-            $req ="select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-            from commerciaux left join infob on commerciaux.id=infob.idcommerciaux where id='".$idF."'";
+            $req ="select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib from utilisateur join commercial on utilisateur.id=commercial.idutilisateur left join infob on commercial.idutilisateur=infob.idcommercial where commercial.cacher = false and infob.id='".$idF."'";
             $rs=$this->pdo->query($req);
             $lesLignes = $rs->fetch(PDO::FETCH_ASSOC);
-            $comm=new commerciaux($lesLignes["nom"],$lesLignes["prenom"],$lesLignes["tel"],
+            $comm=new commercial($lesLignes["nom"],$lesLignes["prenom"],$lesLignes["tel"],
             $lesLignes["email"],$lesLignes["adresse"],$lesLignes["ville"],$lesLignes["cp"]);
             $finance=new information_bancaire(NULL,$comm,$lesLignes["codeagence"],$lesLignes["compte"],$lesLignes["iban"],
             $lesLignes["bic"],$lesLignes["codebanque"],$lesLignes["clerib"]);
@@ -62,7 +60,7 @@ public function __construct()
         }
 
         public function getIdFinanceById($idCommercial)/* recupere l'id de la finance avec l'id du commercial*/{
-            $req="select infob.id from infob, commerciaux where commerciaux.id=infob.idcommerciaux and commerciaux.id=".$idCommercial."";
+            $req="select infob.id as id from infob, commercial, utilisateur where utilisateur.id=commercial.idutilisateur and commercial.idutilisateur=infob.idcommercial and commercial.idutilisateur=".$idCommercial."";
             $rs=$this->pdo->query($req);
             $laLigne = $rs->fetch(PDO::FETCH_ASSOC);
             return($laLigne["id"]);

@@ -15,6 +15,7 @@ require_once ('modele/classContact.php');
 require_once ('modele/classFacture.php');
 require_once ('modele/classConsultant.php');
 require_once ('modele/classPayer.php');
+require_once ('modele/classUtilisateur.php');
 require_once ('modele/prendre.php');
 require_once ('modele/cra.php');
 require_once ('modele/craDAO.php');

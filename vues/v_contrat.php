@@ -51,52 +51,7 @@
 
                         <input type="date"  value="<?php if (isset($_POST['datefin'])){echo $_POST['datefin'];} ?>" name="datefin" >
                         <input type="text" value="<?php if (isset($_POST['mission'])){echo $_POST['mission'];}?>" name="mission" placeholder='Description de la mission'>
-                        <label>Type de contrat : *</label>
-                            <div style="display: flex;">
-                                <input onclick="afficher();" type="radio" id="sa" name="typecontrat" value="Salarié" checked>
-                                <label>Salarié</label>
-
-                                <input onclick="afficher();" type="radio" id="st" name="typecontrat" value="Sous-traitant">
-                                <label>Sous-Traitant</label>
-
-                                <input onclick="afficher();" type="radio" id="ep" name="typecontrat" value="En portage">
-                                <label>En portage</label>
-                            </div>
-                            <div>
-                                <input type='number' id='salaire' value="<?php if (isset($_POST['salaire'])){echo $_POST['salaire'];} ?>" name="salaire" placeholder="Salaire" min="0">
-                                <input type='number' id='tarif' value="<?php if (isset($_POST['tarif'])){echo $_POST['tarif'];} ?>" name="tarif" placeholder="Tarif" min="0" style="display: none">
-                            </div>            
-                            <script>
-                            function afficher(){
-                              var soustraitant = document.getElementById('st');
-                              var enportage = document.getElementById('ep');
-                              var salarie = document.getElementById('sa');  
-
-                                if (salarie.checked)
-                                    {
-                                    document.getElementById('salaire').style.display='block';
-                                    document.getElementById('tarif').style.display='none';
-                                    document.getElementById('salaire').setAttribute('required','required');
-                                    document.getElementById('tarif').removeAttribute('required','required');
-
-                                    }
-
-                                if (soustraitant.checked){
-                                    document.getElementById('salaire').style.display='none';
-                                    document.getElementById('tarif').style.display='block';
-                                    document.getElementById('tarif').setAttribute('required','required');
-                                    document.getElementById('salaire').removeAttribute('required','required');
-
-                                    }
-
-                                if (enportage.checked) {
-                                    document.getElementById('salaire').style.display='block';
-                                    document.getElementById('tarif').style.display='block';
-                                    document.getElementById('salaire').setAttribute('required','required');
-                                    document.getElementById('tarif').setAttribute('required','required');
-                                    }
-
-                            }
+                        
                           </script>  
                     <p>* Champs obligatoire</p>   
                 </fieldset> 

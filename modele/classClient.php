@@ -50,27 +50,27 @@ class DaoClient {
     }
     
     public function listeclient(){
-        $req="SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id where client.cacher = false order by client.id ASC";
-        $rs = $this->pdo->query($req);
-        //print_r($req);
-        $ligne = $rs->fetchall(PDO::FETCH_ASSOC);
+        $ligne = r::getAll("select client.id as id, raisonsocial, siret, adr, ville, codepostal, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id where client.cacher = false order by client.id ASC");
         return $ligne;
     }
     
     public function collectionclient(){
         $collectionclient = array();
-        $lesclients=r::getAll("SELECT client.id, raisonsocial, siret, adr, ville, codepostale, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id where client.cacher=false order by client.id desc");
+        $lesclients=r::getAll("SELECT client.id as id, raisonsocial, siret, adr, ville, codepostal, email1, email2, email3, bureau, fax, tel3 FROM client join contact on client.idcontact=contact.id where client.cacher=false order by client.id desc");
         //print_r($req);
         for($i=0; $i<=sizeof($lesclients)-1;$i++){
             $objcontact = new contact ($lesclients[$i]['email1'],$lesclients[$i]['email2'],$lesclients[$i]['email3'],$lesclients[$i]['bureau'],$lesclients[$i]['fax'],$lesclients[$i]['tel3']);
-            $objclient = new client ($lesclients[$i]['raisonsocial'],$objcontact,$lesclients[$i]['siret'],$lesclients[$i]['adr'],$lesclients[$i]['ville'],$lesclients[$i]['codepostale']);
+            $objclient = new client ($lesclients[$i]['raisonsocial'],$objcontact,$lesclients[$i]['siret'],$lesclients[$i]['adr'],$lesclients[$i]['ville'],$lesclients[$i]['codepostal']);
     
             $collectionclient[]=$objclient;
         }
         return $collectionclient;
     }
     
-    
+    public function selectClients(){
+        $laligne = r::getAll('select id, raisonsocial from client ');
+        return $laligne;
+    }
     
     public function getdernieridclient(){
         $req="SELECT id FROM client WHERE id = (SELECT MAX(id) FROM client)";
@@ -99,6 +99,7 @@ class DaoClient {
         $lecontact->fax = $fax;
         $lecontact->tel3 = $tel;   
         R::store($lecontact); //envoie dans la bdd
+        
         $idcontact_fk = $contactDao->getIdContactFromChamps($client->getclecontact());
         $raisonsocial = $client->getraisonsocial();
         $siret = $client->getsiret();
@@ -112,13 +113,15 @@ class DaoClient {
         $leclient->siret = $siret;
         $leclient->adr = $adr;
         $leclient->ville = $ville;
-        $leclient->codepostale = $cp;
+        $leclient->codepostal = $cp;
         R::store($leclient);
         //print_r($client);
     }
     
+    
+
     public function getinfoclient($idclient){
-        $req="select client.id, raisonsocial, adr, siret, ville, codepostale, email1, email2, email3,tel3, bureau, fax FROM client join contact on client.idcontact=contact.id where client.id='$idclient'";
+        $req="select client.id, raisonsocial, adr, siret, ville, codepostal, email1, email2, email3,tel3, bureau, fax FROM client join contact on client.idcontact=contact.id where client.id='$idclient'";
         print_r($req);
         $rs = $this->pdo->query($req);
         $ligne = $rs->fetchall(PDO::FETCH_ASSOC);
@@ -127,12 +130,14 @@ class DaoClient {
     
     public function getclient($idduclient)/* recupère l'objet client par rapport à son l'id*/{
        $client = R::load('client',$idduclient);
-       $unclient=new client($client->raisonsocial, $client->idcontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
+       $unclient=new client($client->raisonsocial, $client->idcontact, $client->siret, $client->adr, $client->ville, $client->codepostal);
        return($unclient);
         }
 
 
     public function setclient($client,$idclient,$idcontact_fk){
+        //$idclient = $client->getidclient();
+        //$idcontact_fk = $contactDao->getIdContactFromChamps($client->getclecontact());
         $raisonsocial = $client->getraisonsocial();
         $siret = $client->getsiret();
         $adr = $client->getadr();
@@ -144,7 +149,7 @@ class DaoClient {
         $leclient->siret = $siret;
         $leclient->adr = $adr;
         $leclient->ville = $ville;
-        $leclient->codepostale = $cp;
+        $leclient->codepostal = $cp;
         $leclient->cacher=false;
         R::store($leclient);
     }
@@ -155,7 +160,7 @@ class DaoClient {
         $ville = $client->getville();
         $cp = $client->getcp();
         
-        $idclient = R::find("client", "raisonsocial = ? and siret = ? and adr = ? and ville = ? and codepostale = ?",
+        $idclient = R::find("client", "raisonsocial = ? and siret = ? and adr = ? and ville = ? and codepostal = ?",
         array($raisonsocial, $siret, $adr, $ville, $cp));
         foreach($idclient as $unidclient){
             return($unidclient->id);}   
@@ -167,13 +172,6 @@ class DaoClient {
             $client->cacher=true;
             //var_dump($client);
             r::store($client);
-        }
-    
-
-    public function getidclientfromRS($raisonsocial){
-       $idclient =  r::getAll('SELECT id from client where raisonsocial='.$raisonsocial.'');
-       print_r($idclient);
-        return $idclient;
         }
 }
 

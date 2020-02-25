@@ -1,8 +1,10 @@
 <div class="container">
-  <h3 class='intitule'>Les commissions</h3>
+
 
   <table id='filter' class="responsive-table"> 
 
+
+<div class="container"><h3 class='intitule'>Les commissions</h3>
   <table class="responsive-table" id="filter">
   <div class="interior">
     <div style = 'float : right'><label><strong>Recherche</strong></label>
@@ -43,7 +45,7 @@
   {
       ?>
 
-      <option value="<?php echo $unContrat->getidContrat() ?>"> <?php echo 'Consultant : '.$unContrat->getcleconsultant()->getNom().' - D&eacute;but : '. $unContrat->getdatedebut()." - Fin : ".$unContrat->getdatefin() ?></option>';
+      <option value="<?php echo $unContrat->getidContrat() ?>"> <?php echo 'Debut : '. $unContrat->getdatedebut()." - Fin : ".$unContrat->getdatefin() ?></option>';
 
   <?php
   }

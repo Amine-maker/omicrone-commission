@@ -4,7 +4,7 @@ class commissionDAO {
 
 
     public function add($uneCommission,$valeur){
-        $commDAO=new commerciauxDAO;
+        $commDAO=new UcommerciauxDao;
         $commercial=$uneCommission->getOCommercial()->getOCommercial();
         $idcommercial=$commDAO->getIdCommercial($commercial);
 
@@ -29,7 +29,7 @@ class commissionDAO {
     }
     
     public function getCommissions(){
-            $dao=new commerciauxDAO;
+            $dao=new UcommerciauxDao;
 
             $lesComm=array();
             $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from
@@ -52,7 +52,7 @@ class commissionDAO {
            
    }
     public function getLaCommission($id){
-        $dao=new commerciauxDAO;
+        $dao=new UcommerciauxDao;
 
             $lesComm=array();
             $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from

@@ -3,21 +3,20 @@ if (!isset($_REQUEST['action'])){
 	$_REQUEST['action']=NULL;
 }
 $action = $_REQUEST['action'];
-$commerciauxDAO=new commerciauxDAO;
 $commissionDAO= new commissionDAO;
 switch($action){
 
 	case 'ajouterCommission':{
 		print_r($_POST);
 		$idContrat=$_POST["idContrat"];
-		$commission=new commission($commerciauxDAO->getCommercial($_POST["idCommercial"]));
+		$commission=new commission($commerciauxDao->getCommercial($_POST["idCommercial"]));
 		$commissionDAO->add($commission,$_POST);
 		header('location:index.php?uc=commission&action=afficherCommission');
 		break;
 	}
 
 	case 'afficherCommission':{
-		$lesCommerciaux=$commerciauxDAO->getCommerciaux();
+		$lesCommerciaux=$commerciauxDao->getCommerciaux();
 		$lesCommissions=$commissionDAO->getCommissions();
 		$lesContrats=$contrat->collectioncontrat();
 		include("vues/v_tableauCommission.php");
@@ -28,7 +27,7 @@ switch($action){
 		
 		$_REQUEST["heri"]=explode(",",$_REQUEST["tableau"]);
 		if($_REQUEST["heri"][0]==''){$_REQUEST["heri"][0]="Null";}
-		$commercial=$commerciauxDAO->getCommercial($_REQUEST["idCommercial"])->getOCommercial();
+		$commercial=$commerciauxDao->getCommercial($_REQUEST["idCommercial"])->getOCommercial();
 		if(!stristr($_REQUEST["heri"][0],"Null")){
 			$commission=new one_shot($_REQUEST["heri"][0],$commercial);
 			$commissionDAO->update($commission,$_REQUEST["idCommission"]);

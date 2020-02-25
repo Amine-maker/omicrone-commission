@@ -1,6 +1,6 @@
 <?php
 
-class consultant {
+class consultantn {
     private $_id;
     private $_nom;
     private $_prenom;
@@ -101,21 +101,13 @@ class consultantDao {
             return($unid->id);
         }
         }
-        
+       
         public function getConsultantfromId($idC){
             $req = R::getAll('select nom, prenom, adr, ville, cp, tel, email from consultant where consultant.id='.$idC.'');
             foreach($req as $laligne){
             $consultant=new consultant($laligne['nom'],$laligne['prenom'],$laligne['adr'],$laligne['ville'],$laligne['cp'],$laligne['tel'],$laligne['email']);
             return($consultant);
             }
-        }
-
-        public function getidConsulFromidContrat($idcontrat){
-            $req = "select consultant.id as idconsultant from consultant join contrat on consultant.id=contrat.idconsultant where contrat.id=".$idcontrat."";
-            $rs = $this->pdo->query($req);
-            $ligne = $rs->fetch();
-            $donnees = $ligne['idconsultant'];
-            return $donnees;
         }
 
         public function update($consultant,$idC){

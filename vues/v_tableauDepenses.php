@@ -15,8 +15,8 @@
 
 <form method="post" action="index.php?uc=depense&action=ajouterDepense">
 
-<input type="text" pattern="[A-Za-z]{1,20}" name="libelle" placeholder="Libelle *" required="required">
 <input type="number" min="0" name="montant" placeholder="Montant *" required="required">
+<input type="text" pattern="[A-Za-z]{1,20}" name="libelle" placeholder="Libelle *" required="required">
 
 <a href="#" title="Close" id="close" class="modal-close">Fermer</a>
 <input type="submit" name="envoyer" value="Ajouter"/>
@@ -28,8 +28,9 @@
 
  
     <tr class="contrat">
+    <td class="col col-4">Montant</td>
       <td class="col col-3">Libelle</td>
-      <td class="col col-4">Montant</td>
+    
       <td class="col col-3">Action</td>
     </tr>
 
@@ -46,14 +47,15 @@ foreach ($lesDepenses as $uneDep){
 
     <tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
     
-    <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="libelle"><?php echo $libelle ;?></td>
-    <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
-    <input class="col col-3" name="demodif<?php echo $noligne ?>" type="text" min="0" placeholder="Libelle *" value="<?php echo $libelle;?>"></td>
+    
 
     <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="Montant"><?php echo $montant ;?>€</td>
     <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
     <input class="col col-3" style="width: 6em;" name="demodif<?php echo $noligne ?>" type="number" min="0" placeholder="Montant *" value="<?php echo $montant;?>"></td>
 
+    <td class="col col-3 filter_td" name="modif<?php echo $noligne ?>" data-label="libelle"><?php echo $libelle ;?></td>
+    <td class="col col-3" style="display: none" name="tdmodif<?php echo $noligne ?>">
+    <input class="col col-3" name="demodif<?php echo $noligne ?>" type="text" min="0" placeholder="Libelle *" value="<?php echo $libelle;?>"></td>
 
     
 

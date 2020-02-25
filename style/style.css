@@ -384,14 +384,10 @@
     
 }
 a.tableau{
+
     border-radius: 20px;
     background-color:#3c96ec;
 }
-
-a.facture {
-	border-radius: 16px;
-}
-
 .tableau:hover,.tableau:active{
   background-color: rgb(0, 0, 0);
 }
@@ -615,7 +611,6 @@ a.fit:hover{
 	color: red;
 	text-decoration: underline;
 }
-
-input.rechercher {
+input.rechercher{
 	border-radius: 14px 14px 14px 14px;
 }

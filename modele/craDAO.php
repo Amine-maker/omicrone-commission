@@ -9,6 +9,7 @@ class craDAO{
         $astreinte=$cra->getAstreinte();
         $id=$cra->getOContrat()->getidContrat();
         $periode=$cra->getPeriode();
+        $interv = $cra->getInterv();
 
         $cra=r::dispense('cra');
         $cra->totaljfacturable=$TJF;
@@ -17,23 +18,29 @@ class craDAO{
         $cra->astreinte=$astreinte;
         $cra->idcontrat=$id;
         $cra->periode = $periode;
+        $cra->intervention = $interv;
         r::store($cra);
     }
 
     public function collectionCRA(){
         $collection = array();
-        $lesCras= r::getAll('select consultant.id as idconsultant, nom, prenom, consultant.adr as adrcons, consultant.ville as villecons, cp, tel, email, contrat.id as idcontrat, datedebut, datefin, salaire, tarif, typecontrat, mission, client.id as idclient, idcontact, raisonsocial, siret, client.adr as clientadr, client.ville as clientville, codepostale, cra.id as idcra, totaljfacturable, totaljmaladie, totaljconge, astreinte, periode, contact.id as idcontact, email1, email2, email3, bureau, fax, tel
-        from consultant, contrat, client, cra, contact where
-        contact.id=client.idcontact and
-        client.id=contrat.idclient and
-        consultant.id=contrat.idconsultant and
-        cra.idcontrat=contrat.id');
+        $lesCras= r::getAll('select consultant.idutilisateur as idconsultant, utilisateur.nom as nom, utilisateur.prenom as prenom, utilisateur.adresse as adrcons, utilisateur.ville as villecons, utilisateur.cp as cp, utilisateur.tel as tel, utilisateur.email as email, consultant.typecontrat as typecontrat, consultant.salaire as salaire, consultant.tarif as tarif,
+        contrat.id as idcontrat, datedebut, datefin, mission,
+        client.id as idclient, idcontact, raisonsocial, siret, client.adr as clientadr, client.ville as clientville, codepostal,
+        cra.id as idcra, totaljfacturable, totaljmaladie, totaljconge, astreinte, periode, intervention,
+        contact.id as idcontact, email1, email2, email3, bureau, fax, tel3
+               from utilisateur, consultant, contrat, client, cra, contact where
+               utilisateur.id=consultant.idutilisateur and
+               contact.id=client.idcontact and
+               client.id=contrat.idclient and
+               consultant.idutilisateur=contrat.idutilisateur and
+               cra.idcontrat=contrat.id');
         for ($i=0; $i<=count($lesCras)-1; $i++) {
                 $objcontact = new contact ($lesCras[$i]['email1'],$lesCras[$i]['email2'],$lesCras[$i]['email3'],$lesCras[$i]['bureau'],$lesCras[$i]['fax'],$lesCras[$i]['tel']);
-                $objclient = new client ($lesCras[$i]['raisonsocial'], $objcontact, $lesCras[$i]['siret'], $lesCras[$i]['clientadr'], $lesCras[$i]['clientville'], $lesCras[$i]['codepostale']);
-                $objconsultant = new consultant ($lesCras[$i]['nom'], $lesCras[$i]['prenom'], $lesCras[$i]['adrcons'], $lesCras[$i]['villecons'], $lesCras[$i]['cp'], $lesCras[$i]['tel'], $lesCras[$i]['email']);
+                $objclient = new client ($lesCras[$i]['raisonsocial'], $objcontact, $lesCras[$i]['siret'], $lesCras[$i]['clientadr'], $lesCras[$i]['clientville'], $lesCras[$i]['codepostal']);
+                $objconsultant = new consultant ($lesCras[$i]['nom'], $lesCras[$i]['prenom'], $lesCras[$i]['adresse'], $lesCras[$i]['ville'], $lesCras[$i]['cp'], $lesCras[$i]['tel'], $lesCras[$i]['email'], $lesCras[$i]['typecontrat'], $lesCras[$i]['salaire'], $lesCras[$i]['tarif']);
                 $objcontrat = new contrat($lesCras[$i]['idcontrat'], $objclient, $objconsultant, $lesCras[$i]['datedebut'],$lesCras[$i]['datefin'], $lesCras[$i]['mission'],$lesCras[$i]['salaire'], $lesCras[$i]['tarif'], $lesCras[$i]['typecontrat']);
-                $objcra = new cra ($lesCras[$i]['totaljfacturable'], $lesCras[$i]['totaljmaladie'],$lesCras[$i]['totaljconge'], $objcontrat, $lesCras[$i]['astreinte'], $lesCras[$i]['periode']);
+                $objcra = new cra ($lesCras[$i]['totaljfacturable'], $lesCras[$i]['totaljmaladie'],$lesCras[$i]['totaljconge'], $objcontrat, $lesCras[$i]['astreinte'], $lesCras[$i]['periode'], $lesCras[$i]['intervention']);
                 $collection[]=$objcra;
             } 
             return $collection;
@@ -47,9 +54,10 @@ class craDAO{
         $astreinte = $cra->getAstreinte();
         $idcontrat = $cra->getOContrat()->getidContrat();
         $periode = $cra->getPeriode();
+        $interv = $cra->getInterv();
             
-        $idcra=r::find("cra", "totaljfacturable = ? and totaljmaladie = ? and totaljconge = ? and astreinte = ? and idcontrat = ? and periode = ?",
-        array($TJF, $TJM, $TJC, $astreinte, $idcontrat,  $periode));
+        $idcra=r::find("cra", "totaljfacturable = ? and totaljmaladie = ? and totaljconge = ? and astreinte = ? and idcontrat = ? and periode = ? and intervention = ?",
+        array($TJF, $TJM, $TJC, $astreinte, $idcontrat,  $periode, $interv));
 
         foreach($idcra as $unidcra){
             return($unidcra->id);
@@ -66,22 +74,33 @@ class craDAO{
         $contact = r::load('contact', $idcontact);
         $uncontact = new contact ($contact->email1, $contact->email2, $contact->email3, $contact->bureau, $contact->fax, $contact->tel3);
         $idconsultant = $uncontrat->idconsultant;
-        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostale);
-        $consultant = R::load('consultant', $idconsultant);
-        $unconsultant = new consultant ($consultant->nom ,$consultant->prenom ,$consultant->adr ,$consultant->ville, $consultant->cp, $consultant->tel, $consultant->email);
+        $unclient =  new client($client->raisonsocial, $uncontact, $client->siret, $client->adr, $client->ville, $client->codepostal);
+        // $consultant = R::load('consultant', $idconsultant);
+        // $unconsultant = new consultant ($consultant->nom ,$consultant->prenom ,$consultant->adr ,$consultant->ville, $consultant->cp, $consultant->tel, $consultant->email);
+        $consultant = r::getAll('select * from utilisateur join consultant on utilisateur.id=consultant.idutilisateur where idutilisateur='.$idconsultant.'');
+        for ($i=0; $i<count($consultant);$i++){
+            $unconsultant = new consultant ($consultant[$i]['nom'], $consultant[$i]['prenom'], $consultant[$i]['adresse'], $consultant[$i]['ville'], $consultant[$i]['cp'], $consultant[$i]['tel'], $consultant[$i]['email'], $consultant[$i]['typecontrat'], $consultant[$i]['salaire'], $consultant[$i]['tarif']);
+        }
         $contrat = new contrat($uncontrat->id, $unclient, $unconsultant, $uncontrat->datedebut,$uncontrat->datefin, $uncontrat->mission, $uncontrat->salaire, $uncontrat->tarif, $uncontrat->typecontrat);
         
-        $cra = new cra ($uncra->totaljfacturable, $uncra->totaljmaladie, $uncra->totaljconge, $uncra->astreinte, $uncra->idcontrat, $uncra->periode);
+        $cra = new cra ($uncra->totaljfacturable, $uncra->totaljmaladie, $uncra->totaljconge, $uncra->astreinte, $contrat, $uncra->periode, $uncra->intervention);
          return $cra;
     }
 
-    public function getJFfromidcontrat($idcontrat){
-        $lesjFacturable = 0;
-        $lesJF = r::getAll("select totaljfacturable from cra where idcontrat='$idcontrat'");
-        for ($i=0; $i<=sizeof($lesJF)-1;$i++){
-            $lesjFacturable = $lesjFacturable + $lesJF[$i]['totaljfacturable'];
+    public function getJFfromidcontrat($idcontrat, $mois){ 
+        $lesJF = r::getAll("select totaljfacturable as jf from cra where idcontrat='$idcontrat' and periode='$mois'");
+        print_r($lesJF);
+        return $lesJF[0]['jf'];
+    }
+
+    public function crasConsultants($idconsultant){
+        $tabcras = array();
+        $lescras = r::getAll("select periode from cra join contrat on cra.idcontrat=contrat.id join utilisateur on contrat.idutilisateur=utilisateur.id join consultant on utilisateur.id=consultant.idutilisateur where consultant.idutilisateur=$idconsultant");
+        for($i=0; $i<sizeof($lescras);$i++){
+           $unedate= $lescras[$i]['periode'];
+           $tabcras[] = $unedate;
         }
-        return $lesjFacturable;
+        return $tabcras;
     }
 
 }

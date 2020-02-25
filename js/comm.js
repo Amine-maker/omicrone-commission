@@ -74,7 +74,7 @@ function afficherRib(){
                 document.getElementsByName(tdform)[i].style.display="";
                 document.getElementById(monName).style.display="none";
                 document.getElementById(fas).style.display="";
-                if(document.getElementsByName(form).value=="<i>Null</i>" || document.getElementsByName(form).value == '0') {
+                if(document.getElementsByName(form).value=="<i>Null</i>") {
                     document.getElementsByName(form).setAttribute("readonly","readonly");
                                                                          }
                                                                          
@@ -86,19 +86,35 @@ function afficherRib(){
         var arra=[];
         var id=mon;
         var form = 'de'+id;
-            
+            var pourcent= document.getElementsByName(form)[1];
+            var montant = document.getElementsByName(form)[0];
             for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;} 
 
             if(!document.getElementsByName(form)[1].hasAttribute("readonly")){
 
-                  if(document.getElementsByName(form)[1].value<=100 && document.getElementsByName(form)[1].value>=0)
+                  if(pourcent.value<=100 && pourcent.value>=0 && pourcent.value!==null && montant.value!==null)
                   {
+                      if(pourcent.value!=''){
                      return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);
                   }
-                  else{alert('Le pourcentage ne peut dépasser 100% ou être nul ')}
+                  else{alert("Le pourcentage ne peux pas etre nul")}
+                }
+                  else{alert('Le pourcentage ne peut dépasser 100% ')}
           }
-          else{return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);}
-        }
+       
+          if(!montant.hasAttribute("readonly")){
+
+          if(montant.value!=''){
+              
+                     return(window.location.href="index.php?uc=commission&action=updateCommission&tableau="+arra+"&idCommission="+idCommission+"&idCommercial="+idCommercial);
+             
+
+                   }  else{alert("Le montant ne peux pas être nul")}
+               
+            }
+          }       
+        
+
         
            function submitDepense(mon,idDepense){
             var arra=[];
@@ -107,10 +123,10 @@ function afficherRib(){
             
             for(i=0;i<=1;i++)  { arra[i]=document.getElementsByName(form)[i].value;
             }     
-                if(isNaN(arra[1])){
+                if(isNaN(arra[1]) || arra[0].value!=null){
                     return(window.location.href="index.php?uc=depense&action=updateDepense&tableau="+arra+"&idDepense="+idDepense);
                 }
-                else{alert("Veuillez entrer un libelle")}
+                else{alert("Veuillez entrer correctement les champs")}
                  
            
 
@@ -130,20 +146,19 @@ function afficherRib(){
                else {alert("Veuillez entrer les champs correctement")}
           }
 
-           function submitConsultant(mon,idConsultant){
+           function submitConsultant(mon,idConsultant){ //------------------------------------------------------------------------
             var arra=[];
             var id=mon;
             var form = 'de'+id;
             
-            for(i=0;i<=6;i++)  { arra[i]=document.getElementsByName(form)[i].value; }  
+            for(i=0;i<=9;i++)  { arra[i]=document.getElementsByName(form)[i].value; }  
             
-            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && !isNaN(arra[4]) && !isNaN(arra[5]) && isNaN(arra[6])){
+            if(isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && isNaN(arra[3]) && !isNaN(arra[4]) && !isNaN(arra[5]) && isNaN(arra[6]) && isNaN(arra[7]) && !isNaN(arra[8]) && !isNaN(arra[9])){
                 return(window.location.href="index.php?uc=consultant&action=modifconsultant&tableau="+arra+"&idConsultant="+idConsultant);
-
           }
             else {alert(" Veuillez entrer les champs correctement")}
                  
-           }
+           } //------------------------------------------------------------------------------------------------------------------------
 
            function submitClient(mon,idClient){
             var arra=[];
@@ -152,29 +167,25 @@ function afficherRib(){
             
             for(i=0;i<=10;i++)  { arra[i]=document.getElementsByName(form)[i].value; }     
                  
-            if(isNaN(arra[0]) && isNaN(arra[1])==false && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5]) && !isNaN(arra[8]) && !isNaN(arra[9]) && isNaN(arra[10])==false){
+            if(isNaN(arra[0]) && isNaN(arra[1])==false && isNaN(arra[2]) && isNaN(arra[3]) && isNaN(arra[4])==false && isNaN(arra[5]) && isNaN(arra[8])==false && isNaN(arra[9])==false && isNaN(arra[10])==false){
                  return(window.location.href="index.php?uc=client&action=modifclient&tableau="+arra+"&idClient="+idClient);
-           } else { alert("Veuillez entrer les champs correctement")}
-           
+           } else { alert("Veillez entrer les champs correctement")}
+        }
+          
+          
+        function submitContrat(mon, idContrat){
+           var arra=[];
+           var id=mon;
+           var form = 'de'+id;
 
-
-           }
-
-           function submitContrat(mon, idContrat){
-               var arra=[];
-               var id=mon;
-               var form = 'de'+id;
-
-               for(i=0;i<=4;i++){ arra[i] = document.getElementsByName(form)[i].value; }
-                    if( isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]) && !isNaN(arra[3]) && !isNaN(arra[4]))
-                        { 
-                            return(window.location.href="index.php?uc=contrat&action=modifcontrat&tableau="+arra+"&idcontrat="+idContrat);
-                        } 
-                        else { 
-                            alert("Veuillez entrer tous les champs correctement")
-                            }
-
-            }
-              
+           for(i=0;i<3;i++){ arra[i] = document.getElementsByName(form)[i].value; }
+               if( isNaN(arra[0]) && isNaN(arra[1]) && isNaN(arra[2]))
+                {
+                    return(window.location.href="index.php?uc=contrat&action=modifcontrat&tableau="+arra+"&idcontrat="+idContrat);
+                } 
+                else { 
+                    alert("Veuillez entrer tous les champs correctement")
+                }
+        }
 
 

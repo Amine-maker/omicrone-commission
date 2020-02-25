@@ -9,7 +9,7 @@ else{
 	$limit=$_REQUEST["limit"];
 }
 $action = $_REQUEST['action'];
-$commerciauxDao=new commerciauxDAO();
+$commerciauxDao=new UcommerciauxDao();
 $financeDAO = new financeDAO();
 switch($action){
 
@@ -17,7 +17,7 @@ switch($action){
 
         if(isset($_POST["envoyer"])){
 
-            $commercial = new commerciaux($_POST["nom"],$_POST["prenom"],$_POST["tel"], $_POST["email"],$_POST["adresse"],$_POST["ville"],$_POST["cp"]);
+            $commercial = new commercial($_POST["nom"],$_POST["prenom"],$_POST["tel"], $_POST["email"],$_POST["adresse"],$_POST["ville"],$_POST["cp"]);
 			$commerciauxDao->add($commercial);
 
 			if(isset($_POST["regarder"])=="on"){
@@ -54,7 +54,7 @@ switch($action){
 
 				$idFinance=$financeDAO->getIdFinanceById($_REQUEST["idCommercial"]);
 
-				$commercial = new commerciaux($nom,$prenom,$tel, $email,$adresse,$ville,$cp);
+				$commercial = new commercial($nom,$prenom,$tel, $email,$adresse,$ville,$cp);
 				//$finance= new information_bancaire(NULL,$commercial,$_POST["codeAgence"],$_POST["compte"],$_POST["iban"],$_POST["bic"],$_POST["codeBanque"],$_POST["cleRib"]);
 				$commerciauxDao->update($commercial,$_REQUEST["idCommercial"]);
 				//$financeDAO->update($finance,$idFinance,$_REQUEST["idCommercial"]);

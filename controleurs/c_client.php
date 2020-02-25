@@ -6,6 +6,7 @@ $action = $_REQUEST['action'];
 switch($action){
 	case 'afficherclient':{ 
         $lesclients = $clientDao->listeclient();
+       // $lesclients = $clientDao->collectionclient();
             include("vues/v_client.php");
             break;
 	}
@@ -31,8 +32,8 @@ switch($action){
             if( empty($email2) OR empty($email3) OR empty($bureau) OR empty($fax)){
                 $email2='xxx@xxx.xx';
                 $email3='xxx@xxx.xx';
-                $bureau='0';
-                $fax='0';
+                $bureau='0000000000';
+                $fax='0000000000';
             }
             
             $objcontact = new contact($email, $email2, $email3, $bureau, $fax, $tel3);

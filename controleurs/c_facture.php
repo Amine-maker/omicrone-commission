@@ -5,70 +5,43 @@ if(!isset($_REQUEST['action'])){
 $action = $_REQUEST['action'];
 
 switch($action){
-    case 'creerfacture':{
+
+    case 'choixFacture': {
         $idContrat = $_GET['idcontrat'];
-        $UnContrat = $contrat->getobjcontrat($idContrat);
-        $objclient = new client ($UnContrat->getcleclient()->getraisonsocial(),$UnContrat->getcleclient()->getclecontact() , $UnContrat->getcleclient()->getsiret(),$UnContrat->getcleclient()->getadr(),$UnContrat->getcleclient()->getville(),$UnContrat->getcleclient()->getcp());
-        $idclient =  $clientDao->getidclientfromchamps($objclient); 
+        $lecontrat = $contrat->getcontrat($idContrat);
+        print_r($lecontrat);
+        $lesMois = $factureDao->getdatefacture($idContrat);
+        //print_r($lesMois);
+        // $lesContrats=$contrat->collectioncontrat(); //renvoie une collection de contrat
+        //$lesMois= getdouzeMois(); //alimente la liste deroulante des mois
+        include 'vues/v_choixfacture.php';
+    break;
+    }
 
-        if ($factureDao->factureexists($idContrat) == 1){
-            $lafacture = $factureDao->getobjetfacturefromcontrat($idContrat);
-            $dateX = $lafacture->getdatef();
-            $montantX = $lafacture->getmontant();
-            $montantTvaX = $lafacture->MontantAvecTVA();
-            $idexistant = $factureDao->getidfacutrefromcontrat($idContrat);
-            $Unefacture = $factureDao->getobjectfromid($idexistant);
+    case 'afficherfacture':{
+        $idContrat = $_GET['idcontrat']; 
+        $leMois = $_POST['mois'];
+        $m = substr($leMois, 0,2);
+        $a = substr($leMois, 2, 4);
 
-            $nbmois = $contrat->timecontrat($idContrat);
-                if ($nbmois == 0 ){
-                    $nbmois = 1;
-                }
-    
-                $JF = $craDAO->getJFfromidcontrat($idContrat);
-    
-                if($UnContrat->getsalaire() == 0){
-                    $montant = $UnContrat->gettarif() * $JF;
-                }
-                
-                else {
-                    $montant = $UnContrat->getsalaire() * $nbmois;
-                        if($UnContrat->getsalaire() > 0 && $UnContrat->gettarif() > 0){
-                        $tarif = $UnContrat->gettarif() * $JF;
-                        $salaire = $UnContrat->getsalaire() * $nbmois;
-                        $montant = $tarif + $salaire;
-                        }
-                }
-        }
+        if ($factureDao->factureexists($idContrat, $leMois) == 0){
+            // $lesContrats=$contrat->collectioncontrat(); //renvoie une collection de contrat
+            // $lesMois= getdouzeMois(); //alimente la liste deroulante des mois
+            $lesMois = $factureDao->getdatefacture($idContrat);
+            include 'vues/v_choixfacture.php'; //choix facture
+            include 'vues/v_erreurs.php'; //sinon afficher une vue erreur
+        }    
+            
         else {
-
-            $nbmois = $contrat->timecontrat($idContrat);
-            if ($nbmois == 0 ){
-                $nbmois = 1;
-            }
-
-            $JF = $craDAO->getJFfromidcontrat($idContrat);
-            
-            if($UnContrat->getsalaire() == 0){
-                $montant = $UnContrat->gettarif() * $JF;
-            }
-            
-            else {
-                $montant = $UnContrat->getsalaire() * $nbmois;
-                if($UnContrat->getsalaire() > 0 && $UnContrat->gettarif() > 0){
-                $tarif = $UnContrat->gettarif() * $JF;
-                $salaire = $UnContrat->getsalaire() * $nbmois;
-                $montant = $tarif + $salaire;
-                }
-             }
-            $date = date('Y-m-d');
-            $objfacture = new facture($date,$montant); //créer un objet
-            $factureDao->addfacture($objfacture); //ajouter l'objet facture dans la bdd
-            $idfacture = $factureDao->dernieridfacture(); //recupère l'id de l'objet créer précédemment
-            $unpaiement = new payer ($idfacture, $idContrat, $idclient); //créer un nouvel objet facture
-            $payerDao->addpayer($unpaiement);  //ajoute cette objet dans la bdd
-            $Unefacture = $factureDao->getobjectfromid($idfacture); //retourne l'objet facture en fonctiond de son id
-        }
-        require_once 'vues/v_facture.php';
-        break;
+            $uncontrat = $contrat->getobjcontrat($idContrat);
+            $unefacture = $factureDao->getfacture($leMois, $idContrat, $uncontrat);
+            $periode = $unefacture->getclecra()->getPeriode();
+            $mois = substr($periode, 0, 2);
+            $annee = substr($periode, 2, 4);
+            $idfacture = $factureDao->getidfacutrefromcontrat($idContrat);
+            $JF = $craDAO->getJFfromidcontrat($idContrat, $leMois);
+            require_once 'vues/v_lafacture.php';    
+        }    
+    break;        
     }
 }

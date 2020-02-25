@@ -36,6 +36,8 @@ switch($action){
 		$_REQUEST["tab"]=explode(",",$_REQUEST["tableau"]);
 		$montant=$_REQUEST["tab"][0];
 		$libelle=$_REQUEST["tab"][1];
+
+		if($montant==''){$montant=0;}
 		$lesDepenses = $depenseDao->getDepenses($limit);
 		$depense=$depenseDao->getDepense($_REQUEST["idDepense"]);
 			

@@ -14,7 +14,7 @@
 class PdoCommission extends pdo {
 
     private static $serveur = 'pgsql:host=localhost';
-    private static $bdd = 'dbname=comm';
+    private static $bdd = 'dbname=commission';
     private static $user = 'user=postgres';
     private static $password = 'password=test';
     private static $port="port=5432";
