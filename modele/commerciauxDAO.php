@@ -1,11 +1,9 @@
 <?php
 
-
-class commerciauxDAO{
+class commerciauxDao {
 
     
     public function add($commercial){
-
         
         $nom= $commercial->getNom();
         $prenom= $commercial->getPrenom();
@@ -15,7 +13,8 @@ class commerciauxDAO{
         $ville=$commercial->getVille();
         $cp=$commercial->getCp();
 
-        $commercial = R::dispense('commerciaux'); // on crée un commercial
+        $commercial = R::dispense('utilisateur'); // on crée un commercial
+
         $commercial->nom = $nom; // on lui donne les champs
         $commercial->prenom = $prenom;
         $commercial->tel=$tel;
@@ -24,17 +23,19 @@ class commerciauxDAO{
         $commercial->ville=$ville;
         $commercial->cp=$cp;
         R::store($commercial); // on le sauvegarde en BDD
+        $idC = r::getAll("SELECT id FROM utilisateur WHERE id = (SELECT MAX(id) FROM utilisateur)");
+        $id = $idC[0]["id"];
+        r::getAll("insert into commercial values ($id, 'FALSE')");
         
     }
-    public function getCommerciaux()/*retourne une collection de commercial*/ 
+    public function getCommerciaux()/*retourne une collection de commerciall*/ 
         {
              // $limit=0;
             $lesComm=array();
-            $les = r::getAll('select nom, prenom, tel,email, adresse,ville,cp from commerciaux where cacher = false order by id desc');
-       // $les = R::find('commerciaux'/*,'limit 5 offset 5'*/,"order by id desc");
+            $les = r::getAll('select nom, prenom, tel, email, adresse, ville, cp from utilisateur join commercial on utilisateur.id=commercial.idutilisateur where cacher = false order by id desc');
+       // $les = R::find('commerciall'/*,'limit 5 offset 5'*/,"order by id desc");
             foreach ($les as $depe){
-                $comm=new commerciaux($depe["nom"],$depe["prenom"],$depe["tel"],
-                $depe["email"],$depe["adresse"],$depe["ville"],$depe["cp"]);
+                $comm=new commercial($depe["nom"],$depe["prenom"],$depe["adresse"],$depe["ville"],$depe["cp"],$depe["tel"], $depe["email"]);
                 $lesComm[]=$comm;
         }
             return($lesComm);
@@ -50,24 +51,19 @@ class commerciauxDAO{
         $ville=$commercial->getVille();
         $cp=$commercial->getCp();
 
-        $id=r::find("commerciaux", "nom = ? and prenom = ? and tel = ? and email = ? and adresse = ? and ville = ? and cp = ?",
-        array($nom,$prenom,$tel,$email,$adresse,$ville,$cp));
+        $id=r::getAll("select idutilisateur from commercial join utilisateur on commercial.idutilisateur = utilisateur.id where nom = '$nom' and prenom = '$prenom' and adresse = '$adresse' and ville = '$ville' and cp = $cp and tel = $tel and email = '$email'");
 
-        foreach($id as $unid){
-            return($unid->id);
-        }
-
-        
+            return($id[0]["idutilisateur"]);
+   
         }
         
         public function getCommercial($idC){
            
            $res = R::getAll("select nom, prenom, tel, email, adresse, ville, cp, codeagence ,compte ,iban ,bic, codebanque,clerib
-            from commerciaux left join infob on commerciaux.id=infob.idcommerciaux where commerciaux.id=".$idC."");
+           from utilisateur join commercial on utilisateur.id=commercial.idutilisateur left join infob on commercial.idutilisateur=infob.idcommercial where commercial.idutilisateur=$idC");
            
             foreach($res as $resu){
-            $comm=new commerciaux($resu["nom"],$resu["prenom"],$resu["tel"],
-            $resu["email"],$resu["adresse"],$resu["ville"],$resu["cp"]);
+            $comm=new commercial($resu["nom"],$resu["prenom"],$resu["adresse"],$resu["ville"],$resu["cp"],$resu["tel"],$resu["email"]);
 
             $fin=new information_bancaire(NULL,$comm,$resu["codeagence"],$resu["compte"],$resu["iban"],
                  $resu["bic"],$resu["codebanque"],$resu["clerib"]);
@@ -85,7 +81,7 @@ class commerciauxDAO{
             $ville = $commercial->getVille();
             $cp = $commercial->getCp();
 
-            $commercial=r::load('commerciaux',$idC);// on recupere le commercial
+            $commercial=r::load('utilisateur',$idC);// on recupere le commercial
             $commercial->nom = $nom; // on lui donne les champs
             $commercial->prenom = $prenom;
             $commercial->tel=$tel;
@@ -93,32 +89,20 @@ class commerciauxDAO{
             $commercial->adresse=$adresse;
             $commercial->ville=$ville;
             $commercial->cp=$cp;
-            $commercial->cacher=false;
             R::store($commercial); // on le sauvegarde en BDD
+            $vraiComm = r::getAll("update commercial set cacher = false where idutilisateur = $idC");
+
 
             }
             public function nbLigne(){
-                $nb=  r::getAll('select count(*)from commerciaux');
+                $nb = r::getAll('select count(*)from commercial');
                 return($nb[0]["count"]);
-          }
-
-        public function delete($commercial){
-            $id=$this->getIdCommercial($commercial);
-            $idcommission=r::find("commission", " idcommerciaux = ?", array($id));
-
-            foreach($idcommission as $unid){
-               
-                // r::exec('delete from prendre where idcommission='.$unid->id.'');
-                // $pourcentage=r::load('pourcentage',$unid);
-                // r::trash($pourcentage);
-                // $one_shot=r::load('one_shot',$unid); 
-                // r::trash($one_shot);
-                // $commission=r::load('commission',$unid);
-                // r::trash($commission);
             }
-            $commercial=r::load('commerciaux',$id);
-            $commercial->cacher = true;
-            r::store($commercial);
+
+            public function delete($commercial){
+            $id=$this->getIdCommercial($commercial);
+            r::getAll("update commercial set cacher = true where idutilisateur = $id");
+
             
 
         }

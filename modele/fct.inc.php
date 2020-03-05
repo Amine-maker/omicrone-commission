@@ -2,16 +2,13 @@
 function tableauContrat($contenu){
     $tableau_html ="<TR class='contrat'>"
         // ."<td>N°</td>"
-        ."<td>Type de contrat</td>"
         ."<td>Date Début</td>"
         ."<td>Date fin</td>"
         ."<td>Mission</td>"
-        ."<td>Salaire</td>"
-        ."<td>Tarif</td>"
-        ."<td>Raison Social</td>"
+        ."<td>Raison Sociale</td>"
         ."<td>Consultant</td>"
         ."<td>Facture</td>"
-        ."<td>Action</td>"
+        ."<td colspan='2'>Actions</td>"
         ."</TR>";
 $noligne=0;
 foreach ($contenu as $ligne){
@@ -26,28 +23,28 @@ for($i=0;$i<sizeof($tabcontrat);$i++) //parcours du tableau
         $idContrat = $tabcontrat[$i];
        // print_r($idContrat);
     }
-    if($i==1){
-            $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
-        }
-   if($i>1 && $i<7){
+   if($i>0 && $i<4){
         $ligne_html .="<td class='col col-5 filter_td' name='modif".$noligne."'>$tabcontrat[$i]</td>";
         $ligne_html .="<td class='col col-5' style='display: none' name='tdmodif".$noligne."'>
         <input class='col col-4' name='demodif".$noligne."' type='text' value='$tabcontrat[$i]'></td>";   
    }
 
-   if ($i==7){
-        $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
-   }
-   if ($i==8){
+   if($i==4){
     $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
-}
-
-    if($i==8){
-       $ligne_html .="<td><a href='index.php?uc=facture&action=creerfacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
+   }
+   if($i==5){
+    $ligne_html .="<td class='col col-5 filter_td'>$tabcontrat[$i]</td>";
+   }
+    if($i==5){
+        $ligne_html .="<td><a href='index.php?uc=facture&action=choixFacture&idcontrat=$idContrat'><i class='fas fa-file-invoice'></i></a></td>";
     }
-   if($i==8){
-        $ligne_html .= "<TD ><a class='tableau' href='index.php?uc=contrat&action=modifC&idcontrat=$idContrat'><i class='fas fa-edit'></i></a><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
-                 . "<i class='fas fa-times'></i></a></TD>";
+    if($i==5){ //bouton modif et suppression
+            $ligne_html .= "<td><a class='tableau' id='submit".$noligne."' name='modif".$noligne."' onclick='modif(this.name,this.id);'><i class='fas fa-edit'></i></a>
+            <a class='tableau' id='desubmit".$noligne."' style='display: none; padding:0px; margin-right:5px;'><button id='button' name='modif".$noligne."' onclick='submitContrat(this.name,$idContrat);'><i class='fas fa-check'></i></button></a></td>";
+   }
+    if($i==5){ 
+            $ligne_html .= "<td><a class='delete' href='#' onClick=\"if(confirm('Etes vous sur de vouloir supprimer?'))document.location.href='index.php?uc=contrat&action=suppcontrat&idcontrat=$idContrat'\">"
+            . "<i class='fas fa-times'></i></a></TD>";
    }
    
   
@@ -94,7 +91,7 @@ for($i=0;$i<sizeof($tabclient);$i++) //parcours du tableau
         $idclient = $tabclient[$i];
     }
    
-   elseif($i<12){
+   elseif($i>0 && $i<12){
    $ligne_html .="<td class='col col-5 filter_td' name='modif".$noligne."'>$tabclient[$i]</td>";
    $ligne_html .="<td class='col col-5' style='display: none' name='tdmodif".$noligne."'>
    <input class='col col-4' name='demodif".$noligne."' type='text' value='$tabclient[$i]'>
@@ -142,4 +139,34 @@ function getMoisFr($mois){
                     
     return $leMois;
 }
+
+function getdouzeMois(){
+    $lesMois = array();
+    for($i=0;$i<13;$i++){
+      $numAnnee = date("Y");
+      $numMois = date("m")-$i;
+      if($numMois <= 0){
+        $numMois = $numMois +12;
+        $numAnnee = $numAnnee - 1;
+      }
+      if($numMois < 10){
+        $numMois = "0" . $numMois;
+      }
+      $mois = $numMois . $numAnnee;
+      $lesMois[]=array(
+         "mois"=>"$mois",
+        "numAnnee"  => "$numAnnee",
+      "numMois"  => "$numMois"
+             );
+      $numMois++;
+    }
+    return $lesMois;
+  }  
+
+  function ajouterErreur($msg){
+    if (! isset($_REQUEST['erreurs'])){
+       $_REQUEST['erreurs']=array();
+   } 
+    $_REQUEST['erreurs'][]=$msg;
+ }
 ?>

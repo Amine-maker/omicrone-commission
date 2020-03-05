@@ -9,6 +9,12 @@
                 <input type="number" min="0" name="cp" placeholder="Code Postal *" required="required">
                 <input type="text" pattern="[0-9]{10}" name="tel" placeholder="Numero de telephone *" required="required">
                 <input type="email" name="email" placeholder="Email *" required="required">
+                <input type="text" name="salaire" placeholder="salaire *">
+                <input type="text" name="tarif" placeholder="tarif *">
+                <select name="typecontrat" id="">
+                <option value="salarie">salarié</option>
+                <option value="sous-traitant">sous-traitant</option>
+                </select>
                 <input type="submit" name="envoyer" value="Ajouter" />
             </fieldset>
         </form>

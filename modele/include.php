@@ -1,6 +1,6 @@
 <?php
 require_once ("modele/class.pdoCommission.inc.php");
-require_once ("modele/commerciaux.php");
+//require_once ("modele/commerciaux.php");
 require_once ("modele/commerciauxDAO.php");
 require_once ("modele/finance.php");
 require_once ("modele/financeDAO.php");
@@ -15,6 +15,7 @@ require_once ('modele/classContact.php');
 require_once ('modele/classFacture.php');
 require_once ('modele/classConsultant.php');
 require_once ('modele/classPayer.php');
+require_once ('modele/classUtilisateur.php');
 require_once ('modele/prendre.php');
 require_once ('modele/cra.php');
 require_once ('modele/craDAO.php');

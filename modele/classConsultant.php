@@ -1,6 +1,6 @@
 <?php
 
-class consultant {
+class consultantn {
     private $_id;
     private $_nom;
     private $_prenom;
@@ -101,7 +101,7 @@ class consultantDao {
             return($unid->id);
         }
         }
-        
+       
         public function getConsultantfromId($idC){
             $req = R::getAll('select nom, prenom, adr, ville, cp, tel, email from consultant where consultant.id='.$idC.'');
             foreach($req as $laligne){

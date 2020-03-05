@@ -28,9 +28,10 @@
 
   foreach ($lesCommerciaux as $unCommercial)
   {
+    var_dump($unCommercial);
       ?>
-
-      <option  value=" <?php echo $commerciauxDAO->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
+      
+      <option  value=" <?php echo $commerciauxDao->getIdCommercial($unCommercial) ?>"> <?php echo $unCommercial->getNom()." ".$unCommercial->getPrenom() ?></option>';
 
   <?php
   }
@@ -100,7 +101,7 @@ for ($i=0; $i<=count($lesCommissions)-3; $i=$i+4){// je recupere les attribut da
   $prenom=$lesCommissions[$i+1]->getOCommercial()->getPrenom();
   $montant=$lesCommissions[$i+2]->getMontant();
   $valeur=$lesCommissions[$i+3]->getValeur();
-  $idCommercial=$commerciauxDAO->getIdCommercial($lesCommissions[$i+1]->getOCommercial());
+  $idCommercial=$commerciauxDao->getIdCommercial($lesCommissions[$i+1]->getOCommercial());
   
 
 

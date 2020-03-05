@@ -23,6 +23,12 @@
                 <input type="number" min="0" name="cp" placeholder="Code Postal *" required="required">
                 <input type="text" pattern="[0-9]{10}" name="tel" placeholder="Numero de telephone *" required="required">
                 <input type="email" name="email" placeholder="Email *" required="required">
+                <input type="text" name="salaire" placeholder="salaire *">
+                <input type="text" name="tarif" placeholder="tarif *">
+                <select name="typecontrat" id="">
+                <option value="salarie">salarié</option>
+                <option value="soustraitant">sous-traitant</option>
+                </select>
                 
             </fieldset>
 
@@ -43,23 +49,29 @@
       <td class="col col-5">Code Postale</td>
       <td class="col col-5">Tel</td>
       <td class="col col-5">Email</td>
+      <td class="col col-5">Type de contrat</td>
+      <td class="col col-5">Salaire</td>
+      <td class="col col-5">Tarif</td>
+      <td class="col col-5">Cra</td>
       <td class="col col-5">Action</td>
  </tr>
 
  <?php 
  
  $noligne=0;
- foreach( $lesConsultants as $unConsultant){
-
-  $nom=$unConsultant->getNom();
-  $prenom = $unConsultant->getPrenom();
-  $adresse= $unConsultant->getAdresse();
-  $ville=$unConsultant->getVille();
-  $cp=$unConsultant->getCp();
-  $tel=$unConsultant->getTel();
-  $email=$unConsultant->getEmail();
-  $id=$consultantDao->getIdConsultantFromobject($unConsultant);
-
+  foreach($lesConsultants as $unConsultant){
+    $nom = $unConsultant->getNom();
+    $prenom = $unConsultant->getPrenom();
+    $adresse = $unConsultant->getAdresse();
+    $ville = $unConsultant->getVille();
+    $cp = $unConsultant->getCp();
+    $tel = $unConsultant->getTel();
+    $email = $unConsultant->getEmail();
+    $typecontrat = $unConsultant->gettypecontrat();
+    $salaire = $unConsultant->getsalaire();
+    $tarif = $unConsultant->gettarif();
+    
+    $id=$UconsultantDao->getIdConsultantFromobject($unConsultant);
    ?>
  
   <tr <?php if($noligne%2==0 ){echo"style='background-color:#e1ecfd;'";}else{echo 'style="background-color:#FFFFFF"';} ?>>
@@ -101,15 +113,34 @@
       <input class="col col-4" name="demodif<?php echo $noligne ?>" type="email" placeholder="Email *" value="<?php echo $email;?>">
     </td>
 
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="typedecontrat"><?php echo $typecontrat; ?></td>
+    <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
+      <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" placeholder="Type de contrat *" value="<?php echo $typecontrat;?>">
+    </td>
 
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="salaire"><?php echo $salaire ;?></td>
+    <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
+      <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" placeholder="salaire *" value="<?php echo $salaire;?>">
+    </td>
+
+    <td class="col col-5 filter_td" name="modif<?php echo $noligne ?>" data-label="tarif"><?php echo $tarif ;?></td>
+    <td class="col col-5" style="display: none" name="tdmodif<?php echo $noligne ?>">
+      <input class="col col-4" name="demodif<?php echo $noligne ?>" type="text" placeholder="tarif *" value="<?php echo $tarif;?>">
+    </td>
+
+<td><a href="index.php?uc=cra&action=crasConsultant&idconsultant=<?php echo $id; ?>"><i class="far fa-calendar-alt"></i></a></td>
 
 <td align="center" data-label="Action">
-      <a class="tableau" id="submit<?php echo $noligne ?>" name="modif<?php echo $noligne ?>" onclick="modif(this.name,this.id);"><i class="fas fa-edit"></i></a>
-      <a class="tableau" id="desubmit<?php echo $noligne ?>" style="display: none; padding:0px; margin-right:5px;"><button id="button" name="modif<?php echo $noligne ?>" onclick="submitConsultant(this.name,<?php echo $id;?>);"><i class="fas fa-check"></i></button></a>
+<a class="tableau" id="submit<?php echo $noligne ?>" name="modif<?php echo $noligne ?>" onclick="modif(this.name,this.id);"><i class="fas fa-edit"></i></a>
+      <a class="tableau" id="desubmit<?php echo $noligne; ?>" style="display: none; padding:0px; margin-right:5px;">
+        <button id="button" name="modif<?php echo $noligne; ?>" onclick="submitConsultant(this.name,<?php echo $id;?>);">
+        <i class="fas fa-check"></i>
+        </button>
+      </a>
 
       <a class="delete" onclick=
       "if (confirm('voulez vous supprimer le commercial ?'))
-      {window.location.replace('index.php?uc=consultant&action=suppconsultant&idconsultant=<?php echo $id;?>');}">
+      {window.location.replace('index.php?uc=consultant&action=suppconsultant&idconsultant=<?php echo $id; ?>');}">
         <i class="fas fa-times"></i></a>
   
       </td>

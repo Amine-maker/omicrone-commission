@@ -1,26 +1,14 @@
 <?php
 
-class commerciaux {
+class commerciaux extends utilisateur {
    
-    private $nom;
-    private $prenom;
-    private $tel;
-    private $email;
-    private $adresse;
-    private $ville;
-    private $cp;
+  
 
-    public function __construct($unNom,$unPrenom,$unTel,$unEmail,$uneAdresse,$uneVille,$unCp)
+    public function __construct($unNom,$unPrenom,$uneAdresse,$uneVille,$unCp,$unTel,$unEmail)
     {
-        
-        $this->nom = $unNom;
-        $this->prenom=$unPrenom;
-        $this->tel=$unTel;
-        $this->email=$unEmail;
-        $this->adresse=$uneAdresse;
-        $this->ville=$uneVille;
-        $this->cp=$unCp;
+        parent::__construct($unNom,$unPrenom,$uneAdresse,$uneVille,$unCp,$unTel,$unEmail);
     }
+
         public function getNom(){return($this->nom);}
         public function getPrenom(){return($this->prenom);}
         public function getTel(){return($this->tel);}

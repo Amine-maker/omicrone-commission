@@ -6,6 +6,7 @@ $action = $_REQUEST['action'];
 switch($action){
 	case 'afficherclient':{ 
         $lesclients = $clientDao->listeclient();
+       // $lesclients = $clientDao->collectionclient();
             include("vues/v_client.php");
             break;
 	}

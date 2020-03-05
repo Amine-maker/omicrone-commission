@@ -4,24 +4,29 @@ class commissionDAO {
 
 
     public function add($uneCommission,$valeur){
-        $commDAO=new commerciauxDAO;
+        $commDAO=new commerciauxDao;
         $commercial=$uneCommission->getOCommercial()->getOCommercial();
         $idcommercial=$commDAO->getIdCommercial($commercial);
 
         $ocommercial=r::dispense("commission");
-        $ocommercial->idcommerciaux=$idcommercial;
+        $ocommercial->idcommercial=$idcommercial;
         r::store($ocommercial);
 
-       $id = r::find("commission","idcommerciaux = ?", array($idcommercial)); 
-        foreach($id as $unid){
-            $idC=$unid->id;
-            
-        }
+    //    $id = r::find("commission","idcommercial = ?", array($idcommercial)); 
+    //     foreach($id as $unid){
+    //         $idC=$unid->id;  }
+
+    $id = r::getAll("select id from commission where id = (select max(id) from commission) and cacher = false");
+    $idC = $id[0]['id'];
+
+var_dump($id);
             if($valeur["heri"]=="pourcentage"){
-                r::exec("insert into pourcentage(id,valeur) values (".$idC.",".$valeur["pourcentage"].")");
+               $v = $valeur['pourcentage'];
+                r::exec("insert into pourcentage(idcommission,valeur) values ($idC,$v)");
                                                 }
            else{
-                r::exec("insert into one_shot(id,montant) values (".$idC.",".$valeur["montant"].")");
+               $m = $valeur["montant"];
+                r::exec("insert into oneshot(idcommission,montant) values ($idC,$m)");
                 }
                 $idContrat=$valeur["idContrat"];
                 r::exec("insert into prendre (idcontrat,idcommission) values (".$idContrat.",".$idC.")");
@@ -29,15 +34,15 @@ class commissionDAO {
     }
     
     public function getCommissions(){
-            $dao=new commerciauxDAO;
+            $dao=new commerciauxDao;
 
             $lesComm=array();
-            $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from
-            commission left join one_shot on commission.id=one_shot.id
-            left join pourcentage on commission.id=pourcentage.id where commission.cacher = false order by id desc");
+            $lesCommissions=r::getAll("select commission.id,idcommercial, montant, valeur from
+            commission left join oneshot on commission.id=oneshot.idcommission
+            left join pourcentage on commission.id=pourcentage.idcommission where commission.cacher = false order by id desc");
         
             foreach($lesCommissions as $uneCommission){
-               $commission=new commission($dao->getCommercial($uneCommission['idcommerciaux'])->getOCommercial());
+               $commission=new commission($dao->getCommercial($uneCommission['idcommercial'])->getOCommercial());
                $one_shot=new one_shot($uneCommission['montant'],$commission->getOCommercial());
                $pourcentage=new pourcentage($uneCommission['valeur'],$commission->getOCommercial());
 
@@ -52,15 +57,15 @@ class commissionDAO {
            
    }
     public function getLaCommission($id){
-        $dao=new commerciauxDAO;
+        $dao=new commerciauxDao;
 
             $lesComm=array();
-            $lesCommissions=r::getAll("select commission.id,idcommerciaux, montant, valeur from
-            commission full join one_shot on commission.id=one_shot.id
-            full join pourcentage on commission.id=pourcentage.id where commission.id=$id");
+            $lesCommissions=r::getAll("select commission.id,idcommercial, montant, valeur from
+            commission full join oneshot on commission.id=oneshot.idcommission
+            full join pourcentage on commission.id=pourcentage.idcommission where commission.id=$id");
         
             foreach($lesCommissions as $uneCommission){
-               $commission=new commission($dao->getCommercial($uneCommission['idcommerciaux'])->getOCommercial());
+               $commission=new commission($dao->getCommercial($uneCommission['idcommercial'])->getOCommercial());
                $one_shot=new one_shot($uneCommission['montant'],$commission->getOCommercial());
                $pourcentage=new pourcentage($uneCommission['valeur'],$commission->getOCommercial());
 
@@ -76,17 +81,17 @@ class commissionDAO {
    public function update($commission,$idCommission){
       
         if(method_exists($commission ,"getValeur")){
-            $valeur=$commission->getValeur();
-            $pourcentage=r::load("pourcentage",$idCommission);
-            $pourcentage->valeur=$valeur;
-            r::store($pourcentage);
-             
+             $valeur=$commission->getValeur();
+            // $pourcentage=r::load("pourcentage",$idCommission);
+
+            r::getAll("update pourcentage set valeur = $valeur where idcommission = $idCommission");
         }
         else {
             $montant=$commission->getMontant();
-            $one_shot=r::load("one_shot",$idCommission);
-            $one_shot->montant=$montant;
-            r::store($one_shot);
+            // $one_shot=r::load("oneshot",$idCommission);
+            // $one_shot->montant=$montant;
+            // r::store($one_shot);
+            r::getAll("update oneshot set montant = $montant where idcommission = $idCommission");
         }
 
     }

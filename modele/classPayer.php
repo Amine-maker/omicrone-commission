@@ -30,7 +30,7 @@ class PayerDao{
         $idfacture = $paiement->getclefacture();
         $idcontrat = $paiement->getclecontrat();
         $idclient = $paiement->getcleclient();
-        r::exec('insert into payer values ('.$idfacture.','.$idcontrat.','.$idclient.')');        
+        r::exec("insert into payer values ($idfacture,$idcontrat,$idclient)");        
     }
    
 }

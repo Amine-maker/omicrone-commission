@@ -8,7 +8,7 @@
 <div style="margin-left: 6%;float:left;">
 <h3> Intervenant : <u> <?php echo $consultant->getNom()." ".$consultant->getPrenom(); ?></u></h3>
 </div>
-<form action="index.php?uc=cra&action=update" method="post">
+<form action="index.php?uc=cra&action=createCRA" method="post">
 <table style="border-collapse: collapse;">
    
 
@@ -108,10 +108,14 @@ for($i=1;$i<=$number;$i++){
     <td style="border:2px solid;">Astreinte</td>
     <td colspan="<?php echo $number; ?>" style="border:2px solid;"><textarea placeholder="Décrire les astreintes" style="width:100%;" rows="4"  name="astreinte"></textarea></td>
    </tr>
+   <tr>
+    <td style="border:2px solid;">Intervention</td>
+    <td colspan="<?php echo $number; ?>" style="border:2px solid;"><textarea placeholder="Décrire les interventions" style="width:100%;" rows="4"  name="interv"></textarea></td>
+   </tr>
 
    
    <?php $consultant=$contrat->getobjcontrat($_POST["idContrat"])->getcleconsultant();
-    $idConsultant=$consultantDao->getIdConsultantFromobject($consultant);
+    $idConsultant=$UconsultantDao->getIdConsultantFromobject($consultant);
     $idContrat=$_POST["idContrat"];
    ?>
 <input type="hidden" name="number" value="<?php echo $number ?>">

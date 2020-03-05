@@ -128,6 +128,8 @@ $data.=' <tr>';
 $data.='  <td style="border:2px solid;">Astreinte</td>';
 $data.='   <td colspan='. $number.' style="border:2px solid;"><textarea style="width:100%;height:6%;">'.$_POST["astreinte"] .'</textarea></td>
         </tr>';
+$data .='<tr><td style="border:2px solid;">Interventions</td><td colspan='. $number.' style="border:2px solid;"><textarea style="width:100%;height:6%;">'.$_POST["interv"] .'</textarea></td>
+</tr>';
 
         $data.='<tr><td></td></tr>';
         $data.='<br />';
@@ -153,7 +155,7 @@ $data.='   <td colspan='. $number.' style="border:2px solid;"><textarea style="w
 
        
         $data.='</table>';
-        $data.='</div><br>';
+        $data.='</div>';
 
    
 
@@ -178,4 +180,4 @@ $data.='   <td colspan='. $number.' style="border:2px solid;"><textarea style="w
   $data.='</div>';
 
 		$mpdf->WriteHTML($data);
-		$mpdf->Output('CRA_'.getMoisFr($mois).'_'.$annee.'.pdf',"D");
+		$mpdf->Output('CRA/CRA_'.getMoisFr($mois).'_'.$annee.'.pdf',"F");
